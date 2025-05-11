@@ -28,10 +28,16 @@ git subtree add --prefix=dotfiles/nvim nvim main --squash
 
 3. Push changes from parent repo
 
-   Be careful with the prefix (this should be correct)
+Be careful with the prefix (this should be correct)
 
 ```shell
 git subtree push --prefix=nvim/.config/nvim nvim main
+```
+
+or
+
+```shell
+git subtree push --prefix=dotfiles/nvim nvim main
 ```
 
 - If you want to sync anyway, remove --squash from 2nd step
