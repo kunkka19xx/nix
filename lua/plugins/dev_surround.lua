@@ -1,0 +1,17 @@
+return {}
+-- return {
+-- 	"simple-surr",
+-- 	dev = true,
+-- 	dir = "~/Documents/git/simple-surr/",
+-- 	config = function()
+-- 		require("simple-surr").setup({
+-- 			surround_selection = "<leader>s",
+-- 			surround_word = "<leader>sw",
+-- 			surround_pairs = {
+-- 				["#"] = { "#" }, -- Thêm surround # #
+-- 				["*"] = { "*", "*" }, -- Thêm surround * *
+-- 				["~"] = { "~", "~" }, -- Thêm surround ~ ~
+-- 			},
+-- 		})
+-- 	end,
+-- }
