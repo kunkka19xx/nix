@@ -21,7 +21,7 @@ require("floating-term")
 local uname = vim.loop.os_uname()
 local hostname = vim.loop.os_gethostname()
 lazy_opts = {}
-if not (uname.sysname == "Darwin" and hostname == "kunkka") then
+if not (uname.sysname == "Darwin" and hostname == "kunkka07xx") then
     lazy_opts.lockfile = "~/nix/dotfiles/nvim/lazy-lock.json"
 end
 require("lazy").setup("plugins", lazy_opts)
