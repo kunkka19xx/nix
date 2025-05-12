@@ -3,7 +3,7 @@ return {
 		"williamboman/mason.nvim",
 		-- NOTE: comment it to install jdtls (java language server)
 		config = function()
-			-- require("mason").setup()
+			require("mason").setup()
 		end,
 	},
 	{

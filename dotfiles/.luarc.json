@@ -1,5 +1,8 @@
 {
     "diagnostics.disable": [
         "cast-local-type"
+    ],
+    "diagnostics.globals": [
+        "vim"
     ]
 }

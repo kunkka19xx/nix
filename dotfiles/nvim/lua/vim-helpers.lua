@@ -96,3 +96,41 @@ vim.api.nvim_create_autocmd({ "FocusGained" }, {
 		os.execute("im-select " .. last_insert_layout)
 	end,
 })
+
+vim.api.nvim_create_user_command("ShowTree", function()
+	local buf = vim.api.nvim_create_buf(false, true)
+	local editor_width = vim.o.columns
+	local editor_height = vim.o.lines
+	local width = math.floor(editor_width * 0.6)
+	local height = math.floor(editor_height * 0.9)
+
+	local row = math.floor((editor_height - height) / 2)
+	local col = math.floor((editor_width - width) / 2)
+	local opts = {
+		relative = "editor",
+		width = width,
+		height = height,
+		row = row,
+		col = col,
+		border = "rounded",
+		style = "minimal",
+	}
+
+	local win = vim.api.nvim_open_win(buf, true, opts)
+	local job_id = vim.fn.jobstart("tree -L 4", {
+		stdout_buffered = true,
+		on_stdout = function(_, data)
+			if data then
+				for _, line in ipairs(data) do
+					vim.api.nvim_buf_set_lines(buf, -1, -1, true, { line })
+				end
+			end
+		end,
+		on_exit = function()
+			-- vim.api.nvim_win_close(win, true)
+		end,
+	})
+	print("Job ID: " .. job_id)
+end, {})
+
+vim.keymap.set("n", "<leader>vt", ":ShowTree<CR>", { desc = "Show directory tree in floating window" })

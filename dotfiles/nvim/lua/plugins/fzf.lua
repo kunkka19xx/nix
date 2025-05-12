@@ -10,7 +10,7 @@ return {
 		fzf.setup({
 			winopts = {
 				height = 0.85,
-				width = 0.80,
+				width = 0.90,
 				preview = {
 					layout = "horizontal",
 				},
