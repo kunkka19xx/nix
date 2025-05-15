@@ -90,11 +90,14 @@
           # because installing kernel takes time
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
           # nixos-hardware.nixosModules.microsoft-surface-common
+          {
+            microsoft-surface.ipts.enable = true;
+            microsoft-surface.surface-control.enable = false;
+          }
         ];
-        configuration = {
-          microsoft-surface.ipts.enable = true;
-          microsoft-surface.surface-control.enable = false;
-        };
+        vm = mkNixosConfig "aarch64-linux" [
+          ./nixos/minimal-vm/configuration.nix
+        ];
       };
       homeConfigurations = {
         "com-mac" = home-manager.lib.homeManagerConfiguration {
@@ -112,6 +115,14 @@
             ./users/kunkka-linux/kunkka07xx-linux.nix
           ];
         };
+        "kunkka-vm" = home-manager.lib.homeManagerConfiguration
+          {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            extraSpecialArgs = { inherit inputs; };
+            modules = [
+              ./users/kunkka-vm/kunkka-vm.nix
+            ];
+          };
       };
     };
 }

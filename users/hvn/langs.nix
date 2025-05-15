@@ -23,6 +23,10 @@ in
     jdk23 # Java JDK
     # gcloud sdk
     (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
+    # maven
+    maven
+    # vitural machine
+    utm
   ];
 
   # Other settings

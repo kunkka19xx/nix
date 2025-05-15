@@ -67,6 +67,6 @@ in
     GOROOT = "${go_from_source}";
     GOPATH = "/Users/haovanngyuen/go";
     GOBIN = "/Users/haovanngyuen/go/bin";
-    PATH = "${go_from_source}/bin:$PATH";
+    PATH = "${go_from_source}/bin:$HOME/.npm-global/bin:$PATH";
   };
 }

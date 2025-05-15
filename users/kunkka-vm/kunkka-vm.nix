@@ -2,15 +2,16 @@
 
 {
   imports = [
-    ./../modules/home-manager/default.nix
+    ./../../modules/home-manager/zsh.nix
+    ./../../modules/home-manager/neovim.nix
+    ./../../modules/home-manager/tmux.nix
     ./langs.nix
   ];
-  home.username = "kunkka07xx";
-  home.homeDirectory = "/Users/kunkka07xx";
+  home.username = "nixos";
+  home.homeDirectory = "home/nixos";
 
   within.neovim.enable = true;
   within.zsh.enable = true;
-  home.stateVersion = "24.05";
   nixpkgs.config.allowUnfree = true;
 
   home.packages = [
@@ -31,5 +32,4 @@
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
 }

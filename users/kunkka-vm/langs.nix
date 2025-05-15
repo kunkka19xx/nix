@@ -11,12 +11,8 @@ in
     nodejs_23
     # Golang
     go
-    # Rust
-    cargo # Rust package manager, neovim pack install
     # Zig
     zig
-    # Java
-    openjdk17 # Java JDK
   ];
 
   # Other settings
@@ -25,7 +21,7 @@ in
     PYTHONSTARTUP = "${pkgs.python3}/lib/python3.13/site-packages";
 
     # Golang
-    GOPATH = "/home/kunkka07xx/go";
+    GOPATH = "/home/nixos/go";
     GOROOT = "${pkgs.go}/lib/go";
 
     # Node.js
