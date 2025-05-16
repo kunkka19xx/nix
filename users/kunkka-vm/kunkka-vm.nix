@@ -5,10 +5,13 @@
     ./../../modules/home-manager/zsh.nix
     ./../../modules/home-manager/neovim.nix
     ./../../modules/home-manager/tmux.nix
+    ./../../modules/home-manager/alacritty.nix
+    ./../../modules/home-manager/sway.nix
     ./langs.nix
   ];
-  home.username = "nixos";
-  home.homeDirectory = "home/nixos";
+  home.username = "kunkka-vm";
+  home.homeDirectory = "/home/kunkka-vm";
+  home.stateVersion = "24.05";
 
   within.neovim.enable = true;
   within.zsh.enable = true;

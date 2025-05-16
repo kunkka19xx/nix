@@ -10,13 +10,12 @@
 
   home.username = "kunkka07xx";
   home.homeDirectory = "/home/kunkka07xx";
+  home.stateVersion = "24.05";
+  nixpkgs.config.allowUnfree = true;
 
   within.neovim.enable = true;
   within.zsh.enable = true;
   within.alacritty.enable = true;
-
-  home.stateVersion = "24.05";
-  nixpkgs.config.allowUnfree = true;
 
   home.packages = [
     pkgs.vim

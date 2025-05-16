@@ -37,12 +37,12 @@ nix-darwin is an opionated set of modules for managing configuration of macOS. I
 ### Create nix dir (your way)
 
 ```shell
-mkdir dotfiles/nix
+mkdir ~/nix
 ```
 
 ```shell
-cd dotfiles/nix
-mkidr ~/.config/nix
+cd ~/nix
+mkdir ~/nix
 ```
 
 _note:_ I go for the 1st criteria, after confirming that nix works in a stable state -> I will migrate it to my dotfiles
@@ -184,7 +184,59 @@ home.packages = [
   ];
 ```
 
-## Note
+## Build from source.
+
+This is Reproducible ability of nix. In my case, when go 1.24 released. It was not avaialbe in
+nix packages, so I built it from source.
+[refer](/users/hvn/go.nix)
+
+- I also did it with some packages like im-select,...
+
+## Sub-tree
+
+Since I use home manager to keep the setting of any tools as their original flavor. I try to use git subtree to link the existing settings in my dotfiles repo to this repo. Using git submodule is easier but I don't want to get every thing. -> git subtree will be the best option.
+
+- Refer this: /[note](./dotfiles/nvim/note.md) 
+
+## Nixos-vm
+
+I want to have a very minimal, identical edotfilesnvironment for developement. And this shoul be re-proceducible (requires only internet)
+###  VM 
+
+- Macos: UTM (install via nix darwin or brew) [link](https://mac.getutm.app/) 
+- Window: Need to research
+
+### Iso
+List [list](https://nixos.org/download/) 
+ARM minimal [link](https://channels.nixos.org/nixos-24.11/latest-nixos-minimal-aarch64-linux.iso.sha256) 
+ 
+### Install
+[install guideline](https://nixos.org/manual/nixos/stable/#sec-installation) 
+- Follow partition, format
+- -> nixos-install -> clear iso cd/dvd -> reboot (TODO: add bash)
+- Add user, change password by sudo
+
+```bash
+passwd <user-name>
+```
+
+### Apply profile
+- Add user sudo permission into configuration.nix file
+- Rebuild -> login as user -> clone nix repo -> remember copy hardware-configuration.nix file to minimal profile
+- Apply minimal-vm profile 
+[minimal-vm](./nixos/minimal-vm/) 
+
+```bash
+sudo nixos-rebuild switch --flake ~/nix#vm
+```
+- Install home-manager [link](https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module) 
+
+```bash
+home-manager switch --flake ~/nix#kunkka-vm
+```
+
+
+## Note (out-date maybe)
 
 - After init git for nix dir, need to add changed files to, if not, we can not rebuild using flake
 
@@ -225,24 +277,10 @@ Sometimes, I have trouble with node packages, they are not appeared in the path.
 
 - I think I can fix it by some extra commands in the langs.nix file. But now I am quite lazy. LOL
 
-## Build from source.
 
-This is Reproducible ability of nix. In my case, when go 1.24 released. It was not avaialbe in
-nix packages, so I built it from source.
-[refer](/users/hvn/go.nix)
-
-- I also did it with some packages like im-select,...
-
-## Sub-tree
-
-Since I use home manager to keep the setting of any tools as their original flavor. I try to use git subtree to link the existing settings in my dotfiles repo to this repo. Use git submodule is easier but I don't want to get every thing. -> git subtree will be the best option.
-
-- example with nvim plugins
+Or need following command before installing npm pkgs, TODO: research
 
 ```shell
-git remote add nvim-lua  https://github.com/kunkka19xx/dotfiles.git
+npm set prefix ~/.npm-global
 ```
 
-```shell
-git fetch nvim-lua
-```

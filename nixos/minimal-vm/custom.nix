@@ -12,7 +12,7 @@
     "nix-command"
     "flakes"
   ];
-  users.users.kunkka07xx.packages = lib.mkDefault [
+  users.users.kunkka-vm.packages = lib.mkDefault [
     pkgs.vim
     pkgs.alsa-tools
     pkgs.home-manager

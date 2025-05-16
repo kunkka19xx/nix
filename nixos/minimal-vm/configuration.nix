@@ -8,7 +8,6 @@
     ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  services.iptsd.enable = lib.mkDefault true;
 
   networking.hostName = "kunkka-vm";
   networking.networkmanager.enable = true;
@@ -49,4 +48,5 @@
       home-manager
     ];
   services.openssh.enable = true;
+  security.polkit.enable = true;
 }

@@ -11,6 +11,8 @@
   ];
   home.username = "haovanngyuen";
   home.homeDirectory = "/Users/haovanngyuen";
+  home.stateVersion = "24.05";
+  nixpkgs.config.allowUnfree = true;
 
   # Custom Modules that I'm enabling
   within.neovim.enable = true;
@@ -18,8 +20,6 @@
   within.wezterm.enable = true;
   within.zsh.enable = true;
   within.ghostty.enable = true;
-  nixpkgs.config.allowUnfree = true;
-  home.stateVersion = "24.05";
 
   xdg.configFile.aerospace = {
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dotfiles/aerospace";
