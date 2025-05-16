@@ -200,10 +200,13 @@ Since I use home manager to keep the setting of any tools as their original flav
 
 ## Nixos-vm
 
-I want to have a very minimal, identical edotfilesnvironment for developement. And this shoul be re-proceducible (requires only internet)
+I want to have a very minimal, identical environment for developement. And this should be re-proceducible (requires only internet)
 ###  VM 
 
-- Macos: UTM (install via nix darwin or brew) [link](https://mac.getutm.app/) 
+- Macos: 
+    - Light but slow: UTM (install via nix darwin or brew) [link](https://mac.getutm.app/) 
+    - Good: VM fusion [link](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion) 
+ 
 - Window: Need to research
 
 ### Iso
