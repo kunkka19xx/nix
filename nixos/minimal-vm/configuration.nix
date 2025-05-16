@@ -22,7 +22,12 @@
   };
 
   services.xserver.enable = true;
-  services.xserver.windowManager.i3.enable = true;
+  # services.xserver.windowManager.i3.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.sessionPackages = [
+    pkgs.sway
+  ];
+
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver = {
     xkb.layout = "us,vn";
@@ -51,8 +56,4 @@
   services.openssh.enable = true;
   security.polkit.enable = true;
 }
-
-
-
-
 

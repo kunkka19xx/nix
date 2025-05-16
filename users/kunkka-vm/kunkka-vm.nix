@@ -6,7 +6,7 @@
     ./../../modules/home-manager/neovim.nix
     ./../../modules/home-manager/tmux.nix
     ./../../modules/home-manager/alacritty.nix
-    ./../../modules/home-manager/i3.nix
+    ./../../modules/home-manager/sway.nix
     ./langs.nix
   ];
   home.username = "kunkka-vm";
@@ -21,6 +21,7 @@
     pkgs.vim
     pkgs.git
     pkgs.nerd-fonts.inconsolata
+    pkgs.alacritty
     # pkgs.nerd-fonts.maple-mono
     pkgs.rcm
   ];
