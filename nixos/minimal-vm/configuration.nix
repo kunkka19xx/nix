@@ -21,8 +21,9 @@
     '';
   };
 
-
   services.xserver.enable = true;
+  services.xserver.windowManager.i3.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
   services.xserver = {
     xkb.layout = "us,vn";
     xkb = { variant = ""; };
@@ -50,3 +51,8 @@
   services.openssh.enable = true;
   security.polkit.enable = true;
 }
+
+
+
+
+
