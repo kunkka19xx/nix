@@ -15,21 +15,24 @@ in
     go-tools # gogrep gosmith irdump staticcheck
     # Zig
     zig
+    # API testing
+    hurl
   ];
 
-  # Other settings
   home.sessionVariables = {
     # Python
     PYTHONSTARTUP = "${pkgs.python3}/lib/python3.13/site-packages";
 
-    # Golang
-    GOPATH = "/home/nixos/go";
-    GOROOT = "${pkgs.go}/lib/go";
-
+    GOROOT = "${pkgs.go}";
+    GOPATH = "/home/kunkka-vm/go";
+    GOBIN = "/home/kunkka-vm/go/bin";
+    GOPROXY = "https://proxy.golang.org,direct";
     # Node.js
     NODE_PATH = "~/.npm-global/lib/node_modules";
 
     # Rust
     CARGO_HOME = "~/.cargo";
+    PATH = "${pkgs.go}/bin:$HOME/.npm-global/bin:$PATH";
+
   };
 }

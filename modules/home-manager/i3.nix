@@ -8,6 +8,11 @@ in
     enable = true;
     config = {
       modifier = mod;
+      bars = [ ];
+      gaps = {
+        inner = 5;
+        outer = 3;
+      };
       # terminal = "alacritty";
       terminal = "ghostty";
       keybindings = lib.mkOptionDefault {
