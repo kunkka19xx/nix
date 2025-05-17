@@ -66,7 +66,7 @@
   security.polkit.enable = true;
   environment.variables = {
     QDK_SCALE = "2";
-    QDK_FONT_DPI = "144";
+    QDK_FONT_DPI = "192";
     QT_SCALE_FACTOR = "1";
   };
 }
