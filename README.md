@@ -216,7 +216,9 @@ ARM minimal [link](https://channels.nixos.org/nixos-24.11/latest-nixos-minimal-a
 ### Install
 [install guideline](https://nixos.org/manual/nixos/stable/#sec-installation) 
 - Follow partition, format
-- -> nixos-install -> clear iso cd/dvd -> reboot (TODO: add bash)
+- -> nixos-install -> clear iso cd/dvd -> reboot. 
+Use this bash: [bash](./nixos/minimal-vm/part-form.bash). Note: depends on your disk type,
+maybe you need another partition and format criteria.
 - Add user, change password by sudo
 
 ```bash
@@ -238,6 +240,23 @@ sudo nixos-rebuild switch --flake ~/nix#vm
 home-manager switch --flake ~/nix#kunkka-vm
 ```
 
+### Git
+Following this since I don't use browser in the vm
+
+- gen ssh key
+```bash
+ssh-keygen -t ed25519 -C "email@example.com"
+cat ~/.ssh/id_ed25519.pub
+```
+
+-> add this to [git-keys](https://github.com/settings/keys) 
+
+- check connect
+```bash
+ssh -T git@github.com
+```
+-> yes
+- clone or push repo using ssh link, remote, ...
 
 ## Note (out-date maybe)
 
