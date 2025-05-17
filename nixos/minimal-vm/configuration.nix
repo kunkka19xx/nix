@@ -22,17 +22,25 @@
   };
 
   services.xserver.enable = true;
-  # services.xserver.windowManager.i3.enable = true;
+  services.xserver.dpi = 144;
+  services.xserver.windowManager.i3.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.displayManager.sessionPackages = [
-    pkgs.sway
-  ];
+  services.xserver.displayManager.defaultSession = "none+i3";
+  # fix ratio with vm
+  services.vmwareGuest.enable = true;
+  # services.xserver.videoDrivers = ["vmware"];
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.displayManager.sessionPackages = [
+  #   pkgs.sway
+  # ];
 
-  services.xserver.displayManager.lightdm.enable = true;
   services.xserver = {
     xkb.layout = "us,vn";
     xkb = { variant = ""; };
   };
+
+  # transparent i3
+  services.picom.enable = true;
 
   users.users.kunkka-vm = {
     isNormalUser = true;
@@ -48,6 +56,7 @@
     [
       vim
       wget
+      tree
       git
       gh
       gcc
@@ -55,5 +64,10 @@
     ];
   services.openssh.enable = true;
   security.polkit.enable = true;
+  environment.variables = {
+    QDK_SCALE = "2";
+    QDK_FONT_DPI = "144";
+    QT_SCALE_FACTOR = "1";
+  };
 }
 

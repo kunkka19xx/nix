@@ -25,11 +25,16 @@ in
     # Python
     PYTHONSTARTUP = "${pkgs.python3}/lib/python3.13/site-packages";
 
+    GOROOT = "${pkgs.go}";
+    GOPATH = "/home/kunkka-vm/go";
+    GOBIN = "/home/kunkka-vm/go/bin";
     # Node.js
     NODE_PATH = "~/.npm-global/lib/node_modules";
 
     # Rust
     CARGO_HOME = "~/.cargo";
+    PATH = "${pkgs.go}/bin:$HOME/.npm-global/bin:$PATH";
+
   };
 
 }

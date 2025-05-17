@@ -96,11 +96,7 @@ bindsym XF86AudioLowerVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
 bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
 
 input "type:keyboard" {
-    xkb_options ctrl:nocaps,ctrl:swap_lalt_lctl
-}
-
-input "12815:20565:Telink_CIDOO_ABM066" {
-    xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
+    xkb_options ctrl:nocaps
 }
 
 # output eDP-1 pos 0 0

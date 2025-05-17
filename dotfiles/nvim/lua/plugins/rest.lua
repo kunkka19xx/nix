@@ -1,5 +1,5 @@
 return {
-	"rest-nvim/rest.nvim",
+	-- "rest-nvim/rest.nvim",
 }
 -- :TSInstall http
 -- to use http client
