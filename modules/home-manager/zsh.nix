@@ -60,6 +60,7 @@ in
         fv = "nvim $(fzf -m --preview='bat --color=always {}')";
         gcof = "git fetch && git checkout $(git branch | fzf | sed 's/^..//')";
         lzd = "lazydocker";
+        slzd = "sudo lazydocker";
       };
       initExtra = ''
         gpup() {

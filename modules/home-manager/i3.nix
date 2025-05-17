@@ -1,30 +1,34 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  mod = "Mod4";
+in
 {
-  xsession.enable = true;
-  home.packages = with pkgs; [
-    dmenu
-    feh
-  ];
-  xsession.windowManager.i3.enable = true;
-  xsession.windowManager.i3.config = {
-    modifier = "Mod4";
-    # terminal = "alacritty";
-    terminal = "ghostty";
-    keybindings = {
-      "${config.xsession.windowManager.i3.config.modifier}+Return" = "exec ghostty";
-      "${config.xsession.windowManager.i3.config.modifier}+Shift+q" = "kill";
-      "${config.xsession.windowManager.i3.config.modifier}+d" = "exec dmenu_run";
-      "${config.xsession.windowManager.i3.config.modifier}+j" = "focus left";
-      "${config.xsession.windowManager.i3.config.modifier}+k" = "focus down";
-      "${config.xsession.windowManager.i3.config.modifier}+l" = "focus up";
-      "${config.xsession.windowManager.i3.config.modifier}+semicolon" = "focus right";
+  xsession.windowManager.i3 = {
+    enable = true;
+    config = {
+      modifier = mod;
+      # terminal = "alacritty";
+      terminal = "ghostty";
+      keybindings = lib.mkOptionDefault {
+        "${mod}+Return" = "exec ghostty";
+        "${mod}+Shift+e" = "kill";
+        "${mod}+Shift+w" = "exec i3-msg exit";
+        "${mod}+r" = "restart";
+        "${mod}+d" = "exec dmenu_run";
+        "${mod}+Shift+h" = "focus left";
+        "${mod}+Shift+l" = "focus right";
+        "${mod}+Shift+j" = "focus down";
+        "${mod}+Shift+k" = "focus up";
+      };
     };
+    extraConfig = ''
+      default_border pixel 1
+      for_window [class=".*"] border pixel 1
+      font pango:JetBrainsMono Nerd Font 26
+      exec --no-startup-id ${pkgs.feh}/bin/feh --bg-scale ~/nix/dotfiles/sway/bg/bg1.jpg
+      exec --no-startup-id ghostty
+      exec i3-msg workspace C
+    '';
   };
-  xsession.windowManager.i3.extraConfig = ''
-    default_border pixel 1
-    for_window [class=".*"] border pixel 1
-    font pango:JetBrainsMono Nerd Font 26
-    exec --no-startup-id ${pkgs.feh}/bin/feh --bg-scale ~/nix/dotfiles/sway/bg/bg1.jpg
-  '';
 }

@@ -22,7 +22,7 @@
   };
 
   services.xserver.enable = true;
-  services.xserver.dpi = 144;
+  services.xserver.dpi = 192;
   services.xserver.windowManager.i3.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.defaultSession = "none+i3";
@@ -45,7 +45,7 @@
   users.users.kunkka-vm = {
     isNormalUser = true;
     description = "kunkka-vm";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
 
     ];

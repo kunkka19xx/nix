@@ -20,6 +20,8 @@
   nixpkgs.config.allowUnfree = true;
 
   home.packages = [
+    pkgs.dmenu
+    pkgs.feh
     pkgs.vim
     pkgs.git
     pkgs.nerd-fonts.inconsolata

@@ -11,6 +11,8 @@ in
     nodejs_23
     # Golang
     go
+    rPackages.precommit
+    go-tools # gogrep gosmith irdump staticcheck
     # Zig
     zig
   ];

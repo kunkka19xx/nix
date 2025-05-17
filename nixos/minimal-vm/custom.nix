@@ -24,7 +24,10 @@
 
   environment.systemPackages = [
     pkgs.zig
+    pkgs.docker-compose
+    pkgs.lazydocker
   ];
+  virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
   boot.loader.systemd-boot.configurationLimit = 5;
   # Garbage Collector Setting
