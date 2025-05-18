@@ -55,7 +55,6 @@ in
         k = "kubectl";
         v = "nvim";
         f = "fzf";
-        op = "cd ~/Documents/git && echo 'Went to the git folder'";
         fp = "fzf --preview='bat --color=always {}'";
         fv = "nvim $(fzf -m --preview='bat --color=always {}')";
         gcof = "git fetch && git checkout $(git branch | fzf | sed 's/^..//')";
@@ -66,6 +65,15 @@ in
         gpup() {
           local branch=$(git rev-parse --abbrev-ref HEAD)
           git push --set-upstream origin "$branch"
+        }
+        opg() {
+          local dir
+          dir=$(find ~/Documents/git -mindepth 1 -maxdepth 1 -type d | fzf) && cd "$dir"
+        }
+        op() {
+          local user_dir="$HOME"
+          local dir
+          dir=$(find "$user_dir" -mindepth 1 -maxdepth 1 -type d ! -name '.*' | fzf) && cd "$dir"
         }
       '';
     };
