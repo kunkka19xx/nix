@@ -9,6 +9,7 @@
     ./../../modules/home-manager/ghostty.nix
     ./../../modules/home-manager/i3.nix
     ./langs.nix
+    ./go.nix
   ];
   home.username = "kunkka-vm";
   home.homeDirectory = "/home/kunkka-vm";
