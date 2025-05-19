@@ -7,6 +7,7 @@
     ./../../modules/home-manager/tmux.nix
     ./../../modules/home-manager/alacritty.nix
     ./../../modules/home-manager/ghostty.nix
+    ./../../modules/home-manager/firefox.nix
     ./../../modules/home-manager/i3.nix
     ./langs.nix
     ./go.nix
