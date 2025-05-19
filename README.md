@@ -258,6 +258,24 @@ ssh -T git@github.com
 -> yes
 - clone or push repo using ssh link, remote, ...
 
+### Shared folder
+(if vmware fusion)
+- Check vmhgfs-fuse
+```bash
+which vmhgfs-fuse
+```
+
+- Check share folder in /mnt/hgfs/
+- Then mount it if it's not mounted yet
+```bash
+sudo vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other
+```
+
+- create a symlink for better navigation
+```bash
+ln -s /mnt/fgfs/<folder> <your target path>
+``` 
+
 ## Note (out-date maybe)
 
 - After init git for nix dir, need to add changed files to, if not, we can not rebuild using flake

@@ -98,6 +98,9 @@
         vm = mkNixosConfig "aarch64-linux" [
           ./nixos/minimal-vm/configuration.nix
         ];
+        work-vm = mkNixosConfig "aarch64-linux" [
+          ./nixos/work-vm/configuration.nix
+        ];
       };
       homeConfigurations = {
         "com-mac" = home-manager.lib.homeManagerConfiguration {

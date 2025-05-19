@@ -68,7 +68,7 @@ in
         }
         opg() {
           local dir
-          dir=$(find ~/Documents/git -mindepth 1 -maxdepth 1 -type d | fzf) && cd "$dir"
+          dir=$(find ~/Documents/git -mindepth 1 -maxdepth 1 \( -type d -o -type l \) -exec test -d {} \; -print | fzf) && cd "$dir"
         }
         op() {
           local user_dir="$HOME"
