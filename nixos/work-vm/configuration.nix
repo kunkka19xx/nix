@@ -11,6 +11,7 @@
 
   networking.hostName = "kunkka-vm";
   networking.networkmanager.enable = true;
+  networking.firewall.allowedTCPPorts = [ 3000 5173 8080 8000 ];
   time.timeZone = "Asia/Tokyo";
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -22,7 +23,7 @@
   };
 
   services.xserver.enable = true;
-  # services.xserver.dpi = 144;
+  services.xserver.dpi = 192;
   services.xserver.windowManager.i3.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.defaultSession = "none+i3";
