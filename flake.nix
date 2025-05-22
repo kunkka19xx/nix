@@ -126,6 +126,15 @@
               ./users/kunkka-vm/kunkka-vm.nix
             ];
           };
+        "work-vm" = home-manager.lib.homeManagerConfiguration
+          {
+            pkgs = nixpkgs.legacyPackages.aarch64-linux;
+            extraSpecialArgs = { inherit inputs; };
+            modules = [
+              ./users/kunkka-vm/work-vm.nix
+            ];
+          };
+
       };
     };
 }

@@ -10,8 +10,8 @@ in
       modifier = mod;
       bars = [ ];
       gaps = {
-        inner = 5;
-        outer = 3;
+        inner = 4;
+        outer = 2;
       };
       # terminal = "alacritty";
       terminal = "ghostty";
@@ -48,7 +48,7 @@ in
     extraConfig = ''
       default_border pixel 1
       for_window [class=".*"] border pixel 1
-      font pango:JetBrainsMono Nerd Font 26
+      font pango:JetBrainsMono Nerd Font 18
       exec --no-startup-id ${pkgs.feh}/bin/feh --bg-scale ~/nix/dotfiles/sway/bg/bg1.jpg
       exec --no-startup-id ghostty
       exec i3-msg workspace C

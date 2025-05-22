@@ -40,13 +40,13 @@ let
 
       # Verify that unsafe package exists
       if [ ! -f "$out/src/unsafe/unsafe.go" ]; then
-        echo "❌ ERROR: unsafe package is missing!"
+        echo "ERROR: unsafe package is missing!"
         echo "Listing contents of $out/src:"
         ls -l $out/src
         exit 1
       fi
 
-      echo "✅ Go installed with full stdlib"
+      echo "Go installed with full stdlib"
       echo ">>> $out/bin:"
       ls -l $out/bin
     '';
