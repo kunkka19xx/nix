@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }:
-
 let
   mod = "Mod4";
 in
@@ -39,20 +38,21 @@ in
         "${mod}+Ctrl+l" = "resize grow width 10px";
         "${mod}+Ctrl+k" = "resize grow height 10px";
         "${mod}+Ctrl+j" = "resize shrink height 10px";
-        "${mod}+b" = "workspace B";
-        "${mod}+c" = "workspace C";
-        "${mod}+Shift+b" = "move container to workspace B";
-        "${mod}+Shift+c" = "move container to workspace C";
+        "${mod}+b" = "workspace b";
+        "${mod}+1" = "workspace 1";
+        "${mod}+Shift+b" = "move container to workspace b";
+        "${mod}+Shift+1" = "move container to workspace 1";
+        "${mod}+Shift+n" = "exec --no-startup-id feh --no-fehbg --randomize --bg-scale ~/nix/modules/bg/";
       };
     };
     extraConfig = ''
       default_border pixel 1
       for_window [class=".*"] border pixel 1
       font pango:JetBrainsMono Nerd Font 18
-      exec --no-startup-id ${pkgs.feh}/bin/feh --bg-scale ~/nix/dotfiles/sway/bg/bg1.jpg
+      exec --no-startup-id sh -c "sleep 0.5 && ${pkgs.feh}/bin/feh --bg-scale ~/nix/dotfiles/sway/bg/bg1.jpg"
       exec --no-startup-id ghostty
-      exec i3-msg workspace C
-      assign [class="Firefox"] workspace B
+      exec i3-msg workspace 1
+      assign [class="Firefox"] workspace b
     '';
   };
 }
