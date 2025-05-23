@@ -22,7 +22,8 @@
   };
 
   services.xserver.enable = true;
-  services.xserver.dpi = 192;
+  # services.xserver.dpi = 192;
+  services.xserver.dpi = 96;
   services.xserver.windowManager.i3.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.defaultSession = "none+i3";
@@ -66,7 +67,7 @@
   security.polkit.enable = true;
   environment.variables = {
     QDK_SCALE = "1";
-    QDK_FONT_DPI = "192";
+    QDK_FONT_DPI = "96";
     QT_SCALE_FACTOR = "1";
   };
 }

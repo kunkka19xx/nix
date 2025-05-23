@@ -23,7 +23,7 @@
   };
 
   services.xserver.enable = true;
-  services.xserver.dpi = 192;
+  services.xserver.dpi = 96;
   services.xserver.windowManager.i3.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.defaultSession = "none+i3";

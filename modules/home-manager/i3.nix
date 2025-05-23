@@ -48,7 +48,7 @@ in
     extraConfig = ''
       default_border pixel 1
       for_window [class=".*"] border pixel 1
-      font pango:JetBrainsMono Nerd Font 18
+      font pango:JetBrainsMono Nerd Font 19
       exec --no-startup-id sh -c "sleep 0.5 && ${pkgs.feh}/bin/feh --bg-scale ~/nix/dotfiles/sway/bg/bg1.jpg"
       exec --no-startup-id ghostty
       exec i3-msg workspace 1
