@@ -27,6 +27,7 @@
     pkgs.docker-compose
     pkgs.lazydocker
     pkgs.tlrc
+    pkgs.gnumake
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
