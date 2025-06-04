@@ -62,6 +62,7 @@
       gh
       gcc
       home-manager
+      open-vm-tools
     ];
   services.openssh.enable = true;
   security.polkit.enable = true;
