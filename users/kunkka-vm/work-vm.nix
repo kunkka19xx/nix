@@ -21,16 +21,17 @@
   within.zsh.enable = true;
   nixpkgs.config.allowUnfree = true;
 
-  home.packages = [
-    pkgs.dmenu
-    pkgs.feh
-    pkgs.vim
-    pkgs.git
-    pkgs.nerd-fonts.inconsolata
-    pkgs.alacritty
-    pkgs.ghostty
-    pkgs.rcm
-    pkgs.cargo
+  home.packages = with pkgs; [
+    dmenu
+    feh
+    vim
+    git
+    nerd-fonts.inconsolata
+    alacritty
+    ghostty
+    rcm
+    cargo
+    (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
   ];
 
   home.file = {
