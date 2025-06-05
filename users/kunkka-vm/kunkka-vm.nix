@@ -2,11 +2,8 @@
 
 {
   imports = [
-    ./../../modules/home-manager/zsh.nix
-    ./../../modules/home-manager/neovim.nix
-    ./../../modules/home-manager/tmux.nix
+    ./../../modules/home-manager/default.nix
     ./../../modules/home-manager/alacritty.nix
-    ./../../modules/home-manager/ghostty.nix
     ./../../modules/home-manager/firefox.nix
     ./../../modules/home-manager/i3.nix
     ./langs.nix
