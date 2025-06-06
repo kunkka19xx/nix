@@ -1,7 +1,12 @@
 { config, lib, pkgs, ... }:
+
+let
+  isDarwinAarch64 = pkgs.system == "aarch64-darwin";
+in
 {
   dconf.enable = false;
-  home.pointerCursor = {
+
+  home.pointerCursor = lib.mkIf (!isDarwinAarch64) {
     name = "Banana";
     size = 36;
     package = pkgs.banana-cursor;
@@ -11,7 +16,8 @@
 
   gtk = {
     enable = true;
-    cursorTheme = {
+
+    cursorTheme = lib.mkIf (!isDarwinAarch64) {
       name = "Banana";
       package = pkgs.banana-cursor;
     };
