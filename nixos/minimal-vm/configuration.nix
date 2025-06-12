@@ -29,6 +29,7 @@
   services.xserver.displayManager.defaultSession = "none+i3";
   # fix ratio with vm
   services.vmwareGuest.enable = true;
+  services.vmwareGuest.headless = false;
   # services.xserver.videoDrivers = ["vmware"];
   # services.xserver.displayManager.gdm.enable = true;
   # services.xserver.displayManager.sessionPackages = [
