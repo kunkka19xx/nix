@@ -42,7 +42,14 @@
   };
 
   # transparent i3
-  services.picom.enable = true;
+  services.picom = {
+    enable = true;
+    settings = {
+      rounded-corners = true;
+      corner-radius = 15;
+    };
+  };
+
 
   users.users.kunkka-vm = {
     isNormalUser = true;

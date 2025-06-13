@@ -27,22 +27,25 @@
   services.xserver.windowManager.i3.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.defaultSession = "none+i3";
+
   # fix ratio with vm
   services.vmwareGuest.enable = true;
   services.vmwareGuest.headless = false;
   # services.xserver.videoDrivers = ["vmware"];
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.displayManager.sessionPackages = [
-  #   pkgs.sway
-  # ];
-
+ 
   services.xserver = {
     xkb.layout = "us,vn";
     xkb = { variant = ""; };
   };
 
   # transparent i3
-  services.picom.enable = true;
+  services.picom = {
+    enable = true;
+    settings = {
+      rounded-corners = true;
+      corner-radius = 15;
+    };
+  };
 
   users.users.kunkka-vm = {
     isNormalUser = true;
@@ -68,13 +71,11 @@
   services.openssh.enable = true;
   security.polkit.enable = true;
   environment.variables = {
-    # QDK_SCALE = "1";
-    # QT_SCALE_FACTOR = "1";
     GDK_SCALE = "1";
     GDK_DPI_SCALE = "0.44";
     QDK_FONT_DPI = "220";
-    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-    QT_SCALE_FACTOR = "0.44";
+        QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+        QT_SCALE_FACTOR = "0.44";
     XCURSOR_SIZE = "36";
     CHROME_FLAGS = "--force-device-scale-factor=0.44";
   };

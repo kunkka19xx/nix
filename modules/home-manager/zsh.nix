@@ -71,13 +71,43 @@ in
           git push --set-upstream origin "$branch"
         }
         opg() {
+          local base="$HOME/Documents/git"
           local dir
-          dir=$(find ~/Documents/git -mindepth 1 -maxdepth 1 \( -type d -o -type l \) -exec test -d {} \; -print | fzf) && cd "$dir"
+          dir=$(find "$base" -mindepth 1 -maxdepth 1 \( -type d -o -type l \) -exec test -d {} \; -print | fzf)
+          if [[ -n "$dir" ]]; then
+            cd "$dir"
+          else
+            cd "$base"
+          fi
         }
         op() {
           local user_dir="$HOME"
           local dir
           dir=$(find "$user_dir" -mindepth 1 -maxdepth 1 -type d ! -name '.*' | fzf) && cd "$dir"
+        }
+        qss() {
+          local nix_dir="$HOME/nix"
+          local git_base="$HOME/Documents/git"
+
+          if ! tmux has-session -t nix 2>/dev/null; then
+            tmux new-session -d -s nix -c "$nix_dir"
+          fi
+
+          local dir
+          local base="$HOME/Documents/git"
+
+          dir=$(find "$base" -mindepth 1 -maxdepth 1 -type d ! -name '.*' | fzf)
+
+          local name="$(basename "$dir")"
+
+          if ! tmux has-session -t "$name" 2>/dev/null; then
+            tmux new-session -d -s "$name" -c "$dir"
+          fi
+           if [[ -n "$TMUX" ]]; then
+            tmux switch-client -t "$name"
+          else
+            tmux attach-session -t "$name"
+          fi       
         }
       '';
     };
