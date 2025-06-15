@@ -43,6 +43,8 @@ in
         "${mod}+Shift+b" = "move container to workspace b";
         "${mod}+Shift+1" = "move container to workspace 1";
         "${mod}+Shift+n" = "exec --no-startup-id feh --no-fehbg --randomize --bg-scale ~/nix/modules/bg/";
+        "${mod}+Shift+minus" = "exec i3-msg scratchpad show || bash -c 'i3-msg floating enable && i3-msg resize set 1920px 1080px && i3-msg move position center && i3-msg move scratchpad'";
+
       };
     };
     extraConfig = ''
