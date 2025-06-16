@@ -66,6 +66,7 @@ in
         slzd = "sudo lazydocker";
       };
       initExtra = ''
+        bindkey -v
         gpup() {
           local branch=$(git rev-parse --abbrev-ref HEAD)
           git push --set-upstream origin "$branch"
