@@ -17,15 +17,13 @@ in
       keybindings = lib.mkOptionDefault {
         "${mod}+Return" = "exec ghostty";
         "${mod}+Shift+f" = "exec firefox";
+        "${mod}+Shift+d" = "exec zathura";
+        "${mod}+Shift+t" = "exec --no-startup-id bash $HOME/.config/zathura/change-theme.bash";
+        "${mod}+Shift+plus" = "exec i3-msg scratchpad show || bash -c 'i3-msg floating enable && i3-msg resize set 1280px 1350px && i3-msg move position center && i3-msg move scratchpad'";
         "${mod}+Shift+e" = "kill";
         "${mod}+Shift+w" = "exec i3-msg exit";
         "${mod}+r" = "restart";
         "${mod}+d" = "exec dmenu_run";
-        # "${mod}+Shift+h" = "focus left";
-        # "${mod}+Shift+l" = "focus right"k
-        # "${mod}+Shift+j" = "focus down";
-        # "${mod}+Shift+k" = "focus up";
-
         "${mod}+h" = "focus left";
         "${mod}+j" = "focus down";
         "${mod}+k" = "focus top";
@@ -44,7 +42,6 @@ in
         "${mod}+Shift+1" = "move container to workspace 1";
         "${mod}+Shift+n" = "exec --no-startup-id feh --no-fehbg --randomize --bg-scale ~/nix/modules/bg/";
         "${mod}+Shift+minus" = "exec i3-msg scratchpad show || bash -c 'i3-msg floating enable && i3-msg resize set 1920px 1080px && i3-msg move position center && i3-msg move scratchpad'";
-
       };
     };
     extraConfig = ''
