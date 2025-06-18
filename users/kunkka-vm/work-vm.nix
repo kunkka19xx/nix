@@ -30,6 +30,7 @@
     rcm
     cargo
     (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
+    golangci-lint
   ];
 
   home.file = {
