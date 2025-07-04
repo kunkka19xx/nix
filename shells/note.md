@@ -21,6 +21,6 @@ nix-shell <path-to-shell.nix>
 All pkgs in the nix/store/...
 -> run this to claim space as usual:
 
-````shell
+```shell
 nix-collect-garbage -d
 ``` 
