@@ -91,7 +91,11 @@ in
           local git_base="$HOME/Documents/git"
 
           if ! tmux has-session -t nix 2>/dev/null; then
-            tmux new-session -d -s nix -c "$nix_dir"
+            # Window 1: Vim
+            tmux new-session -d -s nix -c "$nix_dir" "vim"
+
+            # Window 2: bash
+            tmux new-window -t nix -c "$nix_dir"
           fi
 
           local dir
@@ -102,7 +106,12 @@ in
           local name="$(basename "$dir")"
 
           if ! tmux has-session -t "$name" 2>/dev/null; then
-            tmux new-session -d -s "$name" -c "$dir"
+            # Window 1: Vim
+            tmux new-session -d -s "$name" -c "$dir" "vim"
+
+            # Window 2: bash
+            tmux new-window -t "$name:" -c "$dir"
+            tmux select-window -t "$name:1" # select vim window
           fi
            if [[ -n "$TMUX" ]]; then
             tmux switch-client -t "$name"
