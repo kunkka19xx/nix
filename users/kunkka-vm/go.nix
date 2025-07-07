@@ -4,13 +4,13 @@
 let
   go_from_source = pkgs.stdenv.mkDerivation rec {
     pname = "go";
-    version = "1.24.2";
+    version = "1.24.3";
 
     src = pkgs.fetchFromGitHub {
       owner = "golang";
       repo = "go";
-      rev = "go1.24.2";
-      sha256 = "sha256-kwVW7lN50BK1Xf1ZrGgxKXO6JNnlKDETvXpXNbhUPqU=";
+      rev = "go1.24.3";
+      sha256 = "sha256-859UE3IYju0r3Dtzvp2q6u134dMFbeeeEDyr3HW7RKw=";
     };
 
     nativeBuildInputs = [ pkgs.go_1_23 ]; # requires from 1.22 to build 1.24
@@ -28,7 +28,7 @@ let
       echo "Fixing shebang in make.bash..."
       patchShebangs src
 
-      echo "Building Go 1.24.2..."
+      echo "Building Go 1.24.x..."
       cd src
       ./make.bash
       cd ..
