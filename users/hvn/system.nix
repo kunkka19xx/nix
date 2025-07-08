@@ -13,6 +13,8 @@
     docker-compose
     docker-client #TODO: confirm
     google-cloud-sdk
+    gh
+    jq
   ];
   homebrew = {
     enable = true;
