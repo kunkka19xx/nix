@@ -22,6 +22,7 @@
       "firefox"
       "slack"
       "ghostty"
+      "qutebrowser"
     ];
     brews = [
       # "staticcheck"

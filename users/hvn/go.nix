@@ -1,4 +1,4 @@
-# build go 1.24.4 from source
+# build go 1.24.5 from source
 { pkgs, lib, ... }:
 
 let
@@ -52,7 +52,7 @@ let
     '';
 
     meta = with lib; {
-      description = "Go programming language (1.24.4)";
+      description = "Go programming language (1.24.5)";
       license = licenses.bsd3;
     };
   };

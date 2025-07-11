@@ -99,16 +99,16 @@ alt-shift-l = ['join-with right', 'mode main']
 if.app-id = 'com.github.wez.wezterm'
 run = "move-node-to-workspace C"
 
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty '
+run = "move-node-to-workspace C"
+
 # [[on-window-detected]]
 # if.app-id = 'com.github.wez.wezterm'
 # run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
-run = "move-node-to-workspace B"
-
-[[on-window-detected]]
-if.app-id = 'org.mozilla.firefoxdeveloperedition'
 run = "move-node-to-workspace B"
 
 [[on-window-detected]]
@@ -132,10 +132,6 @@ if.app-id = 'notion.id'
 run = "move-node-to-workspace N"
 
 [[on-window-detected]]
-if.app-id = 'com.apple.Notes'
-run = "move-node-to-workspace N"
-
-[[on-window-detected]]
 if.app-id = 'md.obsidian'
 run = "move-node-to-workspace N"
 
@@ -144,8 +140,8 @@ if.app-id = 'com.googlecode.iterm2'
 run = 'move-node-to-workspace S'
 
 [[on-window-detected]]
-if.app-id = 'org.godotengine.godot'
-run = 'move-node-to-workspace G'
+if.app-id = "org.qutebrowser.qutebrowser "
+run = 'move-node-to-workspace B'
 
 #which work space is on which monitor
 [workspace-to-monitor-force-assignment]
