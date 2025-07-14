@@ -1,9 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
+  isDarwin = pkgs.stdenv.isDarwin;
   quteDotfiles = ../../dotfiles/qute;
-  quteTargetBase = ".qutebrowser";
-
+  quteTargetBase =
+    if isDarwin
+    then ".qutebrowser"
+    else ".config/qutebrowser";
 in
 {
   home.file = {
