@@ -140,8 +140,8 @@ if.app-id = 'com.googlecode.iterm2'
 run = 'move-node-to-workspace S'
 
 [[on-window-detected]]
-if.app-id = "org.qutebrowser.qutebrowser "
-run = 'move-node-to-workspace B'
+if.app-id = "org.qutebrowser.qutebrowser"
+run = ['layout tiling', 'move-node-to-workspace B']
 
 #which work space is on which monitor
 [workspace-to-monitor-force-assignment]

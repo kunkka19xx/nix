@@ -5,6 +5,7 @@
     ./../../modules/home-manager/default.nix
     ./../../modules/home-manager/alacritty.nix
     ./../../modules/home-manager/wezterm.nix
+    ./../../modules/home-manager/qute.nix
     ./langs.nix
     ./go.nix
     ./im-select.nix
