@@ -22,3 +22,7 @@ ls.add_snippets("go", {
 		t({ "", "}" }),
 	}),
 })
+
+vim.keymap.set("n", "<leader>nw", function()
+	require("luasnip").jump(1)
+end, { silent = true })
