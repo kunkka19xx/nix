@@ -101,6 +101,10 @@
         work-vm = mkNixosConfig "aarch64-linux" [
           ./nixos/work-vm/configuration.nix
         ];
+	desk = mkNixosConfig "x86_64-linux" [
+          ./nixos/desk/configuration.nix
+        ];
+
       };
       homeConfigurations = {
         "com-mac" = home-manager.lib.homeManagerConfiguration {
@@ -134,7 +138,14 @@
               ./users/kunkka-vm/work-vm.nix
             ];
           };
-
+	"desk" = home-manager.lib.homeManagerConfiguration
+          {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            extraSpecialArgs = { inherit inputs; };
+            modules = [
+              ./users/desk/kunkka.nix
+            ];
+          };
       };
     };
 }
