@@ -7,6 +7,8 @@
     ./../../modules/home-manager/firefox.nix
     ./../../modules/home-manager/i3.nix
     ./../../modules/home-manager/zathura.nix
+    ./../../modules/home-manager/qute.nix
+    ./../../modules/home-manager/obs.nix
     ./langs.nix
   ];
   home.username = "kunkka";
@@ -28,6 +30,7 @@
     pkgs.ghostty
     pkgs.rcm
     pkgs.cargo
+    pkgs.qutebrowser
   ];
 
   home.file = {

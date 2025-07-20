@@ -67,6 +67,7 @@ in
       };
       initExtra = ''
         bindkey -v
+        bindkey '^F' autosuggest-accept
         gpup() {
           local branch=$(git rev-parse --abbrev-ref HEAD)
           git push --set-upstream origin "$branch"

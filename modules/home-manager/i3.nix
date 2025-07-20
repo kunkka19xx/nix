@@ -42,6 +42,10 @@ in
         "${mod}+Shift+1" = "move container to workspace 1";
         "${mod}+Shift+n" = "exec --no-startup-id feh --no-fehbg --randomize --bg-scale ~/nix/modules/bg/";
         "${mod}+Shift+minus" = "exec i3-msg scratchpad show || bash -c 'i3-msg floating enable && i3-msg resize set 1920px 1080px && i3-msg move position center && i3-msg move scratchpad'";
+
+        "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
+        "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
+        "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
       };
     };
     extraConfig = ''
@@ -56,3 +60,5 @@ in
     '';
   };
 }
+
+

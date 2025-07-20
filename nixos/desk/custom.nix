@@ -18,11 +18,12 @@
   users.defaultUserShell = pkgs.zsh;
 
   environment.systemPackages = [
-    pkgs.zig
     pkgs.docker-compose
     pkgs.lazydocker
     pkgs.tlrc
     pkgs.gnumake
+    pkgs.mangohud #games
+    pkgs.protonup #games
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
@@ -31,4 +32,31 @@
   nix.gc.automatic = true;
   nix.gc.dates = "daily";
   nix.gc.options = "--delete-older-than 7d";
+
+  # games
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+  };
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
+  # steam & games
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true;
+  };
+  programs.steam.gamescopeSession.enable = true;
+  programs.gamemode.enable = true;
+
+  environment.sessionVariables = {
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS =
+      "/home/kunkka/.steam/root/compatibilitytools.d";
+  }; # run protonup for updating
+  # more info here https://nixos.wiki/wiki/Steam
+
+  #obs vtcam
+  programs.obs-studio.enableVirtualCamera = true;
 }
+

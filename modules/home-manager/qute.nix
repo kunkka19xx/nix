@@ -14,15 +14,3 @@ in
     "${quteTargetBase}/gruvbox.py".source = "${quteDotfiles}/gruvbox.py";
   };
 }
-
-
-
-
-
-
-
-
-
-
-
-

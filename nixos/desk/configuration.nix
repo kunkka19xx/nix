@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./custom.nix
     ];
@@ -14,7 +15,6 @@
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
@@ -44,13 +44,14 @@
     layout = "us";
     variant = "";
   };
+  services.xserver.xkbOptions = "ctrl:nocaps";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kunkka = {
     isNormalUser = true;
     description = "kunkka";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    extraGroups = [ "networkmanager" "wheel" "audio" "docker" ];
+    packages = with pkgs; [ ];
   };
 
   # Allow unfree packages
@@ -65,6 +66,9 @@
     gh
     gcc
     home-manager
+    pulseaudio
+    pipewire
+    alsa-tools
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -93,9 +97,8 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-  
 
-  # copied
+
   services.xserver.enable = true;
   services.xserver.windowManager.i3.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
@@ -109,5 +112,17 @@
       corner-radius = 15;
     };
   };
+
   security.polkit.enable = true;
+
+  hardware.pulseaudio.enable = false;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
+
 }
