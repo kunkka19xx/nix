@@ -3,7 +3,7 @@
 {
   programs.firefox = {
     enable = true;
-    profiles.kunkka-vm = {
+    profiles.default = {
 
       search.engines = {
         "Nix Packages" = {
@@ -247,7 +247,3 @@
     };
   };
 }
-
-
-
-
