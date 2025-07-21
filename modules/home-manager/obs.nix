@@ -10,6 +10,7 @@
       obs-vaapi #optional AMD hardware acceleration
       obs-gstreamer
       obs-vkcapture
+      droidcam-obs
     ];
   };
 }

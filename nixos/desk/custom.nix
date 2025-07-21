@@ -25,6 +25,8 @@
     pkgs.mangohud #games
     pkgs.protonup #games
     pkgs.discord-ptb
+    pkgs.droidcam # android phone wbcam client
+    pkgs.android-tools
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
@@ -59,6 +61,6 @@
 
   #obs vtcam
   programs.obs-studio.enableVirtualCamera = true;
-
+  programs.adb.enable = true;
 }
 

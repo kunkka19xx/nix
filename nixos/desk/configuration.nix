@@ -58,7 +58,7 @@
   users.users.kunkka = {
     isNormalUser = true;
     description = "kunkka";
-    extraGroups = [ "networkmanager" "wheel" "audio" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "docker" "adbusers" ];
     packages = with pkgs; [ ];
   };
 
