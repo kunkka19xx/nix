@@ -38,7 +38,15 @@
     LC_TELEPHONE = "ja_JP.UTF-8";
     LC_TIME = "ja_JP.UTF-8";
   };
-
+  # Vietnamese input
+  i18n.inputMethod = {
+    type = "fcitx5";
+    enable = true;
+    fcitx5.addons = with pkgs; [
+      fcitx5-gtk # alternatively, kdePackages.fcitx5-qt
+      fcitx5-unikey
+    ];
+  };
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";

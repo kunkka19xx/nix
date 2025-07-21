@@ -24,6 +24,7 @@
     pkgs.gnumake
     pkgs.mangohud #games
     pkgs.protonup #games
+    pkgs.discord-ptb
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
@@ -58,5 +59,6 @@
 
   #obs vtcam
   programs.obs-studio.enableVirtualCamera = true;
+
 }
 
