@@ -13,7 +13,7 @@
   ];
   home.username = "kunkka";
   home.homeDirectory = "/home/kunkka";
-  home.stateVersion = "24.05";
+  home.stateVersion = "25.05";
 
   within.neovim.enable = true;
   within.ghostty.enable = true;
@@ -38,9 +38,6 @@
       .txt = ${pkgs.neovim}/bin/nvim
     '';
   };
-  home.file.".xprofile".text = ''
-    xrandr --output Virtual-1 --scale 0.5x0.5
-  '';
   home.sessionVariables = {
     EDITOR = "nvim";
   };

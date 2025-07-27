@@ -27,6 +27,7 @@
     pkgs.discord-ptb
     pkgs.droidcam # android phone wbcam client
     pkgs.android-tools
+    pkgs.fastfetch
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);

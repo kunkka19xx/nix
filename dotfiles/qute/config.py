@@ -39,5 +39,6 @@ c.statusbar.show = 'in-mode'
 
 config.bind("<d>", "cmd-run-with-count 15 scroll down") 
 config.bind("<e>", "cmd-run-with-count 15 scroll up") 
-config.bind(',r', 'spawn --userscript readability-js')
+config.bind('ys', 'yank selection')
+
 c.scrolling.smooth = True
