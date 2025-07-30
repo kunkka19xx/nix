@@ -28,6 +28,7 @@
     pkgs.droidcam # android phone wbcam client
     pkgs.android-tools
     pkgs.fastfetch
+    pkgs.davinci-resolve
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
@@ -41,6 +42,9 @@
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      rocmPackages.clr.icd # davinci-resolve
+    ];
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
 
@@ -63,5 +67,16 @@
   #obs vtcam
   programs.obs-studio.enableVirtualCamera = true;
   programs.adb.enable = true;
+  environment.variables = {
+    RUSTICL_ENABLE = "radeonsi";
+  };
+  # davinci-resolve
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      mesa.opencl # Enables Rusticl (OpenCL) support
+    ];
+  };
 }
+
 
