@@ -29,6 +29,8 @@
     pkgs.android-tools
     pkgs.fastfetch
     pkgs.davinci-resolve
+    pkgs.tree
+    pkgs.flameshot
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);

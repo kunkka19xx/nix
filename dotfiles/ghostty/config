@@ -1,8 +1,8 @@
 theme = "catppuccin-mocha"
 font-family = "Inconsolata Nerd Font Mono Bold"
 font-size = 19
-background-opacity = 1
-background-blur-radius = 100
+background-opacity = 0.94
+background-blur-radius = 94
 macos-titlebar-proxy-icon = hidden
 macos-titlebar-style = hidden
 title = ""
