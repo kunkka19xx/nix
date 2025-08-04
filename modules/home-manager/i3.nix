@@ -36,6 +36,8 @@ in
         "${mod}+Ctrl+l" = "resize grow width 10px";
         "${mod}+Ctrl+k" = "resize grow height 10px";
         "${mod}+Ctrl+j" = "resize shrink height 10px";
+        "${mod}+Ctrl+Shift+4" = "exec --no-startup-id flameshot gui";
+        "${mod}+Ctrl+4" = "exec --no-startup-id flameshot screen";
         "${mod}+b" = "workspace b";
         "${mod}+1" = "workspace 1";
         "${mod}+Shift+b" = "move container to workspace b";

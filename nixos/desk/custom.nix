@@ -22,8 +22,8 @@
     pkgs.lazydocker
     pkgs.tlrc
     pkgs.gnumake
-    pkgs.mangohud #games
-    pkgs.protonup #games
+    pkgs.mangohud # games
+    pkgs.protonup # games
     pkgs.discord-ptb
     pkgs.droidcam # android phone wbcam client
     pkgs.android-tools
@@ -31,6 +31,7 @@
     pkgs.davinci-resolve
     pkgs.tree
     pkgs.flameshot
+    pkgs.ffmpeg # video, graphics
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
