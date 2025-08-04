@@ -6,10 +6,10 @@ return {
         config = function()
             -- Set default theme
             local themes = {
-                "tokyonight",
-                "catppuccin",
-                "rose-pine",
-                "none",
+                "tokyonight", -- for recording
+                'accent',     -- this guy is for my eyes
+                "catppuccin", -- for recording
+                "rose-pine",  -- for fun
             }
 
             local current_theme_index = 1
@@ -23,13 +23,8 @@ return {
                     current_theme_index = 1
                 end
                 local theme = themes[current_theme_index]
-                if theme == "none" then
-                    vim.cmd("hi clear")
-                    print("Theme disabled.")
-                else
-                    vim.cmd.colorscheme(theme)
-                    print("Changed nvim theme to: " .. theme)
-                end
+                vim.cmd.colorscheme(theme)
+                print("Changed nvim theme to: " .. theme)
             end, { noremap = true, silent = true })
         end,
     },
@@ -42,5 +37,10 @@ return {
         "rose-pine/neovim",
         name = "rose-pine",
         priority = 1000,
+    },
+    {
+        'alligator/accent.vim',
+        name = "accent",
+        priority = 1100,
     },
 }
