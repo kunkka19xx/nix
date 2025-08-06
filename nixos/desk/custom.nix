@@ -32,10 +32,32 @@
     pkgs.tree
     pkgs.flameshot
     pkgs.ffmpeg # video, graphics
+    pkgs.vlc
+    pkgs.kdePackages.kdenlive # alternative to davinci
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
   boot.loader.systemd-boot.configurationLimit = 5;
+  systemd = {
+    targets = {
+      sleep = {
+        enable = false;
+        unitConfig.DefaultDependencies = "no";
+      };
+      suspend = {
+        enable = false;
+        unitConfig.DefaultDependencies = "no";
+      };
+      hibernate = {
+        enable = false;
+        unitConfig.DefaultDependencies = "no";
+      };
+      "hybrid-sleep" = {
+        enable = false;
+        unitConfig.DefaultDependencies = "no";
+      };
+    };
+  };
   # Garbage Collector Setting
   nix.gc.automatic = true;
   nix.gc.dates = "daily";
