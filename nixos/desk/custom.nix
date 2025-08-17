@@ -34,6 +34,8 @@
     pkgs.ffmpeg # video, graphics
     pkgs.vlc
     pkgs.kdePackages.kdenlive # alternative to davinci
+    pkgs.screenkey
+    pkgs.kew
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
