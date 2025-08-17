@@ -28,6 +28,7 @@
     pkgs.lazydocker
     pkgs.tlrc
     pkgs.gnumake
+    pkgs.xclip # clipboard
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);

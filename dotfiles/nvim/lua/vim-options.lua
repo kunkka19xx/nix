@@ -17,6 +17,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- paste over highlight word
 vim.keymap.set("x", "<leader>p", '"_dP')
 vim.opt.colorcolumn = "94"
+vim.opt.clipboard = "unnamedplus"
 -- fk llm-ls
 local notify_original = vim.notify
 vim.notify = function(msg, ...)

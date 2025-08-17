@@ -58,6 +58,8 @@ in
       exec --no-startup-id ${pkgs.open-vm-tools}/bin/vmware-user
       exec i3-msg workspace 1
       assign [class="Firefox"] workspace b
+      exec --no-startup-id xclip'
     '';
   };
 }
+

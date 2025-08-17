@@ -36,6 +36,7 @@
     pkgs.kdePackages.kdenlive # alternative to davinci
     pkgs.screenkey
     pkgs.kew
+    pkgs.xclip # clipboard
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
