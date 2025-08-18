@@ -20,6 +20,7 @@ in
         "${mod}+Shift+d" = "exec zathura";
         "${mod}+Shift+t" = "exec --no-startup-id bash $HOME/.config/zathura/change-theme.bash";
         "${mod}+Shift+plus" = "exec i3-msg scratchpad show || bash -c 'i3-msg floating enable && i3-msg resize set 1280px 1350px && i3-msg move position center && i3-msg move scratchpad'";
+        "${mod}+Shift+m" = "exec bash -c 'ghostty -e kew all shuffle & (sleep 0.1 && i3-msg move container to workspace 9)'";
         "${mod}+Shift+e" = "kill";
         "${mod}+Shift+w" = "exec i3-msg exit";
         "${mod}+r" = "restart";

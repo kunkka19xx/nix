@@ -37,6 +37,7 @@
     pkgs.screenkey
     pkgs.kew
     pkgs.xclip # clipboard
+    pkgs.gromit-mpx # drawer
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
