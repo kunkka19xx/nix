@@ -31,6 +31,7 @@
     pkgs.rcm
     pkgs.cargo
     pkgs.qutebrowser
+    pkgs.jq
   ];
 
   home.file = {

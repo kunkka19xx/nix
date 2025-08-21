@@ -10,7 +10,7 @@ in
       bars = [ ];
       gaps = {
         inner = 4;
-        outer = 6;
+        outer = 2;
       };
       # terminal = "alacritty";
       terminal = "ghostty";
@@ -20,7 +20,6 @@ in
         "${mod}+Shift+d" = "exec zathura";
         "${mod}+Shift+t" = "exec --no-startup-id bash $HOME/.config/zathura/change-theme.bash";
         "${mod}+Shift+plus" = "exec i3-msg scratchpad show || bash -c 'i3-msg floating enable && i3-msg resize set 1280px 1350px && i3-msg move position center && i3-msg move scratchpad'";
-        "${mod}+Shift+m" = "exec bash -c 'ghostty -e kew all shuffle & (sleep 0.1 && i3-msg move container to workspace 9)'";
         "${mod}+Shift+e" = "kill";
         "${mod}+Shift+w" = "exec i3-msg exit";
         "${mod}+r" = "restart";
@@ -55,9 +54,10 @@ in
       default_border pixel 1
       for_window [class="ghostty, firefox, alacritty"] border none
       for_window [class="firefox"] move to workspace b
-      font pango:JetBrainsMono Nerd Font 19
-      exec --no-startup-id sh -c "sleep 0.5 && ${pkgs.feh}/bin/feh --bg-scale ~/nix/modules/bg/nix-waifu.png"
+      font pango:JetBrainsMono Nerd Font 20
+      exec --no-startup-id sh -c "sleep 0.5 && ${pkgs.feh}/bin/feh --bg-scale ~/nix/dotfiles/sway/bg/bg1.jpg"
       exec --no-startup-id ghostty
+      exec --no-startup-id ${pkgs.open-vm-tools}/bin/vmware-user
       exec i3-msg workspace 1
       exec --no-startup-id xclip'
     '';
