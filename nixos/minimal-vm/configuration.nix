@@ -23,7 +23,7 @@
 
   services.xserver.enable = true;
   # services.xserver.dpi = 192;
-  services.xserver.dpi = 220;
+  # services.xserver.dpi = 220;
   services.xserver.windowManager.i3.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.defaultSession = "none+i3";
@@ -80,15 +80,15 @@
   #   QT_SCALE_FACTOR = "1";
   # };
   environment.variables = {
-    GDK_SCALE = "1";
-    GDK_DPI_SCALE = "0.44";
-
-    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-    QT_SCALE_FACTOR = "0.44";
+    # GDK_SCALE = "1";
+    # GDK_DPI_SCALE = "0.44";
+    #
+    # QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    # QT_SCALE_FACTOR = "0.44";
 
     XCURSOR_SIZE = "36";
 
-    CHROME_FLAGS = "--force-device-scale-factor=0.44";
+    # CHROME_FLAGS = "--force-device-scale-factor=0.44";
   };
 
 }

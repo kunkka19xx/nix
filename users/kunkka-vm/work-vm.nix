@@ -7,6 +7,7 @@
     ./../../modules/home-manager/firefox.nix
     ./../../modules/home-manager/i3_vm.nix
     ./../../modules/home-manager/zathura.nix
+    ./../../modules/home-manager/qute.nix
     ./langs.nix
     ./go.nix
   ];
@@ -31,6 +32,7 @@
     cargo
     (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
     golangci-lint
+    jq
   ];
 
   home.file = {
