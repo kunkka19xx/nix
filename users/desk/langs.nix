@@ -13,7 +13,7 @@ in
     go
     go-tools # gogrep gosmith irdump staticcheck
     # Zig
-    zig
+    zig_0_15
     # API testing
     hurl
     pre-commit

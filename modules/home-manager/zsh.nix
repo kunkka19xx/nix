@@ -65,7 +65,7 @@ in
         lzd = "lazydocker";
         slzd = "sudo lazydocker";
       };
-      initExtra = ''
+      initContent = ''
         bindkey -v
         bindkey '^F' autosuggest-accept
         gpup() {

@@ -2,6 +2,7 @@
 { config, pkgs, ... }:
 # Import homebrew packages from the separate file
 {
+  system.primaryUser = "haovanngyuen"; # new update requires
   # TODO: Add system pks and setting
   # migrate some settings from home to here
   environment.systemPackages = with pkgs; [

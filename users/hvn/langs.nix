@@ -8,7 +8,7 @@ in
     # Python
     python3
     # Node.js
-    nodejs_23
+    nodejs_latest
     # Golang
     # build go 1.24.0 from source => comment this
     # go
@@ -18,7 +18,7 @@ in
     # rustup # Rust version manager
     cargo # Rust package manager
     # Zig
-    zig
+    zig_0_15
     # Java
     jdk23 # Java JDK
     # gcloud sdk
@@ -26,7 +26,7 @@ in
     # maven
     maven
     # vitural machine
-    utm
+    # utm -> currently bad -> use vmware fusion
   ];
 
   # Other settings
