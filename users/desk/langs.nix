@@ -8,7 +8,7 @@ in
     # Python
     python3
     # Node.js
-    nodejs_23
+    nodejs_latest
     # Golang
     go
     go-tools # gogrep gosmith irdump staticcheck
