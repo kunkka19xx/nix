@@ -59,7 +59,6 @@ in
       exec --no-startup-id ghostty
       exec --no-startup-id ${pkgs.open-vm-tools}/bin/vmware-user
       exec i3-msg workspace 1
-      exec --no-startup-id xclip'
     '';
   };
 }
