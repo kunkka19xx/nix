@@ -5,6 +5,10 @@
     ./../../modules/home-manager/default.nix
     ./../../modules/home-manager/alacritty.nix
     ./../../modules/home-manager/sway.nix
+    # ./../../modules/home-manager/i3.nix
+    ./../../modules/home-manager/firefox.nix
+    ./../../modules/home-manager/zathura.nix
+    # ./../../modules/home-manager/obs.nix
     ./langs.nix
   ];
 
@@ -36,15 +40,7 @@
     EDITOR = "nvim";
     BROWSER = "firefox";
     TERMINAL = "alacritty";
-    GTK_IM_MODULE = "ibus";
-    QT_IM_MODULE = "ibus";
-    XMODIFIERS = "@im=ibus";
   };
-
-  # ibus
-  xsession.windowManager.bspwm.startupPrograms = [
-    "${pkgs.ibus}/bin/ibus restart || ${pkgs.ibus}/bin/ibus-daemon -d -r -x"
-  ];
 
   # show ui app
   programs.zsh.profileExtra = lib.mkAfter ''

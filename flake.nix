@@ -88,11 +88,11 @@
           ./nixos/surface-pro-7/configuration.nix
           # if there is alternative to it to use touchscreen, replace 
           # because installing kernel takes time
-          nixos-hardware.nixosModules.microsoft-surface-pro-intel
           # nixos-hardware.nixosModules.microsoft-surface-common
+          nixos-hardware.nixosModules.microsoft-surface-pro-intel
           {
-            microsoft-surface.ipts.enable = true;
-            microsoft-surface.surface-control.enable = false;
+            # microsoft-surface.ipts.enable = true;
+            # microsoft-surface.surface-control.enable = false;
           }
         ];
         vm = mkNixosConfig "aarch64-linux" [
@@ -115,11 +115,11 @@
             ./users/hvn/haovanngyuen.nix
           ];
         };
-        "kunkka07xx-linux" = home-manager.lib.homeManagerConfiguration {
+        "surface" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs; };
           modules = [
-            ./users/kunkka-linux/kunkka07xx-linux.nix
+            ./users/kunkka-linux/surface.nix
           ];
         };
         "kunkka-vm" = home-manager.lib.homeManagerConfiguration
