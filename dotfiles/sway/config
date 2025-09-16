@@ -12,6 +12,8 @@ bindsym $mod+Shift+e kill
 bindsym $mod+Shift+w exec "swaymsg exit"
 # Reload Sway config
 bindsym $mod+Shift+r reload                 
+# Toggle waybar
+bindsym $mod+Shift+t exec sh -c 'pgrep waybar && pkill waybar || waybar &'
 
 # Split windows (horizontal/vertical)
 # bindsym $mod+h split h
