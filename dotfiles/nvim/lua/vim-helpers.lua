@@ -36,11 +36,11 @@ vim.keymap.set("n", "<leader>ob", function()
 				cmd = "open -a 'Firefox' " .. file_path
 			end
 		else
-            local firefox_path = vim.fn.system("which firefox"):gsub("\n", "")
-            local has_firefox = firefox_path ~= ""
-            if has_firefox then
-                cmd = "google-chrome " .. file_path
-            end
+			local firefox_path = vim.fn.system("which firefox"):gsub("\n", "")
+			local has_firefox = firefox_path ~= ""
+			if has_firefox then
+				cmd = "google-chrome " .. file_path
+			end
 			cmd = "firefox " .. file_path
 		end
 		os.execute(cmd .. " &")
@@ -52,7 +52,10 @@ end, { desc = "Open current file in browser" })
 -- set language based on vim mode
 -- requires im-select https://github.com/daipeihust/im-select
 -- recommend installing it by brew
-local is_mac = vim.loop.os_uname().sysname == "Darwin"
+local sysname = vim.loop.os_uname().sysname
+local is_mac = sysname == "Darwin"
+local is_linux = sysname == "Linux"
+
 if is_mac then
 	local function get_current_layout()
 		local f = io.popen("im-select")
@@ -64,43 +67,77 @@ if is_mac then
 		return layout
 	end
 
-	-- Save current layout
 	local last_insert_layout = get_current_layout()
 	local english_layout = "com.apple.keylayout.ABC"
 
-	-- If exit insert mode, in command mode -> eng layout,
-	-- save the current layout to the variable, then use it for the
-	-- next insert time
 	vim.api.nvim_create_autocmd("InsertLeave", {
 		callback = function()
-			local current = get_current_layout()
-			last_insert_layout = current
+			last_insert_layout = get_current_layout()
 			os.execute("im-select " .. english_layout)
 		end,
 	})
 
-	-- mode change to normal -> eng layout
 	vim.api.nvim_create_autocmd({ "CmdlineEnter" }, {
-		pattern = "*:*n",
 		callback = function()
 			os.execute("im-select " .. english_layout)
 		end,
 	})
 
-	-- when back to nvim, restore prev layout
 	vim.api.nvim_create_autocmd("InsertEnter", {
 		callback = function()
 			os.execute("im-select " .. last_insert_layout)
 		end,
 	})
 
-	vim.api.nvim_create_autocmd({ "FocusGained" }, {
+	vim.api.nvim_create_autocmd("FocusGained", {
 		callback = function()
 			os.execute("im-select " .. last_insert_layout)
 		end,
 	})
+elseif is_linux then
+	local last_layout = "keyboard-us" -- English is default
+
+	local function get_fcitx_layout()
+		local f = io.popen("fcitx5-remote -n")
+		if f ~= nil then
+			local result = f:read("*all")
+			f:close()
+			if result then
+				return result:gsub("%s+", "")
+			end
+		end
+		return "keyboard-us" -- fallback English
+	end
+
+	local function set_fcitx_layout(layout)
+		os.execute("fcitx5-remote -s " .. layout)
+	end
+
+	vim.api.nvim_create_autocmd("InsertLeave", {
+		callback = function()
+			last_layout = get_fcitx_layout()
+			set_fcitx_layout("keyboard-us") -- change to English
+		end,
+	})
+
+	vim.api.nvim_create_autocmd("InsertEnter", {
+		callback = function()
+			set_fcitx_layout(last_layout)
+		end,
+	})
+
+	vim.api.nvim_create_autocmd("FocusGained", {
+		callback = function()
+			if vim.fn.mode() == "i" then
+				set_fcitx_layout(last_layout)
+			else
+				set_fcitx_layout("keyboard-us")
+			end
+		end,
+	})
 end
 
+-- Show folder/dir structure
 vim.api.nvim_create_user_command("ShowTree", function()
 	local buf = vim.api.nvim_create_buf(false, true)
 	local editor_width = vim.o.columns
