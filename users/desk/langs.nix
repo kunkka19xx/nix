@@ -2,6 +2,7 @@
 
 let
   python_version = pkgs.python3_13;
+  android_sdk.accept_license = true;
 in
 {
   home.packages = with pkgs; [
@@ -17,6 +18,7 @@ in
     # API testing
     hurl
     pre-commit
+    flutter329
     nodePackages."node2nix"
   ];
 
