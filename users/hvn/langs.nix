@@ -6,7 +6,7 @@ in
 {
   home.packages = with pkgs; [
     # Python
-    python3
+    python312
     # Node.js
     nodejs_latest
     # Golang
@@ -27,6 +27,7 @@ in
     maven
     # vitural machine
     # utm -> currently bad -> use vmware fusion
+    oapi-codegen
   ];
 
   # Other settings

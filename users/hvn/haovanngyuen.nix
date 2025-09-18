@@ -8,7 +8,8 @@
     ./../../modules/home-manager/qute.nix
     ./langs.nix
     ./go.nix
-    ./im-select.nix
+    # ./im-select.nix
+    ./macism.nix
   ];
   home.username = "haovanngyuen";
   home.homeDirectory = "/Users/haovanngyuen";

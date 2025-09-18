@@ -96,7 +96,7 @@ return {
 				end,
 			})
 			-- python
-			lspconfig.pylsp.setup({ capabilities = capabilities })
+			lspconfig.pyright.setup({ capabilities = capabilities })
 			-- bash
 			lspconfig.bashls.setup({ capabilities = capabilities })
 			-- lsp kepmap setting

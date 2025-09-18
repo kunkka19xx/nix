@@ -19,6 +19,8 @@
   ];
   homebrew = {
     enable = true;
+    taps = [
+    ];
     casks = [
       "firefox"
       "slack"

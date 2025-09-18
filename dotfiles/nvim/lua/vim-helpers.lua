@@ -50,48 +50,53 @@ vim.keymap.set("n", "<leader>ob", function()
 end, { desc = "Open current file in browser" })
 
 -- set language based on vim mode
--- requires im-select https://github.com/daipeihust/im-select
+-- requires macism https://github.com/laishulu/macism
 -- recommend installing it by brew
 local sysname = vim.loop.os_uname().sysname
 local is_mac = sysname == "Darwin"
 local is_linux = sysname == "Linux"
 
 if is_mac then
+	local english_layout = "com.apple.keylayout.ABC"
+	local last_insert_layout = english_layout
+
 	local function get_current_layout()
-		local f = io.popen("im-select")
+		local f = io.popen("macism")
 		local layout = nil
 		if f ~= nil then
 			layout = f:read("*all"):gsub("\n", "")
 			f:close()
 		end
+		print(layout)
 		return layout
 	end
-
-	local last_insert_layout = get_current_layout()
-	local english_layout = "com.apple.keylayout.ABC"
 
 	vim.api.nvim_create_autocmd("InsertLeave", {
 		callback = function()
 			last_insert_layout = get_current_layout()
-			os.execute("im-select " .. english_layout)
+			os.execute("macism " .. english_layout)
 		end,
 	})
 
 	vim.api.nvim_create_autocmd({ "CmdlineEnter" }, {
 		callback = function()
-			os.execute("im-select " .. english_layout)
+			os.execute("macism " .. english_layout)
 		end,
 	})
 
 	vim.api.nvim_create_autocmd("InsertEnter", {
 		callback = function()
-			os.execute("im-select " .. last_insert_layout)
+			os.execute("macism " .. last_insert_layout)
 		end,
 	})
 
 	vim.api.nvim_create_autocmd("FocusGained", {
 		callback = function()
-			os.execute("im-select " .. last_insert_layout)
+			if vim.fn.mode() == "i" then
+				os.execute("macism " .. last_insert_layout)
+			else
+				os.execute("macism " .. english_layout)
+			end
 		end,
 	})
 elseif is_linux then
