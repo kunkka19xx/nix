@@ -119,7 +119,7 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs; };
           modules = [
-            ./users/kunkka-linux/surface.nix
+            ./users/surface/surface.nix
           ];
         };
         "kunkka-vm" = home-manager.lib.homeManagerConfiguration

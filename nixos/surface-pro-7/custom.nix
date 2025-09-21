@@ -22,9 +22,6 @@
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  environment.systemPackages = [
-    pkgs.zig
-  ];
   nixpkgs.config.allowUnfreePredicate = (_: true);
   boot.loader.systemd-boot.configurationLimit = 5;
   # Garbage Collector Setting

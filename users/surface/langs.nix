@@ -15,7 +15,7 @@ in
     # Rust
     cargo # Rust package manager, neovim pack install
     # Zig
-    zig
+    zig_0_15
     # Java
     openjdk17 # Java JDK
   ];
