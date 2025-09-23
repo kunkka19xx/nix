@@ -38,6 +38,8 @@
     pkgs.kew
     pkgs.xclip # clipboard
     pkgs.gromit-mpx # drawer
+    pkgs.unzip
+    pkgs.usbmuxd
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
@@ -76,6 +78,10 @@
     ];
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
+
+  services.xserver.deviceSection = ''
+    Option "TearFree" "true"
+  '';
 
   # steam & games
   programs.steam = {

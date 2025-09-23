@@ -113,13 +113,14 @@
   services.xserver.displayManager.defaultSession = "none+i3";
 
   # transparent i3
-  services.picom = {
-    enable = true;
-    settings = {
-      rounded-corners = true;
-      corner-radius = 15;
-    };
-  };
+  # services.picom = {
+  #   enable = true;
+  #   backend = "glx";
+  #   settings = {
+  #     rounded-corners = true;
+  #     corner-radius = 15;
+  #   };
+  # };
 
   security.polkit.enable = true;
 

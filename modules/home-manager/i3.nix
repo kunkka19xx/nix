@@ -59,7 +59,8 @@ in
       exec --no-startup-id sh -c "sleep 0.5 && ${pkgs.feh}/bin/feh --bg-scale ~/nix/modules/bg/nix-waifu.png"
       exec --no-startup-id ghostty
       exec i3-msg workspace 1
-      exec --no-startup-id xclip'
+      exec --no-startup-id xclip
+      exec --no-startup-id fcitx5
     '';
   };
 }

@@ -68,6 +68,7 @@ return {
 					{ name = "nix" },
 					{ name = "buf_ls" },
 					{ name = "render-markdown" },
+					{ name = "cobol_ls" },
 				}),
 			})
 		end,

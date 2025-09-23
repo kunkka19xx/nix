@@ -85,6 +85,7 @@ return {
 			lspconfig.buf_ls.setup({ capabilities = capabilities })
 			-- docker compose
 			lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
+			lspconfig.cobol_ls.setup({ capabilities = capabilities })
 			-- svelte
 			lspconfig.svelte.setup({ capabilities = capabilities })
 			vim.api.nvim_create_autocmd("FileType", {
