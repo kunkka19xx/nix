@@ -12,9 +12,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   services.iptsd.enable = lib.mkDefault true;
-
+   
   networking.hostName = "nixos"; # Define your hostname.
-
+  hardware.microsoft-surface.kernelVersion = "stable";
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -72,8 +72,6 @@
   };
 
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -96,14 +94,12 @@
   users.users.kunkka07xx = {
     isNormalUser = true;
     description = "kunkka07xx";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video"];
     packages = with pkgs; [
       #  thunderbird 
     ];
   };
 
-  # Install firefox.
-  # programs.firefox.enable = true; -> home manager
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -124,22 +120,5 @@
     ];
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  /* services.interception-tools =
-    let
-    itools = pkgs.interception-tools;
-    itools-caps = pkgs.interception-tools-plugins.caps3esc;
-    in
-    {
-    enable = true;
-    plugins = [ itools-caps ];
-    # requires explicit paths: https://github.com/NixOS/nixpkgs/issues/126682
-    udevmonConfig = pkgs.lib.mkDefault ''
-    - JOB: "${itools}/bin/intercept -g $DEVNODE | ${itools-caps}/bin/caps2esc -m 1 | ${itools}/bin/uinput -d $DEVNODE"
-    DEVICE:
-    EVENTS:
-    EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
-    '';
-    }; */
-  system.stateVersion = "24.11";
-
+  system.stateVersion = "25.05";
 }
