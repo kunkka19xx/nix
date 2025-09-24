@@ -13,7 +13,7 @@ let
       sha256 = "sha256-/KvCdXaE92t/LRbUTHkPa+MhuA0lvhSUqxC237imEy0=";
     };
 
-    nativeBuildInputs = [ pkgs.go_1_23 ]; # requires from 1.22 to build 1.24
+    nativeBuildInputs = [ pkgs.go_1_24 ]; # requires from 1.22 to build 1.24
     buildInputs = [ pkgs.gcc pkgs.bash ];
 
     buildPhase = ''
