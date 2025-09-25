@@ -1,19 +1,19 @@
-# build go 1.24.5 from source
+# build go from source
 { pkgs, lib, ... }:
 
 let
   go_from_source = pkgs.stdenv.mkDerivation rec {
     pname = "go";
-    version = "1.24.5";
+    version = "1.25.1";
 
     src = pkgs.fetchFromGitHub {
       owner = "golang";
       repo = "go";
-      rev = "go1.24.5";
-      sha256 = "sha256-/KvCdXaE92t/LRbUTHkPa+MhuA0lvhSUqxC237imEy0=";
+      rev = "go1.25.1";
+      sha256 = "sha256-5HYi44U6DedmLCNZuFiuKoM9tP2tVurjzmaLptvyht0=";
     };
 
-    nativeBuildInputs = [ pkgs.go_1_24 ]; # requires from 1.22 to build 1.24
+    nativeBuildInputs = [ pkgs.go_1_24 ];
     buildInputs = [ pkgs.gcc pkgs.bash ];
 
     buildPhase = ''
@@ -25,7 +25,7 @@ let
       export GOTMPDIR=$TMPDIR/go-build
       mkdir -p $GOCACHE $GOTMPDIR
 
-      echo "Building Go 1.24.5..."
+      echo "Building New Go..."
       cd src
       ./make.bash
       cd ..
@@ -52,7 +52,7 @@ let
     '';
 
     meta = with lib; {
-      description = "Go programming language (1.24.5)";
+      description = "Go programming language";
       license = licenses.bsd3;
     };
   };
