@@ -40,6 +40,7 @@
     pkgs.unzip #install java, ... neovim
     pkgs.lazydocker
     pkgs.tree
+    pkgs.gradle
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
