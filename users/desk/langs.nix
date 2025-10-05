@@ -20,10 +20,11 @@ in
     pre-commit
     flutter329
     nodePackages."node2nix"
+    jdk23
+    gradle_9
   ];
 
   home.sessionVariables = {
-
     # Python
     PYTHONSTARTUP = "${pkgs.python3}/lib/python3.13/site-packages";
 
@@ -33,5 +34,9 @@ in
 
     # Rust
     CARGO_HOME = "~/.cargo";
+
+    # Java
+    JAVA_HOME = "${pkgs.jdk23}";
+    PATH = "${pkgs.jdk23}/bin:$PATH";
   };
 }

@@ -8,6 +8,16 @@ if not status then
     return
 end
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
+--
+-- detect OS
+local os_config = ""
+if vim.fn.has("mac") == 1 then
+    os_config = "config_mac"
+elseif vim.fn.has("unix") == 1 then
+    os_config = "config_linux"
+elseif vim.fn.has("win32") == 1 then
+    os_config = "config_win"
+end
 
 local config = {
     cmd = {
@@ -25,13 +35,21 @@ local config = {
         "java.base/java.lang=ALL-UNNAMED",
         "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
         "-jar",
+        -- vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
         vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
         "-configuration",
-        home .. "/.local/share/nvim/mason/packages/jdtls/config_mac",
+        home .. "/.local/share/nvim/mason/packages/jdtls/" .. os_config,
         "-data",
         workspace_dir,
     },
-    root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }),
+    root_dir = require("jdtls.setup").find_root({
+        ".git",
+        "mvnw",
+        "gradlew",
+        "pom.xml",
+        "build.gradle",
+        "settings.gradle",
+    }),
 
     settings = {
         java = {
