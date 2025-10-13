@@ -10,7 +10,7 @@ in
       bars = [ ];
       gaps = {
         inner = 4;
-        outer = 6;
+        outer = 3;
       };
       # terminal = "alacritty";
       terminal = "ghostty";

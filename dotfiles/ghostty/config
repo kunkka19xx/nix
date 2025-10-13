@@ -2,7 +2,7 @@
 font-family = "Inconsolata Nerd Font Mono Bold"
 font-size = 19
 background-opacity = 0.94
-background-blur-radius = 94
+background-blur-radius = 84
 macos-titlebar-proxy-icon = hidden
 macos-titlebar-style = hidden
 title = ""

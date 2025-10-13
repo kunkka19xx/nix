@@ -41,16 +41,6 @@
     xkb = { variant = ""; };
   };
 
-  # transparent i3
-  services.picom = {
-    enable = true;
-    settings = {
-      rounded-corners = true;
-      corner-radius = 15;
-    };
-  };
-
-
   users.users.kunkka-vm = {
     isNormalUser = true;
     description = "kunkka-vm";
@@ -86,7 +76,7 @@
     # QT_AUTO_SCREEN_SCALE_FACTOR = "1";
     # QT_SCALE_FACTOR = "0.44";
 
-    XCURSOR_SIZE = "36";
+    XCURSOR_SIZE = "18";
 
     # CHROME_FLAGS = "--force-device-scale-factor=0.44";
   };
