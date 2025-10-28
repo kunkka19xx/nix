@@ -6,6 +6,8 @@ set $mod Mod4
 bindsym $mod+Return exec alacritty   
 # Launch Firefox
 bindsym $mod+Shift+f exec firefox          
+# Zathura for documentation
+bindsym $mod+Shift+z exec zathura          
 # Close focused window
 bindsym $mod+Shift+e kill               
 # Logout, restart and reload sway
@@ -40,6 +42,7 @@ bindsym $mod+Ctrl+j resize shrink height 10px
 # Workspace
 # Open it while starting up
 exec swaymsg workspace 1
+exec fcitx5
 
 # Workspaces define
 # any
@@ -53,12 +56,23 @@ bindsym $mod+c workspace C
 # browser
 bindsym $mod+b workspace B 
 
+bindsym $mod+1 workspace 1 
+bindsym $mod+2 workspace 2 
+bindsym $mod+3 workspace 3 
+bindsym $mod+4 workspace 4 
+bindsym $mod+5 workspace 5 
+
 # Workspaces moving
 bindsym $mod+Shift+a move container to workspace A
 bindsym $mod+Shift+s move container to workspace S
 bindsym $mod+Shift+d move container to workspace D
 bindsym $mod+Shift+c move container to workspace C
 bindsym $mod+Shift+b move container to workspace B
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
 
 # Which app is assigned to which workspace
 assign [class="firefox"] workspace B
