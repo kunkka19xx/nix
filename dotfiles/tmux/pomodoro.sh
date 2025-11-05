@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+OS="$(uname)"
+play_sound() {
+    local file="$HOME/nix/dotfiles/tmux/Ringing.mp3"
+    if [ "$OS" = "Darwin" ]; then
+        # macOS
+        afplay "$file" &
+    else
+        # Linux
+        paplay "$file" 2>/dev/null &
+    fi
+}
+
 STATE_FILE="$HOME/.cache/pomo.json"
 mkdir -p "$(dirname "$STATE_FILE")"
 
@@ -74,6 +86,15 @@ if [ "$remaining" -le 0 ]; then
   fi
   echo ""
   exit 0
+fi
+
+if [ "$remaining" -le 10 ] && [ ! -f "$HOME/.cache/pomo_alerted" ]; then
+    touch "$HOME/.cache/pomo_alerted"
+    play_sound
+fi
+
+if [ "$remaining" -gt 10 ] && [ -f "$HOME/.cache/pomo_alerted" ]; then
+    rm -f "$HOME/.cache/pomo_alerted"
 fi
 
 m=$((remaining / 60))
