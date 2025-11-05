@@ -1,8 +1,9 @@
-{ config
-, pkgs
-, inputs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
 }:
 {
   imports = [
@@ -51,11 +52,11 @@
         unitConfig.DefaultDependencies = "no";
       };
       suspend = {
-        enable = false;
+        enable = true;
         unitConfig.DefaultDependencies = "no";
       };
       hibernate = {
-        enable = false;
+        enable = true;
         unitConfig.DefaultDependencies = "no";
       };
       "hybrid-sleep" = {
@@ -94,8 +95,7 @@
   programs.gamemode.enable = true;
 
   environment.sessionVariables = {
-    STEAM_EXTRA_COMPAT_TOOLS_PATHS =
-      "/home/kunkka/.steam/root/compatibilitytools.d";
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "/home/kunkka/.steam/root/compatibilitytools.d";
   }; # run protonup for updating
   # more info here https://nixos.wiki/wiki/Steam
 
@@ -113,5 +113,3 @@
     ];
   };
 }
-
-

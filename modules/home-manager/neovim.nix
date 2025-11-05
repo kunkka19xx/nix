@@ -1,7 +1,8 @@
-{ lib
-, config
-, pkgs
-, ...
+{
+  lib,
+  config,
+  pkgs,
+  ...
 }:
 
 with lib;
@@ -38,6 +39,7 @@ in
       # pkgs.luarocks
       pkgs.lua51Packages.lua
       pkgs.lua51Packages.luarocks
+      pkgs.asm-lsp
     ];
     home.file = {
       ".config/nvim" = {
