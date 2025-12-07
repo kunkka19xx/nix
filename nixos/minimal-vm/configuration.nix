@@ -1,11 +1,16 @@
-{ inputs, config, pkgs, lib, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./custom.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ./custom.nix
+  ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -23,7 +28,7 @@
 
   services.xserver.enable = true;
   # services.xserver.dpi = 192;
-  # services.xserver.dpi = 220;
+  services.xserver.dpi = 220;
   services.xserver.windowManager.i3.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.defaultSession = "none+i3";
@@ -38,48 +43,42 @@
 
   services.xserver = {
     xkb.layout = "us,vn";
-    xkb = { variant = ""; };
+    xkb = {
+      variant = "";
+    };
   };
 
   users.users.kunkka-vm = {
     isNormalUser = true;
     description = "kunkka-vm";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
-
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
     ];
   };
 
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs;
-    [
-      vim
-      wget
-      tree
-      git
-      gh
-      gcc
-      home-manager
-      open-vm-tools
-    ];
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+    tree
+    git
+    gh
+    gcc
+    home-manager
+    open-vm-tools
+  ];
   services.openssh.enable = true;
   security.polkit.enable = true;
+  # moved these settings to home-manager kunkka-vm.nix
   # environment.variables = {
-  #   QDK_SCALE = "1";
-  #   QDK_FONT_DPI = "96";
-  #   QT_SCALE_FACTOR = "1";
+  #   GDK_SCALE = "1";
+  #   GDK_DPI_SCALE = "0.44";
+  #   QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+  #   QT_SCALE_FACTOR = "0.44";
+  #   XCURSOR_SIZE = "24";
+  #   CHROME_FLAGS = "--force-device-scale-factor=0.5";
   # };
-  environment.variables = {
-    # GDK_SCALE = "1";
-    # GDK_DPI_SCALE = "0.44";
-    #
-    # QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-    # QT_SCALE_FACTOR = "0.44";
-
-    XCURSOR_SIZE = "18";
-
-    # CHROME_FLAGS = "--force-device-scale-factor=0.44";
-  };
 
 }
-

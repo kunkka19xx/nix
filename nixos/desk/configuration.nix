@@ -1,12 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./custom.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./custom.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -58,7 +57,13 @@
   users.users.kunkka = {
     isNormalUser = true;
     description = "kunkka";
-    extraGroups = [ "networkmanager" "wheel" "audio" "docker" "adbusers" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+      "docker"
+      "adbusers"
+    ];
     packages = with pkgs; [ ];
   };
 
@@ -105,7 +110,6 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-
 
   services.xserver.enable = true;
   services.xserver.windowManager.i3.enable = true;
