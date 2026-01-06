@@ -1,4 +1,10 @@
-{ pkgs, inputs, config, lib, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -6,6 +12,7 @@
     ./../../modules/home-manager/alacritty.nix
     ./../../modules/home-manager/wezterm.nix
     ./../../modules/home-manager/qute.nix
+    ./../../modules/home-manager/firefox.nix
     ./langs.nix
     ./go.nix
     # ./im-select.nix
@@ -37,7 +44,7 @@
     pkgs.nerd-fonts.inconsolata
     pkgs.alacritty
     pkgs.rcm
-    pkgs.unzip #install java, ... neovim
+    pkgs.unzip # install java, ... neovim
     pkgs.lazydocker
     pkgs.tree
     pkgs.gradle

@@ -1,8 +1,9 @@
-{ lib
-, config
-, pkgs
-, commands
-, ...
+{
+  lib,
+  config,
+  pkgs,
+  commands,
+  ...
 }:
 
 with lib;
@@ -16,7 +17,7 @@ in
   config = mkIf cfg.enable {
     home.packages = [
       pkgs.bat
-      pkgs.ripgrep #grep string telescope
+      pkgs.ripgrep # grep string telescope
       pkgs.zsh-powerlevel10k
     ];
     programs.fzf = {
@@ -25,10 +26,12 @@ in
     };
 
     programs.zsh = {
-      plugins = [{
-        name = "fzf-tab";
-        src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
-      }];
+      plugins = [
+        {
+          name = "fzf-tab";
+          src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
+        }
+      ];
       enable = true;
       # autosuggestion Configuration Options
       autosuggestion.enable = true;
@@ -66,6 +69,7 @@ in
         slzd = "sudo lazydocker";
       };
       initContent = ''
+        export MANPAGER="nvim +Man!"
         bindkey -v
         bindkey '^F' autosuggest-accept
         gpup() {

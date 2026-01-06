@@ -12,7 +12,7 @@
     colima
     docker
     docker-compose
-    docker-client #TODO: confirm
+    docker-client # TODO: confirm
     google-cloud-sdk
     gh
     jq
@@ -22,7 +22,7 @@
     taps = [
     ];
     casks = [
-      "firefox"
+      # "firefox"
       "slack"
       "ghostty"
       "qutebrowser"
@@ -59,4 +59,3 @@
     NSGlobalDomain."com.apple.swipescrolldirection" = false;
   };
 }
-
