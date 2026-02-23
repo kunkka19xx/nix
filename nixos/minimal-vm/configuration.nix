@@ -27,8 +27,8 @@
   };
 
   services.xserver.enable = true;
-  # services.xserver.dpi = 192;
-  services.xserver.dpi = 220;
+  # services.xserver.dpi = 192; moved to home manager
+  # services.xserver.dpi = 220;
   services.xserver.windowManager.i3.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.defaultSession = "none+i3";
@@ -40,6 +40,16 @@
   # services.xserver.displayManager.sessionPackages = [
   #   pkgs.sway
   # ];
+
+  # Vietnamese input
+  i18n.inputMethod = {
+    type = "fcitx5";
+    enable = true;
+    fcitx5.addons = with pkgs; [
+      fcitx5-gtk # alternatively, kdePackages.fcitx5-qt
+      fcitx5-unikey
+    ];
+  };
 
   services.xserver = {
     xkb.layout = "us,vn";

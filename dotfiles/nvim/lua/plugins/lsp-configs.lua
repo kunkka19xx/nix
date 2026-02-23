@@ -38,6 +38,10 @@ return {
 			}
 			vim.lsp.enable("lua_ls")
 
+			vim.lsp.config["rust_analyzer"] = {
+				capabilities = capabilities,
+			}
+
 			vim.lsp.config["ts_ls"] = {
 				capabilities = capabilities,
 			}
@@ -126,6 +130,7 @@ return {
 				"pyright",
 				"bashls",
 				"asm_lsp",
+				"rust_analyzer",
 			})
 			-- lsp kepmap setting
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})

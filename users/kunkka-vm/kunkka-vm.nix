@@ -12,7 +12,7 @@
   ];
   home.username = "kunkka-vm";
   home.homeDirectory = "/home/kunkka-vm";
-  home.stateVersion = "24.05";
+  home.stateVersion = "25.05";
 
   within.neovim.enable = true;
   within.ghostty.enable = true;
@@ -31,6 +31,10 @@
     pkgs.cargo
   ];
 
+  xresources.properties = {
+    "Xft.dpi" = 144; # Adjust based on your host monitor's resolution
+  };
+
   home.file = {
     ".config/rcm/bindings.conf".text = ''
       .txt = ${pkgs.neovim}/bin/nvim
@@ -39,15 +43,18 @@
 
   home.file.".xprofile".text = ''
     export GDK_SCALE=1
-    export GDK_DPI_SCALE=0.44
+    export GDK_DPI_SCALE=0.56
     export QT_AUTO_SCREEN_SCALE_FACTOR=1
     export QT_SCALE_FACTOR=1
-    export XCURSOR_SIZE=24
+    export XCURSOR_SIZE=48
     # export CHROME_FLAGS="--force-device-scale-factor=0.4"
     # xrandr --output Virtual-1 --scale 0.7x0.7
     # Delay to ensure X is fully initialized
     sleep 0.1
   '';
+
+  # for chrome, firefox ,...
+  # adjust layout.css.devPixelsPerPx -> as needed (1.5, 2.0 ....)
 
   home.sessionVariables = {
     EDITOR = "nvim";
