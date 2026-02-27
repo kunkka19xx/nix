@@ -48,6 +48,7 @@
     pkgs.lazydocker
     pkgs.tree
     pkgs.gradle
+    pkgs.brave
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
