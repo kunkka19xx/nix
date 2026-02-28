@@ -17,6 +17,7 @@ in
       keybindings = lib.mkOptionDefault {
         "${mod}+Return" = "exec ghostty";
         "${mod}+Shift+f" = "exec firefox";
+        "${mod}+Shift+BackSpace" = "exec brave";
         "${mod}+Shift+d" = "exec zathura";
         "${mod}+Shift+t" = "exec --no-startup-id bash $HOME/.config/zathura/change-theme.bash";
         "${mod}+Shift+plus" = "exec i3-msg scratchpad show || bash -c 'i3-msg floating enable && i3-msg resize set 1280px 1350px && i3-msg move position center && i3-msg move scratchpad'";
@@ -41,6 +42,7 @@ in
         "${mod}+Ctrl+4" = "exec --no-startup-id flameshot screen";
         "${mod}+b" = "workspace b";
         "${mod}+1" = "workspace 1";
+        "${mod}+0" = "workspace 0";
         "${mod}+Shift+b" = "move container to workspace b";
         "${mod}+Shift+1" = "move container to workspace 1";
         "${mod}+Shift+n" = "exec --no-startup-id feh --no-fehbg --randomize --bg-scale ~/nix/modules/bg/";
@@ -55,6 +57,7 @@ in
       default_border pixel 1
       for_window [class="ghostty, firefox, alacritty"] border none
       for_window [class="firefox"] move to workspace b
+      for_window [class="Brave-browser"] move to workspace 0
       font pango:JetBrainsMono Nerd Font 19
       exec --no-startup-id sh -c "sleep 0.5 && ${pkgs.feh}/bin/feh --bg-scale ~/nix/modules/bg/nix-waifu.png"
       exec --no-startup-id ghostty
