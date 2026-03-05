@@ -19,11 +19,10 @@ return {
         "neovim/nvim-lspconfig",
         lazy = false,
         config = function()
-            local lspconfig = require("lspconfig")
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
             -- lua
-            vim.lsp.config['lua_ls'] = {
+            vim.lsp.config["lua_ls"] = {
                 cmd = { "lua-language-server" },
                 capabilities = capabilities,
                 settings = {
@@ -37,91 +36,101 @@ return {
                     },
                 },
             }
-            vim.lsp.enable('lua_ls')
+            vim.lsp.enable("lua_ls")
 
-            vim.lsp.config['ts_ls'] = {
+            vim.lsp.config["ts_ls"] = {
                 capabilities = capabilities,
             }
 
-            vim.lsp.config['eslint'] = {
+            vim.lsp.config["eslint"] = {
                 capabilities = capabilities,
             }
 
-            vim.lsp.config['zls'] = {
+            vim.lsp.config["zls"] = {
                 capabilities = capabilities,
             }
 
-            vim.lsp.config['yamlls'] = {
+            vim.lsp.config["yamlls"] = {
                 capabilities = capabilities,
             }
 
-            vim.lsp.config['tailwindcss'] = {
+            vim.lsp.config["tailwindcss"] = {
                 capabilities = capabilities,
             }
 
-            vim.lsp.config['gopls'] = {
+            vim.lsp.config["gopls"] = {
                 capabilities = capabilities,
             }
 
             -- nix
-            vim.lsp.config['rnix'] = {
+            vim.lsp.config["nil_ls"] = {
                 capabilities = capabilities,
             }
 
             -- protocol buffer
-            vim.lsp.config['buf_ls'] = {
+            vim.lsp.config["buf_ls"] = {
                 capabilities = capabilities,
             }
 
             -- docker compose
-            vim.lsp.config['docker_compose_language_service'] = {
+            vim.lsp.config["docker_compose_language_service"] = {
                 capabilities = capabilities,
             }
 
             -- cobol
-            vim.lsp.config['cobol_ls'] = {
+            vim.lsp.config["cobol_ls"] = {
                 capabilities = capabilities,
             }
 
             -- svelte
-            vim.lsp.config['svelte'] = {
+            vim.lsp.config["svelte"] = {
                 capabilities = capabilities,
             }
             -- python
-            vim.lsp.config['pyright'] = {
+            vim.lsp.config["pyright"] = {
                 capabilities = capabilities,
             }
 
             -- bash
-            vim.lsp.config['bashls'] = {
+            vim.lsp.config["bashls"] = {
                 capabilities = capabilities,
             }
 
-            -- protocol buffer (kích hoạt riêng theo filetype)
-            vim.lsp.config['buf_language_server'] = {
+            -- protocol buffer
+            vim.lsp.config["buf_language_server"] = {
+                capabilities = capabilities,
+            }
+
+            vim.lsp.config["asm_lsp"] = {
+                capabilities = capabilities,
+            }
+
+            vim.lsp.config["rust_analyzer"] = {
                 capabilities = capabilities,
             }
 
             vim.api.nvim_create_autocmd("FileType", {
                 pattern = "proto",
                 callback = function()
-                    vim.lsp.enable('buf_language_server')
+                    vim.lsp.enable("buf_language_server")
                 end,
             })
             vim.lsp.enable({
-                'ts_ls',
-                'eslint',
-                'zls',
-                'yamlls',
-                'tailwindcss',
-                'gopls',
-                'rnix',
-                'buf_ls',
-                'docker_compose_language_service',
-                'cobol_ls',
-                'svelte',
-                'pyright',
-                'bashls'
+                "ts_ls",
+                "eslint",
+                "zls",
+                "yamlls",
+                "tailwindcss",
+                "gopls",
+                "nil_ls",
+                "buf_ls",
+                "docker_compose_language_service",
+                "cobol_ls",
+                "svelte",
+                "pyright",
+                "bashls",
+                "rust_analyzer",
+                "asm_lsp",
             })
             -- lsp kepmap setting
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
