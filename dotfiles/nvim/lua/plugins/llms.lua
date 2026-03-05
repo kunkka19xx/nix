@@ -17,8 +17,6 @@ return {
                     diff = {
                         enabled = true,
                         layout = "vertical",
-                        provider = "mini_diff",
-                        opts = { "internal", "filler" },
                     },
                 },
 
@@ -76,18 +74,6 @@ return {
                     cterm = 244,
                 },
                 disable_inline_completion = false,
-            })
-        end,
-    },
-    {
-        "echasnovski/mini.diff",
-        version = "*",
-        config = function()
-            require("mini.diff").setup({
-                view = {
-                    style = "sign",
-                    signs = { add = "", change = "", delete = "" },
-                },
             })
         end,
     },
