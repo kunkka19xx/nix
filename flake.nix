@@ -26,20 +26,22 @@
       url = "github:homebrew/homebrew-bundle";
       flake = false;
     };
+    opencode.url = "github:anomalyco/opencode";
   };
 
   outputs =
-    { self
-    , nix-darwin
-    , nixpkgs
-    , mac-app-util
-    , home-manager
-    , nixos-hardware
-    , nix-homebrew
-    , homebrew-cask
-    , homebrew-core
-    , homebrew-bundle
-    , ...
+    {
+      self,
+      nix-darwin,
+      nixpkgs,
+      mac-app-util,
+      home-manager,
+      nixos-hardware,
+      nix-homebrew,
+      homebrew-cask,
+      homebrew-core,
+      homebrew-bundle,
+      ...
     }@inputs:
     let
       mkNixosConfig =
@@ -86,7 +88,7 @@
       nixosConfigurations = {
         surface = mkNixosConfig "x86_64-linux" [
           ./nixos/surface-pro-7/configuration.nix
-          # if there is alternative to it to use touchscreen, replace 
+          # if there is alternative to it to use touchscreen, replace
           # because installing kernel takes time
           # nixos-hardware.nixosModules.microsoft-surface-common
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
@@ -122,30 +124,27 @@
             ./users/surface/surface.nix
           ];
         };
-        "kunkka-vm" = home-manager.lib.homeManagerConfiguration
-          {
-            pkgs = nixpkgs.legacyPackages.aarch64-linux;
-            extraSpecialArgs = { inherit inputs; };
-            modules = [
-              ./users/kunkka-vm/kunkka-vm.nix
-            ];
-          };
-        "work-vm" = home-manager.lib.homeManagerConfiguration
-          {
-            pkgs = nixpkgs.legacyPackages.aarch64-linux;
-            extraSpecialArgs = { inherit inputs; };
-            modules = [
-              ./users/kunkka-vm/work-vm.nix
-            ];
-          };
-        "desk" = home-manager.lib.homeManagerConfiguration
-          {
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            extraSpecialArgs = { inherit inputs; };
-            modules = [
-              ./users/desk/kunkka.nix
-            ];
-          };
+        "kunkka-vm" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-linux;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./users/kunkka-vm/kunkka-vm.nix
+          ];
+        };
+        "work-vm" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-linux;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./users/kunkka-vm/work-vm.nix
+          ];
+        };
+        "desk" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./users/desk/kunkka.nix
+          ];
+        };
       };
     };
 }

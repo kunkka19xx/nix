@@ -10,6 +10,7 @@
     ./../../modules/home-manager/qute.nix
     ./../../modules/home-manager/obs.nix
     ./langs.nix
+    ./../../modules/home-manager/opencode.nix
   ];
   home.username = "kunkka";
   home.homeDirectory = "/home/kunkka";
