@@ -129,8 +129,8 @@ return {
                 "svelte",
                 "pyright",
                 "bashls",
-                "rust_analyzer",
                 "asm_lsp",
+                "rust_analyzer",
             })
             -- lsp kepmap setting
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
