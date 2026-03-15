@@ -104,6 +104,7 @@
       "networkmanager"
       "wheel"
       "video"
+      "docker"
     ];
     packages = with pkgs; [
       #  thunderbird

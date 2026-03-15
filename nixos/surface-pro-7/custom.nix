@@ -1,8 +1,9 @@
-{ config
-, pkgs
-, inputs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
 }:
 {
   imports = [
@@ -16,11 +17,14 @@
     pkgs.vim
     pkgs.alsa-tools
     pkgs.home-manager
+    pkgs.docker-compose
+    pkgs.lazydocker
   ];
 
   # Shell Envs
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
+  virtualisation.docker.enable = true;
 
   nixpkgs.config.allowUnfreePredicate = (_: true);
   boot.loader.systemd-boot.configurationLimit = 5;
