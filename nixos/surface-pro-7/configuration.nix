@@ -1,18 +1,23 @@
-{ inputs, config, pkgs, lib, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./custom.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./custom.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   services.iptsd.enable = lib.mkDefault true;
-   
+
   networking.hostName = "nixos"; # Define your hostname.
   hardware.microsoft-surface.kernelVersion = "stable";
   # Enable networking
@@ -59,7 +64,9 @@
   services.xserver = {
     xkb.layout = "us,vn";
     # xkbOptions = "ctrl:nocaps";
-    xkb = { variant = ""; };
+    xkb = {
+      variant = "";
+    };
   };
   # Vietnamese input
   i18n.inputMethod = {
@@ -70,7 +77,6 @@
       fcitx5-unikey
     ];
   };
-
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -94,9 +100,13 @@
   users.users.kunkka07xx = {
     isNormalUser = true;
     description = "kunkka07xx";
-    extraGroups = [ "networkmanager" "wheel" "video"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+    ];
     packages = with pkgs; [
-      #  thunderbird 
+      #  thunderbird
     ];
   };
 
@@ -105,19 +115,19 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs;
-    [
-      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      wget
-      git
-      gh
-      gcc
-      home-manager
-      pipewire
-      pulseaudio
-      brightnessctl
-      surface-control
-    ];
+  environment.systemPackages = with pkgs; [
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    git
+    gh
+    gcc
+    home-manager
+    pipewire
+    pulseaudio
+    brightnessctl
+    surface-control
+    tree
+  ];
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   system.stateVersion = "25.05";
