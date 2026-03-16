@@ -40,6 +40,7 @@ in
       pkgs.lua51Packages.lua
       pkgs.lua51Packages.luarocks
       pkgs.asm-lsp
+      pkgs.websocat
     ];
     home.file = {
       ".config/nvim" = {
