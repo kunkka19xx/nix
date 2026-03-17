@@ -13,6 +13,7 @@
     ./../../modules/home-manager/wezterm.nix
     ./../../modules/home-manager/qute.nix
     ./../../modules/home-manager/firefox.nix
+    ./../../modules/home-manager/opencode.nix
     ./langs.nix
     ./go.nix
     # ./im-select.nix
