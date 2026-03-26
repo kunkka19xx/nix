@@ -24,7 +24,7 @@
     pkgs.tlrc
     pkgs.gnumake
     pkgs.mangohud # games
-    pkgs.protonup # games
+    pkgs.protonup-ng
     pkgs.discord-ptb
     pkgs.droidcam # android phone wbcam client
     pkgs.android-tools
@@ -101,7 +101,6 @@
 
   #obs vtcam
   programs.obs-studio.enableVirtualCamera = true;
-  programs.adb.enable = true;
   environment.variables = {
     RUSTICL_ENABLE = "radeonsi";
   };

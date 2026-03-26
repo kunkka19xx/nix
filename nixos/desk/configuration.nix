@@ -1,5 +1,11 @@
 { config, pkgs, ... }:
-
+let
+  unstable = import <nixos-unstable> {
+    config = {
+      allowUnfree = true;
+    };
+  };
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -43,7 +49,7 @@
     enable = true;
     fcitx5.addons = with pkgs; [
       fcitx5-gtk # alternatively, kdePackages.fcitx5-qt
-      fcitx5-unikey
+      qt6Packages.fcitx5-unikey
     ];
   };
   # Configure keymap in X11
@@ -138,7 +144,27 @@
     jack.enable = true;
   };
 
+  services.ollama = {
+    enable = true;
+    # Remove the 'acceleration' line entirely
+    # Use the rocm-enabled package directly
+    package = pkgs.ollama-rocm;
+  };
+
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true; # simple bluetooth gui
+  # Automatic System Upgrades
+  system.autoUpgrade = {
+    enable = true;
+    flake = "/home/kunkka/nix#desk"; # Path to your flake and the output name
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--commit-lock-file" # Automatically commits the flake.lock change to your git repo
+    ];
+    dates = "weekly"; # Can be "daily", "04:00", etc.
+    randomizedDelaySec = "45min";
+  };
+
 }
