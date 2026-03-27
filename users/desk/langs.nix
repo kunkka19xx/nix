@@ -19,8 +19,7 @@ in
     hurl
     pre-commit
     flutter329
-    nodePackages."node2nix"
-    jdk23
+    jdk25
     gradle_9
   ];
 
@@ -36,7 +35,7 @@ in
     CARGO_HOME = "~/.cargo";
 
     # Java
-    JAVA_HOME = "${pkgs.jdk23}";
-    PATH = "${pkgs.jdk23}/bin:$PATH";
+    JAVA_HOME = "${pkgs.jdk25}";
+    PATH = "${pkgs.jdk25}/bin:$PATH";
   };
 }

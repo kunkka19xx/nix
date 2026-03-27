@@ -1,11 +1,8 @@
-{ config, pkgs, ... }:
-let
-  unstable = import <nixos-unstable> {
-    config = {
-      allowUnfree = true;
-    };
-  };
-in
+{
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     # Include the results of the hardware scan.
@@ -43,21 +40,55 @@ in
     LC_TELEPHONE = "ja_JP.UTF-8";
     LC_TIME = "ja_JP.UTF-8";
   };
-  # Vietnamese input
   i18n.inputMethod = {
-    type = "fcitx5";
     enable = true;
-    fcitx5.addons = with pkgs; [
-      fcitx5-gtk # alternatively, kdePackages.fcitx5-qt
-      qt6Packages.fcitx5-unikey
+    type = "fcitx5";
+    fcitx5 = {
+      # Use the engine from qt6Packages
+      addons = with pkgs; [
+        fcitx5-gtk # Specifically keep this for Brave/Firefox
+        qt6Packages.fcitx5-unikey
+      ];
+      waylandFrontend = false;
+    };
+  };
+
+  # 2. Force the environment variables globally
+  environment.sessionVariables = {
+    GTK_IM_MODULE = lib.mkForce "fcitx";
+    QT_IM_MODULE = lib.mkForce "fcitx";
+    XMODIFIERS = "@im=fcitx";
+    NIXOS_OZONE_WL = "0";
+    # Force browsers to use X11
+    MOZ_ENABLE_WAYLAND = "0";
+    ELECTRON_OZONE_PLATFORM_HINT = "x11";
+  };
+  # Add this if you use Brave or Google Chrome
+  programs.chromium.extraOpts = {
+    enable = true;
+    extraArgs = [
+      "--gtk-version=4"
+      "--disable-features=WaylandFractionalScaleV1"
+      "--enable-features=UseOzonePlatform"
+      "--ozone-platform=x11"
     ];
   };
-  # Configure keymap in X11
+
+  # 3. Clean up the Graphics warnings (from your earlier log)
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      libva-vdpau-driver # This is the new name for vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
+
   services.xserver.xkb = {
     layout = "us";
     variant = "";
+    options = "ctrl:nocaps";
   };
-  services.xserver.xkbOptions = "ctrl:nocaps";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kunkka = {
@@ -70,7 +101,6 @@ in
       "docker"
       "adbusers"
     ];
-    packages = with pkgs; [ ];
   };
 
   # Allow unfree packages
@@ -115,12 +145,12 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "26.05"; # Did you read the comment?
 
   services.xserver.enable = true;
   services.xserver.windowManager.i3.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.displayManager.defaultSession = "none+i3";
+  services.displayManager.defaultSession = "none+i3";
 
   # transparent i3
   # services.picom = {
@@ -134,7 +164,7 @@ in
 
   security.polkit.enable = true;
 
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   services.pipewire = {
     enable = true;
@@ -166,5 +196,4 @@ in
     dates = "weekly"; # Can be "daily", "04:00", etc.
     randomizedDelaySec = "45min";
   };
-
 }

@@ -71,11 +71,12 @@
   nix.gc.options = "--delete-older-than 7d";
 
   # games
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [
       rocmPackages.clr.icd # davinci-resolve
+      mesa.opencl # Enables Rusticl (OpenCL) support
     ];
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
@@ -105,10 +106,5 @@
     RUSTICL_ENABLE = "radeonsi";
   };
   # davinci-resolve
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      mesa.opencl # Enables Rusticl (OpenCL) support
-    ];
-  };
+  # (merged with above hardware.graphics)
 }

@@ -14,12 +14,14 @@
   ];
   home.username = "kunkka";
   home.homeDirectory = "/home/kunkka";
-  home.stateVersion = "25.05";
+  home.stateVersion = "26.05";
 
   within.neovim.enable = true;
   within.ghostty.enable = true;
   within.zsh.enable = true;
   nixpkgs.config.allowUnfree = true;
+
+  gtk.gtk4.theme = null;
 
   home.packages = [
     pkgs.dmenu

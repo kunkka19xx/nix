@@ -20,7 +20,7 @@ in
     # Zig
     zig_0_15
     # Java
-    jdk23 # Java JDK
+    jdk25 # Java JDK
     # gcloud sdk
     (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
     # maven

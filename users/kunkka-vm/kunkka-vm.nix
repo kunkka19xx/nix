@@ -12,7 +12,7 @@
   ];
   home.username = "kunkka-vm";
   home.homeDirectory = "/home/kunkka-vm";
-  home.stateVersion = "25.05";
+  home.stateVersion = "26.05";
 
   within.neovim.enable = true;
   within.ghostty.enable = true;

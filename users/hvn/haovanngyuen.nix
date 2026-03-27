@@ -21,7 +21,7 @@
   ];
   home.username = "haovanngyuen";
   home.homeDirectory = "/Users/haovanngyuen";
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.05";
   nixpkgs.config.allowUnfree = true;
 
   # Custom Modules that I'm enabling

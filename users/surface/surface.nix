@@ -15,7 +15,7 @@
 
   home.username = "kunkka07xx";
   home.homeDirectory = "/home/kunkka07xx";
-  home.stateVersion = "24.05";
+  home.stateVersion = "26.05";
   nixpkgs.config.allowUnfree = true;
 
   within.neovim.enable = true;

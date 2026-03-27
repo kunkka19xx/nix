@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  isDarwinAarch64 = pkgs.system == "aarch64-darwin";
+  isDarwinAarch64 = pkgs.stdenv.hostPlatform.system == "aarch64-darwin";
 in
 {
   dconf.enable = false;

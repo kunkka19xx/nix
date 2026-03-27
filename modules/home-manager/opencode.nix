@@ -2,8 +2,8 @@
 
 {
   home.packages = [
-    # Access the flake through the inputs attribute
-    inputs.opencode.packages.${pkgs.system}.default
+    # Use nixpkgs version instead of flake (flake version has build issues)
+    pkgs.opencode
   ];
 
   # Manually manage the config file since we aren't using a built-in module
