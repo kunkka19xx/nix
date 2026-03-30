@@ -38,6 +38,48 @@ return {
             }
             vim.lsp.enable("lua_ls")
 
+            -- apple development
+            local default_inlay_hint_handler = vim.lsp.handlers["textDocument/inlayHint"]
+
+            vim.lsp.handlers["textDocument/inlayHint"] = function(err, result, ctx, config)
+                if err then
+                    local msg = err.message or ""
+                    if string.match(msg, "inlay hints failed") or err.code == -32802 or err.code == -32001 then
+                        return
+                    end
+                end
+
+                if default_inlay_hint_handler then
+                    return default_inlay_hint_handler(err, result, ctx, config)
+                end
+            end
+
+            local is_mac = vim.fn.has("mac") == 1
+            if is_mac then
+                vim.lsp.config["swift_mesonls"] = { -- sourcekit doesn't work, so it's a fake name
+                    capabilities = capabilities,
+                    root_dir = require("lspconfig.util").root_pattern(
+                        "Package.swift",
+                        "Project.swift",
+                        ".git",
+                        "*.xcodeproj",
+                        "*.xcworkspace"
+                    ),
+                    cmd = { "xcrun", "--find", "sourcekit-lsp" },
+                    on_attach = function(client, bufnr)
+                        if vim.lsp.inlay_hint then
+                            vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+                        end
+                        client.server_capabilities.inlayHintProvider = false
+                    end,
+                }
+            end
+            -- apple development
+
+            vim.lsp.config["rust_analyzer"] = {
+                capabilities = capabilities,
+            }
+
             vim.lsp.config["ts_ls"] = {
                 capabilities = capabilities,
             }
@@ -115,6 +157,7 @@ return {
                     vim.lsp.enable("buf_language_server")
                 end,
             })
+
             vim.lsp.enable({
                 "ts_ls",
                 "eslint",
@@ -131,6 +174,7 @@ return {
                 "bashls",
                 "asm_lsp",
                 "rust_analyzer",
+                "sourcekit",
             })
             -- lsp kepmap setting
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
