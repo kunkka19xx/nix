@@ -50,6 +50,7 @@
     pkgs.tree
     pkgs.gradle
     pkgs.brave
+    pkgs.tree-sitter
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

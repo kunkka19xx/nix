@@ -29,6 +29,9 @@
     ];
     brews = [
       # "staticcheck"
+      "xcp"
+      "xcode-build-server"
+      "xcbeautify"
     ];
     onActivation = {
       autoUpdate = true;

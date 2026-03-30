@@ -38,6 +38,32 @@ return {
             }
             vim.lsp.enable("lua_ls")
 
+            local is_mac = vim.fn.has("mac") == 1
+            if is_mac then
+                local sourcekit_capabilities = vim.deepcopy(capabilities)
+
+                if sourcekit_capabilities.textDocument then
+                    sourcekit_capabilities.textDocument.inlayHint = nil
+                end
+
+                vim.lsp.config["rust_analyzer"] = {
+                    capabilities = capabilities,
+                    root_dir = require("lspconfig.util").root_pattern(
+                        "Package.swift",
+                        ".git",
+                        "*.xcodeproj",
+                        "*.xcworkspace"
+                    ),
+                    cmd = { "xcrun", "sourcekit-lsp" },
+                    on_attach = function(client, bufnr)
+                        if vim.lsp.inlay_hint then
+                            vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+                        end
+                        client.server_capabilities.inlayHintProvider = false
+                    end,
+                }
+            end
+
             vim.lsp.config["rust_analyzer"] = {
                 capabilities = capabilities,
             }
@@ -131,6 +157,7 @@ return {
                 "bashls",
                 "asm_lsp",
                 "rust_analyzer",
+                "sourcekit",
             })
             -- lsp kepmap setting
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
