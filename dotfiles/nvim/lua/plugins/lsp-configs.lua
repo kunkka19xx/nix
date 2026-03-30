@@ -38,14 +38,24 @@ return {
             }
             vim.lsp.enable("lua_ls")
 
-            local is_mac = vim.fn.has("mac") == 1
-            if is_mac then
-                local sourcekit_capabilities = vim.deepcopy(capabilities)
+            -- apple development
+            local default_inlay_hint_handler = vim.lsp.handlers["textDocument/inlayHint"]
 
-                if sourcekit_capabilities.textDocument then
-                    sourcekit_capabilities.textDocument.inlayHint = nil
+            vim.lsp.handlers["textDocument/inlayHint"] = function(err, result, ctx, config)
+                if err then
+                    local msg = err.message or ""
+                    if string.match(msg, "inlay hints failed") or err.code == -32802 or err.code == -32001 then
+                        return
+                    end
                 end
 
+                if default_inlay_hint_handler then
+                    return default_inlay_hint_handler(err, result, ctx, config)
+                end
+            end
+
+            local is_mac = vim.fn.has("mac") == 1
+            if is_mac then
                 vim.lsp.config["rust_analyzer"] = {
                     capabilities = capabilities,
                     root_dir = require("lspconfig.util").root_pattern(
@@ -63,6 +73,7 @@ return {
                     end,
                 }
             end
+            -- apple development
 
             vim.lsp.config["rust_analyzer"] = {
                 capabilities = capabilities,
