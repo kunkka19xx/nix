@@ -17,8 +17,6 @@
     pkgs.vim
     pkgs.alsa-tools
     pkgs.home-manager
-    pkgs.docker-compose
-    pkgs.lazydocker
   ];
 
   # Shell Envs

@@ -106,9 +106,6 @@
       "video"
       "docker"
     ];
-    packages = with pkgs; [
-      #  thunderbird
-    ];
   };
 
   # Allow unfree packages
@@ -128,6 +125,8 @@
     brightnessctl
     surface-control
     tree
+    docker-compose
+    lazydocker
   ];
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
