@@ -32,10 +32,11 @@
     pkgs.alacritty
     pkgs.ghostty
     pkgs.rcm
-    pkgs.cargo
     pkgs.qutebrowser
     pkgs.brave
     pkgs.jq
+    pkgs.claude-code
+    pkgs.xfce.thunar
   ];
 
   home.file = {

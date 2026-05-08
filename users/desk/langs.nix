@@ -21,6 +21,7 @@ in
     flutter329
     jdk25
     gradle_9
+    rustup
   ];
 
   home.sessionVariables = {
@@ -30,9 +31,6 @@ in
     # Node.js
     # NODE_PATH = "~/.npm-global/lib/node_modules";
     NODE_PATH = "$NODE_PATH:$ (npm root - g)";
-
-    # Rust
-    CARGO_HOME = "~/.cargo";
 
     # Java
     JAVA_HOME = "${pkgs.jdk25}";

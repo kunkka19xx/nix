@@ -100,6 +100,7 @@
       "audio"
       "docker"
       "adbusers"
+      "libvirtd" # vm
     ];
   };
 
@@ -196,4 +197,18 @@
     dates = "weekly"; # Can be "daily", "04:00", etc.
     randomizedDelaySec = "45min";
   };
+
+  # VM windows
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      swtpm.enable = true;
+    };
+  };
+
+  programs.virt-manager.enable = true;
+
+  systemd.tmpfiles.rules = [
+    "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware"
+  ];
 }

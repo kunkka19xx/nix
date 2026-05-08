@@ -59,6 +59,7 @@ in
       for_window [class="firefox"] move to workspace b
       for_window [class="Brave"] move to workspace 0
       for_window [title="kew-player"] move to workspace 9
+      for_window [title="Look"] floating enable, border none
       font pango:JetBrainsMono Nerd Font 19
       exec --no-startup-id sh -c "sleep 0.5 && ${pkgs.feh}/bin/feh --bg-scale ~/nix/modules/bg/nix-waifu.png"
       exec --no-startup-id ghostty
