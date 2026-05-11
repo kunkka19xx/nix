@@ -1,6 +1,11 @@
 {
   description = "Kunkka nix-darwin system flake";
 
+  nixConfig = {
+    extra-substituters = [ "https://look.cachix.org" ];
+    extra-trusted-public-keys = [ "look.cachix.org-1:8elPCeSVBzlDZXqIRKBK9GyLIK/Hoe1xiWZF0ir7uX4=" ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin/master";
@@ -27,6 +32,7 @@
       flake = false;
     };
     opencode.url = "github:anomalyco/opencode";
+    look.url = "github:kunkka19xx/look?dir=apps/linows";
   };
 
   outputs =

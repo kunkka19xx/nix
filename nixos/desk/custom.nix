@@ -38,6 +38,7 @@
     pkgs.screenkey
     pkgs.kew
     pkgs.xclip # clipboard
+    inputs.look.packages.${pkgs.system}.default
     pkgs.gromit-mpx # drawer
     pkgs.unzip
     pkgs.usbmuxd
