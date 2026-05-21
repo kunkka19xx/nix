@@ -16,7 +16,7 @@ in
     go-tools # gogrep gosmith irdump staticcheck
     # Rust
     # rustup # Rust version manager
-    cargo # Rust package manager
+    rustup
     # Zig
     zig_0_15
     # Java
@@ -45,10 +45,11 @@ in
     #        npm set prefix ~/.npm-global
 
     # Rust
-    CARGO_HOME = "~/.cargo";
+    # CARGO_HOME = "~/.cargo";
   };
 
-  /* home.activation = {
+  /*
+    home.activation = {
     initRust = lib.mkAfter ''
     if ! command -v rustup &> /dev/null; then
     echo "Installing Rust via rustup..."
@@ -57,6 +58,7 @@ in
     echo "Rust is already installed"
     fi
     '';
-    }; */
+    };
+  */
 
 }
