@@ -20,6 +20,13 @@
 
   networking.hostName = "nixos"; # Define your hostname.
   hardware.microsoft-surface.kernelVersion = "stable";
+  boot.kernelPatches = [{
+    name = "disable-rust";
+    patch = null;
+    structuredExtraConfig = {
+      RUST = lib.mkForce lib.kernel.no;
+    };
+  }];
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -51,10 +58,10 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
-  services.xserver.displayManager.sessionPackages = [
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  # services.xserver.displayManager.gdm.wayland = true;
+  services.displayManager.sessionPackages = [
     pkgs.sway
   ];
   # services.xserver.windowManager.i3.enable = true;
@@ -70,16 +77,19 @@
   };
   # Vietnamese input
   i18n.inputMethod = {
-    type = "fcitx5";
     enable = true;
-    fcitx5.addons = with pkgs; [
-      fcitx5-gtk # alternatively, kdePackages.fcitx5-qt
-      fcitx5-unikey
-    ];
+    type = "fcitx5";
+    fcitx5 = {
+      # Use the engine from qt6Packages
+      addons = with pkgs; [
+        fcitx5-gtk # Specifically keep this for Brave/Firefox
+        qt6Packages.fcitx5-unikey
+      ];
+    };
   };
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   # sway home manager needs
   security.polkit.enable = true;
@@ -127,6 +137,7 @@
     tree
     docker-compose
     lazydocker
+    inputs.look.packages.${pkgs.system}.default
   ];
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

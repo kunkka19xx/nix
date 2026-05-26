@@ -29,6 +29,7 @@
     # pkgs.nerd-fonts.maple-mono
     pkgs.rcm
     pkgs.alacritty
+    pkgs.claude-code
   ];
 
   home.file = {
