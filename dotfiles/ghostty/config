@@ -10,6 +10,6 @@ cursor-opacity = 0.65
 adjust-cursor-thickness = 2
 window-decoration = false
 gtk-titlebar = false
-background-image = ~/nix/modules/bg/nix-waifu.png
+# background-image = ~/nix/modules/bg/nix-waifu.png
 background-image-fit = cover
 background-image-opacity = 0.02

@@ -159,9 +159,13 @@
   system.stateVersion = "26.05"; # Did you read the comment?
 
   services.xserver.enable = true;
-  services.xserver.windowManager.i3.enable = true;
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
   services.desktopManager.gnome.enable = true;
   services.displayManager.gdm.enable = true;
+  services.displayManager.defaultSession = "sway";
 
   # transparent i3
   # services.picom = {
@@ -217,8 +221,4 @@
   };
 
   programs.virt-manager.enable = true;
-
-  systemd.tmpfiles.rules = [
-    "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware"
-  ];
 }

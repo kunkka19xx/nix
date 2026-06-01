@@ -5,7 +5,7 @@
     ./../../modules/home-manager/default.nix
     ./../../modules/home-manager/alacritty.nix
     ./../../modules/home-manager/firefox.nix
-    ./../../modules/home-manager/i3.nix
+    ./../../modules/home-manager/sway_desk.nix
     ./../../modules/home-manager/zathura.nix
     ./../../modules/home-manager/qute.nix
     ./../../modules/home-manager/obs.nix
@@ -27,6 +27,9 @@
   home.packages = [
     pkgs.dmenu
     pkgs.feh
+    pkgs.grim
+    pkgs.slurp
+    pkgs.wl-clipboard
     pkgs.vim
     pkgs.git
     pkgs.nerd-fonts.inconsolata
