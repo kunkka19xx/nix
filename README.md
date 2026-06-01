@@ -1,326 +1,333 @@
-## Install nix
+# Nix Configuration
 
-```shell
+Multi-platform nix configuration managing macOS (nix-darwin), NixOS bare-metal machines, NixOS VMs, and home-manager profiles.
+
+## Project Structure
+
+```
+.
+├── flake.nix                  # Entry point - defines all systems and profiles
+├── overlays/                  # Package overrides (e.g. pinned neovim version)
+├── modules/home-manager/      # Reusable home-manager modules (neovim, zsh, tmux, etc.)
+├── nixos/                     # NixOS system configurations
+│   ├── desk/                  # Desktop PC (AMD GPU, i3 + GNOME, Wayland)
+│   ├── surface-pro-7/         # Microsoft Surface Pro 7
+│   ├── minimal-vm/            # Minimal dev VM (aarch64)
+│   └── work-vm/               # Work VM (aarch64)
+├── users/                     # Home-manager user profiles
+│   ├── hvn/                   # macOS user profile
+│   ├── desk/                  # Desktop user profile
+│   ├── surface/               # Surface user profile
+│   └── kunkka-vm/             # VM user profiles
+├── dotfiles/                  # App configs (nvim, tmux, ghostty, alacritty, etc.)
+└── shells/                    # Nix dev shells
+```
+
+## Install Nix
+
+```sh
 curl -L https://nixos.org/nix/install | sh
 ```
 
-- Check version
+Check the installation:
 
-```shell
+```sh
 nix --version
 ```
 
-#### Potential issue:
+Enable flakes by adding to `~/.config/nix/nix.conf`:
 
-Nix path is not added into .zshrc properly
+```
+experimental-features = nix-command flakes
+```
 
--> remove
+**Note:** exit and re-open your terminal after installing nix.
 
-```shell
+### Potential Issue (macOS)
+
+If the nix path is not added to `.zshrc` properly, remove the broken install:
+
+```sh
 sudo rm -rf /nix
 sudo rm -f /etc/zshrc.backup-before-nix
 ```
 
-then reinstall with zsh as main profile
+Then reinstall with the no-modify-profile flag:
 
-```shell
+```sh
 curl -L https://nixos.org/nix/install | sh -s -- --no-modify-profile
 ```
 
-_note:_ we need to exit the current shell session, open again to use nix
-
-## Nix-darwin module (Macos)
-
-nix-darwin is an opionated set of modules for managing configuration of macOS. It provides a centralized nix file for declaring system state.
-[refer](https://dev.jmgilman.com/environment/tools/nix/nix-darwin/)
-
-### Create nix dir (your way)
-
-```shell
-mkdir ~/nix
-```
-
-```shell
-cd ~/nix
-mkdir ~/nix
-```
-
-_note:_ I go for the 1st criteria, after confirming that nix works in a stable state -> I will migrate it to my dotfiles
-
 ## Flake
 
-Technically, a flake is a file system tree that contains a file named flake.nix in its root directory.
-[refer](https://nix.dev/concepts/flakes.html)
+A flake is a nix project with a `flake.nix` file at its root. It defines inputs (dependencies) and outputs (systems, packages, profiles). Flakes provide reproducibility — everyone gets the same result from the same `flake.lock`.
 
-- There are 2 approaches: Channels, Flake
-  (I prefer Flake)
+[Flake documentation](https://nix.dev/concepts/flakes.html) | [NixOS Wiki](https://wiki.nixos.org/wiki/Flakes)
 
-```shell
-nix flake init -t nix-darwin
-```
+### Initialize (if starting fresh)
 
-- I use experimental feature flag
-
-```shell
+```sh
+mkdir ~/nix && cd ~/nix
 nix flake init -t nix-darwin --extra-experimental-features "nix-command flakes"
 ```
 
-- after this command, a file flake.nix will be added.
-- open and add your setting :)
+This creates a `flake.nix` — open and customize it.
 
-### Config
+## macOS Setup (nix-darwin)
 
-[wiki](https://wiki.nixos.org/wiki/Flakes)
+nix-darwin provides declarative system configuration for macOS, similar to NixOS.
+[Reference](https://dev.jmgilman.com/environment/tools/nix/nix-darwin/)
 
-- change darwinConfigurations (for macos)
-  ex:
+### First-time Install
 
-```nix
-{
-    # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#simple
-    darwinConfigurations."your-config" = nix-darwin.lib.darwinSystem {
-      modules = [ configuration ];
-    };
+If `/etc/bashrc` or `/etc/zshrc` already exist, back them up first:
 
-    # Expose the package set, including overlays, for convenience
-    darwinPackages = self.darwinConfigurations."your-config".pkgs;
-};
+```sh
+sudo mv /etc/bashrc /etc/bashrc.bak
+sudo mv /etc/zshrc /etc/zshrc.bak
 ```
 
-- Install nix-darwin
+Then install nix-darwin:
 
-```shell
-nix run nix-darwin --extra-experimental-features "nix-command flakes" -- switch --flake ~/nix#your-config
-
+```sh
+nix run nix-darwin --extra-experimental-features "nix-command flakes" -- switch --flake ~/nix#com-mac
 ```
 
-- If there are existing content in zshrc & bashrc, we can backup them first
+Confirm it works:
 
-```shell
-➜  nix sudo mv /etc/bashrc /etc/bashrc.bak
-➜  nix sudo mv /etc/zshrc /etc/zshrc.bak
-➜  nix nix run nix-darwin --extra-experimental-features "nix-command flakes" -- switch --flake ~/nix#your-config
-```
-
-- Confirm
-
-```
+```sh
 which darwin-rebuild
-/run/current-system/sw/bin/darwin-rebuild #should be like that
+# should output: /run/current-system/sw/bin/darwin-rebuild
 ```
 
-### Add packages
+### Rebuild After Changes
 
-#### How to
-
-- Add package to this array. Example with neovim
-
-```nix
-environment.systemPackages = #systemPackages
-    [ pkgs.neovim
-    ];
+```sh
+darwin-rebuild switch --flake ~/nix#com-mac
 ```
 
-- Then run it to rebuild
+## NixOS Setup
 
-```shell
-darwin-rebuild switch --flake ~/nix#your-config
+### Rebuild
+
+```sh
+sudo nixos-rebuild switch --flake ~/nix#desk
+# other configs: #surface, #vm, #work-vm
 ```
 
-_Note:_ might need to remove apps from homebrew/ your current pkg manager to use the one from nix
+## Home Manager
 
-```shell
-brew uninstall neovim
+Home manager handles user-level configuration — packages, dotfiles, shell config, and application settings. It keeps tool configs in their original format (lua for neovim, toml for ghostty, etc.) while still being managed by nix.
+
+[Home Manager docs](https://nix-community.github.io/home-manager/)
+
+**Important:** home-manager must be installed first before you can use it. Declaring it in the flake is not enough.
+
+### Apply a Profile
+
+```sh
+home-manager switch --flake ~/nix#desk
+# other profiles: #com-mac, #surface, #kunkka-vm, #work-vm
 ```
 
-- Rebuild again then check
-
-```shell
-which nvim
-/run/current-system/sw/bin/nvim  #should be like this
-```
-
-### List packages:
-
-- example with tmux
-
-```shell
-nix search nixpkgs tmux
-```
-
-- We can use this site as well:
-  [nix pkgs](https://search.nixos.org/packages)
-
-#### UI apps
-
-- Ui app maybe cannot appeared in Spotlight search on macos (symlink)
-  -> Add config in to configuration input, then add alias script for all Applications
-  -> Easier way is using mac-app-util
-  [link](https://github.com/hraban/mac-app-util)
-
-## Home manager
-
-- I think there are some levels of settings : system -> profile -> modules
-- To use profile and modular settings, and keep dotfiles setting in their original setting languages, flavor
-  I use home manager
-- We need to install home-manager to use it!!! (declaration in nix file is not enough!)
-  [home-manager](https://nix-community.github.io/home-manager/)
-
-- apply profile:
-
-```shell
-home-manager switch --flake ~/nix#your-config
-```
-
-- Note: Home manager adds package as follow
+### Adding User Packages
 
 ```nix
 home.packages = [
-    pkgs.vim
-    pkgs.git
-    pkgs.wezterm
-  # more
-  ];
+  pkgs.vim
+  pkgs.git
+  pkgs.ripgrep
+];
 ```
 
-## Build from source.
+### Modules
 
-This is Reproducible ability of nix. In my case, when go 1.24 released. It was not avaialbe in
-nix packages, so I built it from source.
-[refer](/users/hvn/go.nix)
+Reusable modules in `modules/home-manager/` can be toggled per-profile:
 
-- I also did it with some packages like im-select,...
-
-## Sub-tree
-
-Since I use home manager to keep the setting of any tools as their original flavor. I try to use git subtree to link the existing settings in my dotfiles repo to this repo. Using git submodule is easier but I don't want to get every thing. -> git subtree will be the best option.
-
-- Refer this: /[note](./dotfiles/nvim/note.md) 
-
-## Nixos-vm
-
-I want to have a very minimal, identical environment for developement. And this should be re-proceducible (requires only internet)
-###  VM 
-
-- Macos: 
-    - Light but slow: UTM (install via nix darwin or brew) [link](https://mac.getutm.app/) 
-    - Good: VM fusion [link](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion) 
- 
-- Window: Need to research
-
-### Iso
-List [list](https://nixos.org/download/) 
-ARM minimal [link](https://channels.nixos.org/nixos-24.11/latest-nixos-minimal-aarch64-linux.iso.sha256) 
- 
-### Install
-[install guideline](https://nixos.org/manual/nixos/stable/#sec-installation) 
-- Follow partition, format
-- -> nixos-install -> clear iso cd/dvd -> reboot. 
-Use this bash: [bash](./nixos/minimal-vm/part-form.bash). Note: depends on your disk type,
-maybe you need another partition and format criteria.
-- Add user, change password by sudo
-
-```bash
-passwd <user-name>
+```nix
+within.neovim.enable = true;
+within.ghostty.enable = true;
+within.zsh.enable = true;
 ```
 
-### Apply profile
-- Add user sudo permission into configuration.nix file
-- Rebuild -> login as user -> clone nix repo -> remember copy hardware-configuration.nix file to minimal profile
-- Apply minimal-vm profile 
-[minimal-vm](./nixos/minimal-vm/) 
+### Dotfiles
 
-```bash
+App configs live in `dotfiles/` and are symlinked via home-manager:
+
+```nix
+home.file.".config/nvim" = {
+  source = ../../dotfiles/nvim;
+  recursive = true;
+};
+```
+
+## Adding Packages
+
+### System-level Packages
+
+In NixOS `configuration.nix` or nix-darwin `system.nix`:
+
+```nix
+environment.systemPackages = [
+  pkgs.neovim
+  pkgs.wget
+];
+```
+
+Then rebuild:
+
+```sh
+# NixOS
+sudo nixos-rebuild switch --flake ~/nix#desk
+
+# macOS
+darwin-rebuild switch --flake ~/nix#com-mac
+```
+
+**Note:** if you previously installed a package via homebrew or another package manager, uninstall it first:
+
+```sh
+brew uninstall neovim
+```
+
+After rebuild, verify it comes from nix:
+
+```sh
+which nvim
+# should output: /run/current-system/sw/bin/nvim
+```
+
+### Search Packages
+
+```sh
+nix search nixpkgs tmux
+```
+
+Or use the web: https://search.nixos.org/packages
+
+### UI Apps on macOS
+
+Nix-installed GUI apps may not appear in Spotlight. This flake uses [mac-app-util](https://github.com/hraban/mac-app-util) to fix that automatically.
+
+## NixOS VM
+
+A minimal, identical, reproducible dev environment. Only requires internet to set up.
+
+### VM Software
+
+- **macOS:**
+  - Lightweight but slower: [UTM](https://mac.getutm.app/)
+  - Better performance: [VMware Fusion](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion)
+- **Linux:** virt-manager with libvirtd (configured in `desk/configuration.nix`)
+
+### ISO Downloads
+
+- [NixOS download page](https://nixos.org/download/)
+- ARM minimal ISO for VMs: check the latest minimal aarch64-linux ISO from the download page
+
+### Installation
+
+Follow the [official installation guide](https://nixos.org/manual/nixos/stable/#sec-installation):
+
+1. Boot from ISO
+2. Partition and format disk — see [`nixos/minimal-vm/part-form.bash`](./nixos/minimal-vm/part-form.bash) for reference (adjust partition/format based on your disk type)
+3. Run `nixos-install`
+4. Remove the ISO, reboot
+5. Set user password:
+
+```sh
+passwd <username>
+```
+
+### Apply NixOS + Home Manager
+
+After first boot:
+
+1. Add user to sudoers in `configuration.nix`
+2. Rebuild, login as user
+3. Clone this repo
+4. Copy your `hardware-configuration.nix` into the appropriate `nixos/<machine>/` directory
+5. Apply:
+
+```sh
 sudo nixos-rebuild switch --flake ~/nix#vm
-```
-- Install home-manager [link](https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module) 
-
-```bash
 home-manager switch --flake ~/nix#kunkka-vm
 ```
 
-### Git
-Following this since I don't use browser in the vm
+### Git Setup (Headless Machines)
 
-- gen ssh key
-```bash
-ssh-keygen -t ed25519 -C "email@example.com"
+Since there is no browser in the VM, use SSH for git:
+
+```sh
+ssh-keygen -t ed25519 -C "your@email.com"
 cat ~/.ssh/id_ed25519.pub
 ```
 
--> add this to [git-keys](https://github.com/settings/keys) 
+Add the public key to https://github.com/settings/keys
 
-- check connect
-```bash
+Verify connection:
+
+```sh
 ssh -T git@github.com
+# type 'yes' to confirm
 ```
--> yes
-- clone or push repo using ssh link, remote, ...
 
-### Shared folder
-(if vmware fusion)
-- Check vmhgfs-fuse
-```bash
+Then clone/push repos using SSH URLs.
+
+### Shared Folder (VMware Fusion)
+
+Check that vmhgfs-fuse is available:
+
+```sh
 which vmhgfs-fuse
 ```
 
-- Check share folder in /mnt/hgfs/
-- Then mount it if it's not mounted yet
-```bash
+Mount the shared folder:
+
+```sh
 sudo vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other
 ```
 
-- create a symlink for better navigation
-```bash
-ln -s /mnt/fgfs/<folder> <your target path>
-``` 
+Create a symlink for quick access:
 
-## Note (out-date maybe)
-
-- After init git for nix dir, need to add changed files to, if not, we can not rebuild using flake
-
-- Collect garbage
-
-```shell
-nix-collect-garbage -d
+```sh
+ln -s /mnt/hgfs/<folder> ~/shared
 ```
 
-```shell
+## Build from Source
+
+Nix can build packages from source when they are not yet available in nixpkgs. This is useful when a new version is released but nixpkgs hasn't updated yet.
+
+Examples in this repo:
+- [users/hvn/go.nix](./users/hvn/go.nix) — building Go from source
+- [users/hvn/im-select.nix](./users/hvn/im-select.nix) — building custom tools
+
+## Maintenance
+
+```sh
+# Update all flake inputs to latest
+nix flake update
+
+# Garbage collect old generations
+nix-collect-garbage -d
+
+# Clean the nix store
 nix-store --gc
 ```
 
-- I use nix darwin, nixos, ... to manage system level pkgs (todo)
-- And I use home-manager for managing user/profile/projects pkgs
-  When I have new project, or new profiles, I just need to copy an existing profile (users), and
-  remove, add things, customize it.
+## Tips
 
-### Golang
+- After adding new files to the repo, you must `git add` them before rebuilding with flakes (untracked files are invisible to flakes)
+- Nix dev shells for project-specific tooling: see `shells/` directory
+- Get a sha256 hash for a git repo:
 
-- Don't know why but it seems like we need to `unset GOROOT` (if not, go root will be pointed to wrong path)
-
-### Get sha256
-
-- example script:
-
-```shell
-nix-shell -p nix-prefetch-git --run "nix-prefetch-git --url https://github.com/golang/go --rev go1.24.0"
+```sh
+nix-prefetch-git --url https://github.com/owner/repo --rev <tag-or-commit>
 ```
 
-### Node packages
+- Node packages not appearing in PATH:
 
-Sometimes, I have trouble with node packages, they are not appeared in the path. Try this:
-
-```shell
- export PATH="$HOME/.npm-global/bin:$PATH"
-```
-
-- I think I can fix it by some extra commands in the langs.nix file. But now I am quite lazy. LOL
-
-
-Or need following command before installing npm pkgs, TODO: research
-
-```shell
+```sh
 npm set prefix ~/.npm-global
+export PATH="$HOME/.npm-global/bin:$PATH"
 ```
-
