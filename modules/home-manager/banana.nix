@@ -4,7 +4,7 @@ let
   isDarwinAarch64 = pkgs.stdenv.hostPlatform.system == "aarch64-darwin";
 in
 {
-  dconf.enable = true;
+  dconf.enable = false;
 
   home.pointerCursor = lib.mkIf (!isDarwinAarch64) {
     name = "Banana";
