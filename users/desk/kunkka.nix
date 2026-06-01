@@ -15,6 +15,7 @@
   home.username = "kunkka";
   home.homeDirectory = "/home/kunkka";
   home.stateVersion = "26.05";
+  home.enableNixpkgsReleaseCheck = false;
 
   within.neovim.enable = true;
   within.ghostty.enable = true;
@@ -36,7 +37,7 @@
     pkgs.brave
     pkgs.jq
     pkgs.claude-code
-    pkgs.xfce.thunar
+    pkgs.thunar
   ];
 
   home.file = {

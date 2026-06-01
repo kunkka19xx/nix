@@ -32,7 +32,7 @@ in
       pkgs.basedpyright
       pkgs.pyright
       pkgs.ruff
-      pkgs.nixfmt-rfc-style
+      pkgs.nixfmt
       pkgs.zls
       pkgs.ripgrep
       # fix bug lazy-luarocks

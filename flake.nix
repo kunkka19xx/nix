@@ -145,7 +145,10 @@
           ];
         };
         "desk" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            overlays = [ (import ./overlays/neovim.nix) ];
+          };
           extraSpecialArgs = { inherit inputs; };
           modules = [
             ./users/desk/kunkka.nix
