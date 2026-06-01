@@ -22,7 +22,7 @@ in
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
     programs.neovim.extraPackages = [
-      pkgs.nodePackages_latest.vscode-json-languageserver
+      pkgs.vscode-json-languageserver
       pkgs.lua-language-server
       pkgs.luajitPackages.jsregexp
       pkgs.nil

@@ -87,7 +87,17 @@
   services.xserver.xkb = {
     layout = "us";
     variant = "";
-    options = "ctrl:nocaps";
+  };
+
+  # Remap Caps Lock to Ctrl at kernel level (works on both X11 and Wayland)
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = [ "*" ];
+      settings.main = {
+        capslock = "leftcontrol";
+      };
+    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -150,8 +160,8 @@
 
   services.xserver.enable = true;
   services.xserver.windowManager.i3.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
-  services.displayManager.defaultSession = "none+i3";
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
 
   # transparent i3
   # services.picom = {
