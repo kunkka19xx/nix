@@ -13,3 +13,5 @@ gtk-titlebar = false
 # background-image = ~/nix/modules/bg/nix-waifu.png
 background-image-fit = cover
 background-image-opacity = 0.02
+maximize = true
+keybind = ctrl+shift+m=toggle_maximize

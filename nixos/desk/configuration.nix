@@ -111,6 +111,7 @@
       "docker"
       "adbusers"
       "libvirtd" # vm
+      "input"
     ];
   };
 
