@@ -3,6 +3,7 @@
 {
   programs.firefox = {
     enable = true;
+    configPath = ".mozilla/firefox";
     profiles.default = {
 
       search.engines = {
@@ -28,6 +29,7 @@
         "identity.fxaccounts.enabled" = false;
         "signon.rememberSignons" = false;
         "browser.theme.toolbar-theme" = 1;
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
       userChrome = ''
         /* Menu button */
