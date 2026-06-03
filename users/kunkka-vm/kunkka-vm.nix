@@ -7,6 +7,7 @@
     ./../../modules/home-manager/firefox.nix
     ./../../modules/home-manager/i3_vm.nix
     ./../../modules/home-manager/zathura.nix
+    ./../../modules/home-manager/opencode.nix
     ./langs.nix
     ./go.nix
   ];
@@ -28,11 +29,11 @@
     pkgs.alacritty
     pkgs.ghostty
     pkgs.rcm
-    pkgs.cargo
+    pkgs.rustup
   ];
 
   xresources.properties = {
-    "Xft.dpi" = 144; # Adjust based on your host monitor's resolution
+    "Xft.dpi" = 192; # Adjust based on your host monitor's resolution
   };
 
   home.file = {

@@ -27,6 +27,6 @@ in
     NODE_PATH = "~/.npm-global/lib/node_modules";
 
     # Rust
-    CARGO_HOME = "~/.cargo";
+    # CARGO_HOME = "~/.cargo";
   };
 }
