@@ -6,6 +6,7 @@
     ./../../modules/home-manager/alacritty.nix
     ./../../modules/home-manager/firefox.nix
     ./../../modules/home-manager/sway_desk.nix
+    ./../../modules/home-manager/fcitx5.nix
     ./../../modules/home-manager/zathura.nix
     ./../../modules/home-manager/qute.nix
     ./../../modules/home-manager/obs.nix

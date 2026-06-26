@@ -8,6 +8,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./custom.nix
+    ./input-method.nix
   ];
 
   # Bootloader.
@@ -40,40 +41,6 @@
     LC_TELEPHONE = "ja_JP.UTF-8";
     LC_TIME = "ja_JP.UTF-8";
   };
-  i18n.inputMethod = {
-    enable = true;
-    type = "fcitx5";
-    fcitx5 = {
-      # Use the engine from qt6Packages
-      addons = with pkgs; [
-        fcitx5-gtk # Specifically keep this for Brave/Firefox
-        qt6Packages.fcitx5-unikey
-      ];
-      waylandFrontend = false;
-    };
-  };
-
-  # 2. Force the environment variables globally
-  environment.sessionVariables = {
-    GTK_IM_MODULE = lib.mkForce "fcitx";
-    QT_IM_MODULE = lib.mkForce "fcitx";
-    XMODIFIERS = "@im=fcitx";
-    NIXOS_OZONE_WL = "0";
-    # Force browsers to use X11
-    MOZ_ENABLE_WAYLAND = "0";
-    ELECTRON_OZONE_PLATFORM_HINT = "x11";
-  };
-  # Add this if you use Brave or Google Chrome
-  programs.chromium.extraOpts = {
-    enable = true;
-    extraArgs = [
-      "--gtk-version=4"
-      "--disable-features=WaylandFractionalScaleV1"
-      "--enable-features=UseOzonePlatform"
-      "--ozone-platform=x11"
-    ];
-  };
-
   # 3. Clean up the Graphics warnings (from your earlier log)
   hardware.graphics = {
     enable = true;
@@ -162,6 +129,7 @@
   services.xserver.enable = true;
   programs.sway = {
     enable = true;
+    package = pkgs.swayfx;
     wrapperFeatures.gtk = true;
   };
   services.desktopManager.gnome.enable = true;
