@@ -40,9 +40,8 @@ in
   # Inject GTK_IM_MODULE_FILE into the systemd user manager's default
   # environment, otherwise apps launched via D-Bus / .desktop activation
   # (which go through systemd --user, not sway exec) won't see it.
-  systemd.user.extraConfig = ''
-    DefaultEnvironment=GTK_IM_MODULE_FILE=${fcitx5-gtk3-immodules-cache}/lib/gtk-3.0/3.0.0/immodules.cache
-  '';
+  systemd.user.settings.Manager.DefaultEnvironment =
+    "GTK_IM_MODULE_FILE=${fcitx5-gtk3-immodules-cache}/lib/gtk-3.0/3.0.0/immodules.cache";
 
   programs.chromium.extraOpts = {
     enable = true;

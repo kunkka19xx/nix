@@ -13,6 +13,7 @@
     "nix-command"
     "flakes"
   ];
+  nix.settings.trusted-users = [ "root" "kunkka" ];
 
   # Shell Envs
   programs.zsh.enable = true;
