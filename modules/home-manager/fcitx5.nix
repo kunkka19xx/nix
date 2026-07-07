@@ -1,16 +1,21 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-  # Wrap lookapp so it does NOT inherit the system-wide GTK_IM_MODULE_FILE.
-  # That env var (set by input-method.nix) lets Firefox find fcitx5 via GTK,
-  # but look's WebKit chokes on it. Unsetting brings look back to the XIM
-  # path (via XMODIFIERS) which works.
+  # Wrap lookapp so it does NOT inherit the system-wide fcitx GTK module
+  # setup. GTK_IM_MODULE_FILE (set by input-method.nix) points at a module
+  # cache built against the system gtk3, which look's WebKit chokes on. But
+  # unsetting only the cache while GTK_IM_MODULE=fcitx stays set makes GTK
+  # fail the named-module load and fall back to its "simple" context: no IM
+  # at all (can't type Vietnamese in Look). With BOTH unset, GTK3 on Wayland
+  # defaults to its native wayland IM context (text-input-v3 -> compositor
+  # -> fcitx5), which needs no module and is the recommended fcitx5 setup
+  # on Wayland anyway.
   lookappWrapped = pkgs.symlinkJoin {
     name = "lookapp-fcitx-fix";
     paths = [ inputs.look.packages.${pkgs.system}.default ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
-      wrapProgram $out/bin/lookapp --unset GTK_IM_MODULE_FILE
+      wrapProgram $out/bin/lookapp --unset GTK_IM_MODULE_FILE --unset GTK_IM_MODULE
     '';
   };
 in

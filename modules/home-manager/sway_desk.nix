@@ -133,7 +133,7 @@ in
       for_window [class="Brave-browser"] move to workspace 0
       for_window [app_id="brave-browser"] move to workspace 0
       for_window [title="kew-player"] move to workspace 9
-      for_window [title="Look"] floating enable, border none
+      for_window [title="Look"] floating enable, border none, shadows disable
       font pango:JetBrainsMono Nerd Font 19
       output * bg ~/nix/modules/bg/nix-waifu.png fill
       exec ghostty
