@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   isDarwinAarch64 = pkgs.stdenv.hostPlatform.system == "aarch64-darwin";
@@ -7,6 +12,7 @@ in
   dconf.enable = false;
 
   home.pointerCursor = lib.mkIf (!isDarwinAarch64) {
+    enable = true;
     name = "Banana";
     size = 36;
     package = pkgs.banana-cursor;
