@@ -108,6 +108,8 @@ in
         "${mod}+Shift+n" =
           "exec bash -c 'swaymsg output \"*\" bg \"$(find $HOME/nix/modules/bg -type f | shuf -n1)\" fill'";
         "${mod}+Shift+i" = "exec ${toggleBarScript}";
+        "Alt+space" =
+          "exec dbus-send --session --type=method_call --dest=com.look.Desktop /com/look/Desktop com.look.Desktop.Toggle";
         "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
         "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
         "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
