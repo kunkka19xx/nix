@@ -116,7 +116,10 @@
       };
       homeConfigurations = {
         "com-mac" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+            overlays = [ (import ./overlays/neovim.nix) ];
+          };
           extraSpecialArgs = { inherit inputs; };
           modules = [
             mac-app-util.homeManagerModules.default

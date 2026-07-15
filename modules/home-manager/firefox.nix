@@ -3,7 +3,12 @@
 {
   programs.firefox = {
     enable = true;
-    configPath = ".mozilla/firefox";
+    # NOTE: no `configPath` override. The module already defaults to the
+    # correct per-platform location (macOS: "Library/Application Support/Firefox",
+    # Linux: ".mozilla/firefox"). Overriding it forced macOS onto the Linux path,
+    # which is why Firefox kept opening a different/empty profile after rebuilds.
+    # The profile name is "default", which maps to Profiles/default on macOS
+    # (the real profile with bookmarks/history/extensions) and .mozilla/firefox/default on Linux.
     profiles.default = {
 
       search.engines = {
