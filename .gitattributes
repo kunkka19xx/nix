@@ -1,0 +1,3 @@
+# Keep our side of the nvim lazy lockfile on subtree merges (it churns per-machine
+# and should never block a `git nvim-pull`). Requires: git config merge.ours.driver true
+dotfiles/nvim/lazy-lock.json merge=ours
