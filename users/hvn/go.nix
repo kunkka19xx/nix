@@ -4,13 +4,13 @@
 let
   go_from_source = pkgs.stdenv.mkDerivation rec {
     pname = "go";
-    version = "1.25.1";
+    version = "1.26.5";
 
     src = pkgs.fetchFromGitHub {
       owner = "golang";
       repo = "go";
-      rev = "go1.25.1";
-      sha256 = "sha256-5HYi44U6DedmLCNZuFiuKoM9tP2tVurjzmaLptvyht0=";
+      rev = "go1.26.5";
+      sha256 = "sha256-jyZ0QPD1lR/mgsNpqr1NPr1kFfK4AuHU3Y8uZaY6N04=";
     };
 
     nativeBuildInputs = [ pkgs.go ];
@@ -64,9 +64,14 @@ in
   ];
 
   home.sessionVariables = {
-    GOROOT = "${go_from_source}";
+    # Point GOROOT at the stable profile symlink, NOT the raw store path.
+    # "${go_from_source}" bakes in a specific /nix/store/<hash>-go path that
+    # breaks (go: cannot find GOROOT) once that path is garbage-collected on a
+    # later rebuild. ~/.nix-profile always retargets to the current generation
+    # and holds the full go tree (bin/, src/, pkg/), so it survives GC.
+    GOROOT = "$HOME/.nix-profile";
     GOPATH = "/Users/haovanngyuen/go";
     GOBIN = "/Users/haovanngyuen/go/bin";
-    PATH = "${go_from_source}/bin:$HOME/.npm-global/bin:$PATH";
+    PATH = "$HOME/.nix-profile/bin:$HOME/.npm-global/bin:$PATH";
   };
 }
