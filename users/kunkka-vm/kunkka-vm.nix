@@ -30,11 +30,9 @@
     pkgs.ghostty
     pkgs.rcm
     pkgs.rustup
+    pkgs.claude-code
+    pkgs.postman
   ];
-
-  xresources.properties = {
-    "Xft.dpi" = 192; # Adjust based on your host monitor's resolution
-  };
 
   home.file = {
     ".config/rcm/bindings.conf".text = ''
@@ -43,16 +41,31 @@
   };
 
   home.file.".xprofile".text = ''
-    export GDK_SCALE=1
-    export GDK_DPI_SCALE=0.56
-    export QT_AUTO_SCREEN_SCALE_FACTOR=1
-    export QT_SCALE_FACTOR=1
-    export XCURSOR_SIZE=48
-    # export CHROME_FLAGS="--force-device-scale-factor=0.4"
-    # xrandr --output Virtual-1 --scale 0.7x0.7
-    # Delay to ensure X is fully initialized
-    sleep 0.1
+    export XCURSOR_SIZE=24
+    ${pkgs.bash}/bin/bash $HOME/.local/bin/pick-resolution.sh
   '';
+
+  # Single source of truth for VM resolution.
+  # If the host display is HiDPI (max mode > 2560 wide), force 1920x1200 so
+  # text isn't microscopic. Otherwise let VMware/auto-fit pick the native
+  # size of the external monitor.
+  home.file.".local/bin/pick-resolution.sh" = {
+    executable = true;
+    text = ''
+      #!${pkgs.bash}/bin/bash
+      OUTPUT=Virtual-1
+      MAX_W=$(${pkgs.xorg.xrandr}/bin/xrandr | \
+        awk -v out="$OUTPUT" '
+          $1 == out && $2 == "connected" { f=1; next }
+          f && /^[[:space:]]+[0-9]+x[0-9]+/ { print $1; exit }
+        ' | cut -dx -f1)
+      if [ "''${MAX_W:-0}" -gt 2560 ]; then
+        ${pkgs.xorg.xrandr}/bin/xrandr --output "$OUTPUT" --mode 1920x1200
+      else
+        ${pkgs.xorg.xrandr}/bin/xrandr --output "$OUTPUT" --auto
+      fi
+    '';
+  };
 
   # for chrome, firefox ,...
   # adjust layout.css.devPixelsPerPx -> as needed (1.5, 2.0 ....)

@@ -49,8 +49,9 @@ in
         "${mod}+1" = "workspace 1";
         "${mod}+Shift+b" = "move container to workspace b";
         "${mod}+Shift+1" = "move container to workspace 1";
-        "${mod}+Shift+n" = "exec --no-startup-id feh --no-fehbg --randomize --bg-scale ~/nix/modules/bg/";
+        "${mod}+Shift+n" = "exec --no-startup-id feh --no-fehbg --randomize --bg-fill ~/nix/modules/bg/";
         "${mod}+Shift+i" = "exec --no-startup-id bash $HOME/nix/dotfiles/dmenu/info.sh";
+        "${mod}+Shift+r" = "exec --no-startup-id bash $HOME/.local/bin/pick-resolution.sh";
         "${mod}+Shift+minus" =
           "exec i3-msg scratchpad show || bash -c 'i3-msg floating enable && i3-msg resize set 1920px 1080px && i3-msg move position center && i3-msg move scratchpad'";
         "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
@@ -63,7 +64,7 @@ in
       for_window [class="ghostty, firefox, alacritty"] border none
       for_window [class="firefox"] move to workspace b
       font pango:JetBrainsMono Nerd Font 19
-      exec --no-startup-id sh -c "sleep 0.5 && ${pkgs.feh}/bin/feh --bg-scale ~/nix/dotfiles/sway/bg/bg1.jpg"
+      exec --no-startup-id sh -c "sleep 0.5 && ${pkgs.feh}/bin/feh --bg-fill ~/nix/dotfiles/sway/bg/bg1.jpg"
       exec --no-startup-id ghostty
       exec --no-startup-id ${pkgs.open-vm-tools}/bin/vmware-user
       exec i3-msg workspace 1

@@ -27,28 +27,26 @@
   };
 
   services.xserver.enable = true;
-  # services.xserver.dpi = 192; moved to home manager
-  # services.xserver.dpi = 220;
   services.xserver.windowManager.i3.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.defaultSession = "none+i3";
-  # fix ratio with vm
+  # Resolution / DPI is owned by home-manager:
+  #   users/kunkka-vm/kunkka-vm.nix -> .xprofile -> pick-resolution.sh
   services.vmwareGuest.enable = true;
   services.vmwareGuest.headless = false;
-  # services.xserver.videoDrivers = ["vmware"];
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.displayManager.sessionPackages = [
-  #   pkgs.sway
-  # ];
 
   # Vietnamese input
   i18n.inputMethod = {
-    type = "fcitx5";
     enable = true;
-    fcitx5.addons = with pkgs; [
-      fcitx5-gtk # alternatively, kdePackages.fcitx5-qt
-      fcitx5-unikey
-    ];
+    type = "fcitx5";
+    fcitx5 = {
+      # Use the engine from qt6Packages
+      addons = with pkgs; [
+        fcitx5-gtk # Specifically keep this for Brave/Firefox
+        qt6Packages.fcitx5-unikey
+      ];
+      waylandFrontend = false;
+    };
   };
 
   services.xserver = {
@@ -81,14 +79,4 @@
   ];
   services.openssh.enable = true;
   security.polkit.enable = true;
-  # moved these settings to home-manager kunkka-vm.nix
-  # environment.variables = {
-  #   GDK_SCALE = "1";
-  #   GDK_DPI_SCALE = "0.44";
-  #   QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-  #   QT_SCALE_FACTOR = "0.44";
-  #   XCURSOR_SIZE = "24";
-  #   CHROME_FLAGS = "--force-device-scale-factor=0.5";
-  # };
-
 }

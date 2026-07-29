@@ -35,6 +35,7 @@
         "signon.rememberSignons" = false;
         "browser.theme.toolbar-theme" = 1;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "layout.css.devPixelsPerPx" = "1.0";
       };
       userChrome = ''
         /* Menu button */

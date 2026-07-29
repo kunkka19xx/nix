@@ -4,16 +4,16 @@
 let
   go_from_source = pkgs.stdenv.mkDerivation rec {
     pname = "go";
-    version = "1.25.2";
+    version = "1.26.2";
 
     src = pkgs.fetchFromGitHub {
       owner = "golang";
       repo = "go";
-      rev = "go1.25.2";
-      sha256 = "sha256-Tf2QMwa6NQz6+IosJy0b/1v1UCmH1f2QBnCJ5i0jgMY=";
+      rev = "go1.26.2";
+      sha256 = "sha256-YLz9V8QH4UJrGwDskffjs+bY2rZ2CmBX7a+hYSHUrwU=";
     };
 
-    nativeBuildInputs = [ pkgs.go_1_24 ]; # requires from 1.22 to build 1.24
+    nativeBuildInputs = [ pkgs.go_1_25 ]; # requires from 1.22 to build 1.24
     buildInputs = [ pkgs.gcc pkgs.bash ];
 
     buildPhase = ''
