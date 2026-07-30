@@ -60,7 +60,7 @@ curl -L https://nixos.org/nix/install | sh -s -- --no-modify-profile
 
 ## Flake
 
-A flake is a nix project with a `flake.nix` file at its root. It defines inputs (dependencies) and outputs (systems, packages, profiles). Flakes provide reproducibility — everyone gets the same result from the same `flake.lock`.
+A flake is a nix project with a `flake.nix` file at its root. It defines inputs (dependencies) and outputs (systems, packages, profiles). Flakes provide reproducibility: everyone gets the same result from the same `flake.lock`.
 
 [Flake documentation](https://nix.dev/concepts/flakes.html) | [NixOS Wiki](https://wiki.nixos.org/wiki/Flakes)
 
@@ -71,7 +71,7 @@ mkdir ~/nix && cd ~/nix
 nix flake init -t nix-darwin --extra-experimental-features "nix-command flakes"
 ```
 
-This creates a `flake.nix` — open and customize it.
+This creates a `flake.nix`. Open and customize it.
 
 ## macOS Setup (nix-darwin)
 
@@ -117,7 +117,7 @@ sudo nixos-rebuild switch --flake ~/nix#desk
 
 ## Home Manager
 
-Home manager handles user-level configuration — packages, dotfiles, shell config, and application settings. It keeps tool configs in their original format (lua for neovim, toml for ghostty, etc.) while still being managed by nix.
+Home manager handles user-level configuration: packages, dotfiles, shell config, and application settings. It keeps tool configs in their original format (lua for neovim, toml for ghostty, etc.) while still being managed by nix.
 
 [Home Manager docs](https://nix-community.github.io/home-manager/)
 
@@ -230,7 +230,7 @@ A minimal, identical, reproducible dev environment. Only requires internet to se
 Follow the [official installation guide](https://nixos.org/manual/nixos/stable/#sec-installation):
 
 1. Boot from ISO
-2. Partition and format disk — see [`nixos/minimal-vm/part-form.bash`](./nixos/minimal-vm/part-form.bash) for reference (adjust partition/format based on your disk type)
+2. Partition and format disk, see [`nixos/minimal-vm/part-form.bash`](./nixos/minimal-vm/part-form.bash) for reference (adjust partition/format based on your disk type)
 3. Run `nixos-install`
 4. Remove the ISO, reboot
 5. Set user password:
@@ -299,8 +299,8 @@ ln -s /mnt/hgfs/<folder> ~/shared
 Nix can build packages from source when they are not yet available in nixpkgs. This is useful when a new version is released but nixpkgs hasn't updated yet.
 
 Examples in this repo:
-- [users/hvn/go.nix](./users/hvn/go.nix) — building Go from source
-- [users/hvn/im-select.nix](./users/hvn/im-select.nix) — building custom tools
+- [users/hvn/go.nix](./users/hvn/go.nix): building Go from source
+- [users/hvn/im-select.nix](./users/hvn/im-select.nix): building custom tools
 
 ## Maintenance
 

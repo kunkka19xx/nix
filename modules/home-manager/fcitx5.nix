@@ -94,7 +94,7 @@ in
       0=Control+Alt+P
 
       [Behavior]
-      # Active By Default — false means fcitx5 starts in the keyboard-us (English) state
+      # Active By Default: false means fcitx5 starts in the keyboard-us (English) state
       ActiveByDefault=False
       # Reset state on Focus In
       resetStateWhenFocusIn=No

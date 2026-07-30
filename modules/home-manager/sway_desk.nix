@@ -124,7 +124,7 @@ in
       shadow_offset 0 4
 
       default_border pixel 2
-      # border visible only on the focused window — unfocused = transparent
+      # border visible only on the focused window; unfocused = transparent
       #                 border    background text     indicator child_border
       client.focused   #88c0d0ff #88c0d0ff #ffffffff #88c0d0ff #88c0d0ff
       client.unfocused #00000000 #00000000 #888888ff #00000000 #00000000

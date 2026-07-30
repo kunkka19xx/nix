@@ -1,14 +1,22 @@
-{ pkgs, inputs, ... }:
+{ pkgs, lib, inputs, ... }:
 
 {
   programs.firefox = {
     enable = true;
-    # NOTE: no `configPath` override. The module already defaults to the
-    # correct per-platform location (macOS: "Library/Application Support/Firefox",
-    # Linux: ".mozilla/firefox"). Overriding it forced macOS onto the Linux path,
-    # which is why Firefox kept opening a different/empty profile after rebuilds.
-    # The profile name is "default", which maps to Profiles/default on macOS
-    # (the real profile with bookmarks/history/extensions) and .mozilla/firefox/default on Linux.
+    # NOTE: only pin `configPath` on Linux, never unconditionally. Overriding it
+    # for every platform forced macOS onto the Linux path, which is why Firefox
+    # kept opening a different/empty profile after rebuilds. macOS keeps the
+    # module default ("Library/Application Support/Firefox"), where the profile
+    # name "default" maps to Profiles/default (the real profile with
+    # bookmarks/history/extensions).
+    #
+    # On Linux the module default changed to ".config/mozilla/firefox" (Firefox's
+    # new XDG layout). Firefox still uses ~/.mozilla/firefox when that directory
+    # already exists, so taking the new default made home-manager write the
+    # profile to the XDG path and drop the old ~/.mozilla/firefox/profiles.ini.
+    # Firefox then found no profiles.ini and started a brand-new empty profile.
+    # Stay on the legacy path so the existing profile keeps being managed.
+    configPath = lib.mkIf pkgs.stdenv.isLinux ".mozilla/firefox";
     profiles.default = {
 
       search.engines = {
