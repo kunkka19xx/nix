@@ -28,11 +28,20 @@ in
     }
 
     // Declared up front so window rules can target them by name and they
-    // always exist in this order.
+    // always exist in this order. Declaration order is the order Mod+U and
+    // Mod+I walk them, so they follow the keyboard number row, with "b"
+    // (browser) parked at the end.
     workspace "1"
-    workspace "b"
-    workspace "0"
+    workspace "2"
+    workspace "3"
+    workspace "4"
+    workspace "5"
+    workspace "6"
+    workspace "7"
+    workspace "8"
     workspace "9"
+    workspace "0"
+    workspace "b"
 
     input {
         keyboard {
@@ -218,18 +227,39 @@ in
         // Overview: bird's-eye view of every workspace. No sway equivalent.
         Mod+O { toggle-overview; }
 
+        // Quoted names, not indices: these match the workspace declarations
+        // above, so the key always lands on the same workspace no matter
+        // what order they end up in.
         Mod+1 { focus-workspace "1"; }
-        Mod+B { focus-workspace "b"; }
-        Mod+0 { focus-workspace "0"; }
+        Mod+2 { focus-workspace "2"; }
+        Mod+3 { focus-workspace "3"; }
+        Mod+4 { focus-workspace "4"; }
+        Mod+5 { focus-workspace "5"; }
+        Mod+6 { focus-workspace "6"; }
+        Mod+7 { focus-workspace "7"; }
+        Mod+8 { focus-workspace "8"; }
         Mod+9 { focus-workspace "9"; }
+        Mod+0 { focus-workspace "0"; }
+        Mod+B { focus-workspace "b"; }
+
         Mod+Shift+1 { move-window-to-workspace "1"; }
-        Mod+Shift+B { move-window-to-workspace "b"; }
-        Mod+Shift+0 { move-window-to-workspace "0"; }
+        Mod+Shift+2 { move-window-to-workspace "2"; }
+        Mod+Shift+3 { move-window-to-workspace "3"; }
+        Mod+Shift+4 { move-window-to-workspace "4"; }
+        Mod+Shift+5 { move-window-to-workspace "5"; }
+        Mod+Shift+6 { move-window-to-workspace "6"; }
+        Mod+Shift+7 { move-window-to-workspace "7"; }
+        Mod+Shift+8 { move-window-to-workspace "8"; }
         Mod+Shift+9 { move-window-to-workspace "9"; }
+        Mod+Shift+0 { move-window-to-workspace "0"; }
+        Mod+Shift+B { move-window-to-workspace "b"; }
 
         Mod+Tab { focus-workspace-previous; }
         Mod+U { focus-workspace-down; }
         Mod+I { focus-workspace-up; }
+        // Same traversal as Mod+U/Mod+I, but drag the window along.
+        Mod+Shift+U { move-window-to-workspace-down; }
+        Mod+Shift+I { move-window-to-workspace-up; }
 
         // Built-in screenshot UI: freeze, select region, copies to clipboard
         // and saves to screenshot-path. Replaces grim + slurp + wl-copy.
