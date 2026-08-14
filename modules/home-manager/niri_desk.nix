@@ -108,12 +108,14 @@ in
         match app-id="^firefox$"
         match app-id="^Navigator$"
         open-on-workspace "b"
+        default-column-width { proportion 1.0; }
     }
 
     window-rule {
         match app-id="^brave-browser$"
         match app-id="^Brave-browser$"
         open-on-workspace "0"
+        default-column-width { proportion 1.0; }
     }
 
     window-rule {
