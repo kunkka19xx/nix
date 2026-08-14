@@ -132,6 +132,9 @@
     package = pkgs.swayfx;
     wrapperFeatures.gtk = true;
   };
+  # niri session; config lives in modules/home-manager/niri_desk.nix.
+  # X11 apps need xwayland-satellite, which niri spawns itself.
+  programs.niri.enable = true;
   services.desktopManager.gnome.enable = true;
   services.displayManager.gdm.enable = true;
   services.displayManager.defaultSession = "sway";
