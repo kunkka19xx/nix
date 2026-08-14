@@ -99,6 +99,15 @@ in
     spawn-at-startup "fcitx5"
     spawn-sh-at-startup "${pkgs.swaybg}/bin/swaybg -i ${wallpaper} -m fill"
 
+    // Catch-all: no match block, so it applies to every window and the
+    // rules below can override it. clip-to-geometry is what actually crops
+    // the app's own square corners; without it only the focus ring and
+    // shadow get rounded and the content still pokes out.
+    window-rule {
+        geometry-corner-radius 10
+        clip-to-geometry true
+    }
+
     window-rule {
         match app-id="^ghostty$"
         open-on-workspace "1"
@@ -128,6 +137,9 @@ in
         open-floating true
         focus-ring { off; }
         shadow { off; }
+        // Look draws its own rounded corners; let it, instead of clipping
+        // its surface to niri's radius on top.
+        clip-to-geometry false
     }
 
     binds {
