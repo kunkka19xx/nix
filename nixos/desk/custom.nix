@@ -15,6 +15,13 @@
   ];
   nix.settings.trusted-users = [ "root" "kunkka" ];
 
+  # Large flake inputs (nixpkgs is ~52MB) fail with "Truncated tar archive" on a
+  # slow link: nix streams the download straight into the unpacker, so the
+  # transfer dies before it finishes. Raise the buffer and the timeouts.
+  nix.settings.download-buffer-size = 536870912; # 512MiB, default is 64MiB
+  nix.settings.stalled-download-timeout = 1800; # seconds, default is 300
+  nix.settings.connect-timeout = 60; # seconds
+
   # Shell Envs
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
