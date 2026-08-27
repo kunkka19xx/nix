@@ -162,7 +162,7 @@ in
         Mod+Shift+T { spawn-sh "bash $HOME/.config/zathura/change-theme.bash"; }
         Mod+Shift+M { spawn "ghostty" "--title=kew-player" "-e" "bash" "-c" "kew all shuffle"; }
         Mod+D hotkey-overlay-title="Run a command" { spawn "dmenu_run"; }
-        Alt+Space hotkey-overlay-title="Toggle Look" {
+        Alt+Space allow-inhibiting=false hotkey-overlay-title="Toggle Look" {
             spawn "dbus-send" "--session" "--type=method_call" \
                   "--dest=com.look.Desktop" "/com/look/Desktop" \
                   "com.look.Desktop.Toggle"
