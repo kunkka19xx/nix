@@ -7,8 +7,16 @@ let
 
   # niri has no built-in wallpaper support, so swaybg does it.
   # Re-running kills the old instance first, otherwise they stack.
+  #
+  # pkill with no flag, deliberately. -x wants an exact process name, and a
+  # Nix-wrapped binary is not called what its path says: comm here is
+  # ".swaybg-wrapped", so `pkill -x swaybg` matched nothing, exited quietly,
+  # and every press of the bind left another swaybg running. -f would match,
+  # but it tests whole command lines including this script's own, so it kills
+  # the shell before reaching the exec. Bare pkill matches the name as a
+  # regex, which catches the wrapper and cannot match a shell.
   randomBgScript = pkgs.writeShellScript "niri-random-bg" ''
-    pkill -x swaybg
+    pkill swaybg
     exec ${pkgs.swaybg}/bin/swaybg -i "$(find $HOME/nix/modules/bg -type f | shuf -n1)" -m fill
   '';
 in
@@ -42,6 +50,11 @@ in
     workspace "9"
     workspace "0"
     workspace "b"
+
+    // The parking space for Look's niri-scratchpad source. Last in the list on
+    // purpose: declaration order is the order Mod+U and Mod+I walk, so a
+    // workspace you reach by name rather than by walking belongs at the end.
+    workspace "scratch"
 
     input {
         keyboard {

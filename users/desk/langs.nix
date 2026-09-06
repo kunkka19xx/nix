@@ -14,7 +14,7 @@ in
     go
     go-tools # gogrep gosmith irdump staticcheck
     # Zig
-    zig_0_15
+    zig_0_16
     # API testing
     hurl
     pre-commit

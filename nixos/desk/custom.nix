@@ -13,7 +13,10 @@
     "nix-command"
     "flakes"
   ];
-  nix.settings.trusted-users = [ "root" "kunkka" ];
+  nix.settings.trusted-users = [
+    "root"
+    "kunkka"
+  ];
 
   # Large flake inputs (nixpkgs is ~52MB) fail with "Truncated tar archive" on a
   # slow link: nix streams the download straight into the unpacker, so the
@@ -50,6 +53,7 @@
     pkgs.gromit-mpx # drawer
     pkgs.unzip
     pkgs.usbmuxd
+    pkgs.gpu-screen-recorder
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
