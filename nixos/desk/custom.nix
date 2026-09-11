@@ -53,7 +53,6 @@
     pkgs.gromit-mpx # drawer
     pkgs.unzip
     pkgs.usbmuxd
-    pkgs.gpu-screen-recorder
   ];
   virtualisation.docker.enable = true;
   nixpkgs.config.allowUnfreePredicate = (_: true);
@@ -113,8 +112,16 @@
   }; # run protonup for updating
   # more info here https://nixos.wiki/wiki/Steam
 
-  #obs vtcam
-  programs.obs-studio.enableVirtualCamera = true;
+  # obs virtual camera (v4l2loopback).
+  # The NixOS obs-studio module gates everything behind `enable`, so
+  # `enableVirtualCamera` alone is a no-op. `package = null` keeps the
+  # module from installing a second OBS: the real one comes from
+  # home-manager (modules/home-manager/obs.nix).
+  programs.obs-studio = {
+    enable = true;
+    package = null;
+    enableVirtualCamera = true;
+  };
   environment.variables = {
     RUSTICL_ENABLE = "radeonsi";
   };
