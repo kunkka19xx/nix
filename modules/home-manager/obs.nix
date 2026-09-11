@@ -13,6 +13,11 @@ let
   # Constant quality. Lower qp = better picture and bigger file; 20 is
   # visually clean, 23 is noticeably smaller, 16 is near-transparent.
   qp = 20;
+
+  # Streaming is bandwidth-bound, so it uses CBR at a number the uplink can
+  # hold, not CQP. YouTube wants 4500-9000 for 1080p60. Budget ~1.5x in real
+  # upload headroom on top of this.
+  streamBitrate = 8000;
 in
 {
   programs.obs-studio = {
@@ -62,13 +67,19 @@ in
 
         [AdvOut]
         ApplyServiceSettings=true
+        # x264 beats VAAPI at streaming bitrates, where hardware encoders are
+        # weakest. The GPU stays free for the concurrent 1440p recording.
         Encoder=obs_x264
         AudioEncoder=ffmpeg_aac
         TrackIndex=1
         VodTrackIndex=2
         FLVTrack=1
         StreamMultiTrackAudioMixes=1
-        UseRescale=false
+        # Stream at 1080p even though the canvas is 1440p. 4 = OBS_SCALE_LANCZOS;
+        # without a filter here the resolution below is ignored entirely.
+        UseRescale=true
+        RescaleRes=1920x1080
+        RescaleFilter=4
 
         RecType=Standard
         RecFilePath=${recordDir}
@@ -134,5 +145,24 @@ in
         profile = 100;
       };
     };
+
+    # Settings for Encoder above. keyint_sec 2 is a YouTube requirement, not a
+    # preference; auto does not reliably land there.
+    "obs-studio/basic/profiles/${profile}/streamEncoder.json" = {
+      force = true;
+      text = builtins.toJSON {
+        rate_control = "CBR";
+        bitrate = streamBitrate;
+        keyint_sec = 2;
+        preset = "veryfast";
+        profile = "high";
+        tune = "";
+        use_bufsize = false;
+      };
+    };
   };
+
+  # service.json is deliberately absent. It holds the YouTube stream key, and
+  # the nix store is world-readable and this config is a git repo. Leave it
+  # mutable, or reach for sops/agenix.
 }
