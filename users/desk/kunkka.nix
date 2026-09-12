@@ -11,6 +11,7 @@
     ./../../modules/home-manager/zathura.nix
     ./../../modules/home-manager/qute.nix
     ./../../modules/home-manager/obs.nix
+    ./../../modules/home-manager/kdenlive.nix
     ./langs.nix
     ./../../modules/home-manager/opencode.nix
   ];

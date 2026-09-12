@@ -132,6 +132,18 @@
     package = pkgs.swayfx;
     wrapperFeatures.gtk = true;
   };
+
+  # xdg-desktop-portal-wlr is started with --config=<store path> built from
+  # these settings, so ~/.config/xdg-desktop-portal-wlr/config is never read.
+  # Left empty, xdpw falls back to asking a dmenu-style chooser (wofi, rofi,
+  # bemenu, ...) which is not installed, logs "no output found", and hands OBS
+  # a black frame. chooser_type = none answers with the pinned output instead.
+  # Note: xdpw can only capture a whole output, never a single window.
+  xdg.portal.wlr.settings.screencast = {
+    chooser_type = "none";
+    output_name = "HDMI-A-1";
+    max_fps = 60;
+  };
   # niri session; config lives in modules/home-manager/niri_desk.nix.
   # X11 apps need xwayland-satellite, which niri spawns itself.
   programs.niri.enable = true;

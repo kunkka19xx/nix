@@ -42,20 +42,9 @@ let
   '';
 in
 {
-  # Portal routing for sway is already handled by the NixOS sway module
-  # (/etc/xdg/xdg-desktop-portal/sway-portals.conf sends ScreenCast to wlr).
-  # What is missing is xdpw's own screencast config: xdpw has no
-  # restore-token support, so OBS re-requests a source on every launch and
-  # xdpw answers by popping a slurp region picker. Ignore that picker and the
-  # request comes back as "denied or cancelled by user" with a black capture.
-  # chooser_type = none pins the single output and answers with no prompt.
-  # Note: xdpw can only capture whole outputs, never individual windows.
-  xdg.configFile."xdg-desktop-portal-wlr/config".text = ''
-    [screencast]
-    chooser_type=none
-    output_name=HDMI-A-1
-    max_fps=60
-  '';
+  # Screencast portal config lives in nixos/desk/configuration.nix under
+  # xdg.portal.wlr.settings. A file here would be ignored: the service is
+  # launched with an explicit --config pointing at the store.
 
   wayland.windowManager.sway = {
     enable = true;
