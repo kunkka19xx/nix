@@ -67,6 +67,7 @@ in
         gcof = "git fetch && git checkout $(git branch | fzf | sed 's/^..//')";
         lzd = "lazydocker";
         slzd = "sudo lazydocker";
+        git = "lgtm";
       };
       initContent = ''
         export MANPAGER="nvim +Man!"

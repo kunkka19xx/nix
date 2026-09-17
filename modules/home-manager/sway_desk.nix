@@ -112,6 +112,8 @@ in
         "${mod}+Shift+n" =
           "exec bash -c 'swaymsg output \"*\" bg \"$(find $HOME/nix/modules/bg -type f | shuf -n1)\" fill'";
         "${mod}+Shift+i" = "exec ${toggleBarScript}";
+        # Hand every shortcut to the focused client (VM guest, nested session).
+        "${mod}+Shift+p" = "mode passthrough";
         "Alt+space" =
           "exec dbus-send --session --type=method_call --dest=com.look.Desktop /com/look/Desktop com.look.Desktop.Toggle";
         "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
@@ -140,6 +142,18 @@ in
       for_window [app_id="brave-browser"] move to workspace 0
       for_window [title="kew-player"] move to workspace 9
       for_window [title="Look"] floating enable, border none, shadows disable
+
+      # Passthrough mode: sway only listens for the exit key, so Alt+space and
+      # every other binding reach the focused window (virt-manager guests).
+      # Waybar's sway/mode block shows when it is on.
+      mode passthrough {
+        bindsym ${mod}+Shift+p mode default
+      }
+
+      # Honour clients that ask to grab all shortcuts themselves (spice/vnc).
+      for_window [app_id="virt-manager"] shortcuts_inhibitor enable
+      for_window [app_id="virt-viewer"] shortcuts_inhibitor enable
+      for_window [class="virt-manager"] shortcuts_inhibitor enable
       font pango:JetBrainsMono Nerd Font 19
       output * bg ~/nix/modules/bg/nix-waifu.png fill
       exec ghostty
