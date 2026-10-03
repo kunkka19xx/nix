@@ -162,6 +162,17 @@ in
         // Look draws its own rounded corners; let it, instead of clipping
         // its surface to niri's radius on top.
         clip-to-geometry false
+        // Look asks for blur over ext-background-effect-v1. niri answers with
+        // xray by default: one blurred copy of the wallpaper, reused, which
+        // looks frozen because windows below never reach it.
+        background-effect { xray false; }
+    }
+
+    // Same window when gtk-layer-shell is around: it is a layer surface then,
+    // not a toplevel, and the window-rule above cannot see it.
+    layer-rule {
+        match namespace="^lookapp$"
+        background-effect { xray false; }
     }
 
     binds {
