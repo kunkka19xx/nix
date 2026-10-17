@@ -19,6 +19,20 @@ let
     pkill swaybg
     exec ${pkgs.swaybg}/bin/swaybg -i "$(find $HOME/nix/modules/bg -type f | shuf -n1)" -m fill
   '';
+  # showmethekey toggle. The app is single-instance and a second launch
+  # does nothing visible, so stop it by name instead. -f because the real
+  # process is ".showmethekey-gtk-wrapped" (see the swaybg note above); this
+  # script's own cmdline does not contain "showmethekey-gtk", so no self
+  # match. The pkexec'd backend is root and cannot be killed from here; it
+  # exits on its own at the next key event once its output pipe is gone.
+  # -A: keys window only, no settings window. -C: click-through overlay.
+  keycastToggle = pkgs.writeShellScript "keycast-toggle" ''
+    if pgrep -f showmethekey-gtk >/dev/null; then
+      pkill -f showmethekey-gtk
+    else
+      exec showmethekey-gtk -A -C
+    fi
+  '';
 in
 {
   xdg.configFile."niri/config.kdl".text = ''
@@ -168,6 +182,12 @@ in
         background-effect { xray false; }
     }
 
+    // showmethekey keys window (keycast). It is a layer surface, see
+    // pkgs/showmethekey.nix: overlay layer, bottom center, every workspace,
+    // click-through, namespace "keycast". Nothing to place here; a layer
+    // surface is outside window-rule reach, and its corners are rounded in
+    // GTK CSS (modules/home-manager/showmethekey.nix).
+
     // Same window when gtk-layer-shell is around: it is a layer surface then,
     // not a toplevel, and the window-rule above cannot see it.
     layer-rule {
@@ -192,6 +212,7 @@ in
                   "com.look.Desktop.Toggle"
         }
         Mod+Shift+N hotkey-overlay-title="Random wallpaper" { spawn "${randomBgScript}"; }
+        Mod+Shift+S hotkey-overlay-title="Toggle keycast" { spawn "${keycastToggle}"; }
 
         Mod+Shift+E { close-window; }
         Mod+Shift+W { quit; }

@@ -12,6 +12,7 @@
     ./../../modules/home-manager/qute.nix
     ./../../modules/home-manager/obs.nix
     ./../../modules/home-manager/kdenlive.nix
+    ./../../modules/home-manager/showmethekey.nix
     ./langs.nix
     ./../../modules/home-manager/opencode.nix
   ];

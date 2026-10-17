@@ -46,7 +46,7 @@
     pkgs.ffmpeg # video, graphics
     pkgs.vlc
     pkgs.kdePackages.kdenlive # alternative to davinci
-    pkgs.screenkey
+    (pkgs.callPackage ../../pkgs/showmethekey.nix { }) # on-screen keys, keycast style
     pkgs.kew
     pkgs.xclip # clipboard
     inputs.look.packages.${pkgs.system}.default

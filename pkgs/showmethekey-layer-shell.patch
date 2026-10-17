@@ -1,0 +1,53 @@
+diff -ruN '--color=never' a/showmethekey-gtk/meson.build b/showmethekey-gtk/meson.build
+--- a/showmethekey-gtk/meson.build	2026-10-16 21:51:54.151398240 +0900
++++ b/showmethekey-gtk/meson.build	2026-10-16 21:51:54.162892761 +0900
+@@ -27,6 +27,8 @@
+ 
+ gtk_dependencies = []
+ gtk_include_directories = []
++# gtk4-layer-shell must come before anything linking libwayland-client.
++layer_shell = dependency('gtk4-layer-shell-0', required: true)
+ gtk = dependency('gtk4', required: true)
+ libadw = dependency('libadwaita-1', required: true)
+ x11 = dependency('x11')
+@@ -38,7 +40,7 @@
+ xkbcommon = dependency('xkbcommon', required: true)
+ xkbregistry = dependency('xkbregistry', required: true)
+ gtk_dependencies += [
+-  gtk, libadw, x11, glib, json_glib, gio, cairo, pango, xkbcommon, xkbregistry
++  layer_shell, gtk, libadw, x11, glib, json_glib, gio, cairo, pango, xkbcommon, xkbregistry
+ ]
+ # For config.h.
+ gtk_include_directories += include_directories('../')
+diff -ruN '--color=never' a/showmethekey-gtk/smtk-keys-win.c b/showmethekey-gtk/smtk-keys-win.c
+--- a/showmethekey-gtk/smtk-keys-win.c	2026-10-16 21:51:54.149668435 +0900
++++ b/showmethekey-gtk/smtk-keys-win.c	2026-10-16 21:51:54.162817885 +0900
+@@ -1,5 +1,6 @@
+ #include <gtk/gtk.h>
+ #include <adwaita.h>
++#include <gtk4-layer-shell.h>
+ #include <glib/gi18n.h>
+ #ifdef GDK_WINDOWING_X11
+ #	include <gdk/x11/gdkx.h>
+@@ -281,6 +282,21 @@
+ 	// we change style of the keys window only.
+ 	gtk_widget_add_css_class(GTK_WIDGET(this), "smtk-keys-win");
+ 
++	// Make the keys window a layer surface where the compositor supports it:
++	// it then shows on every workspace, above every toplevel, anchored to the
++	// bottom edge and centred by the compositor. Must run before realize.
++	if (gtk_layer_is_supported()) {
++		GtkWindow *win = GTK_WINDOW(this);
++		gtk_layer_init_for_window(win);
++		gtk_layer_set_namespace(win, "keycast");
++		gtk_layer_set_layer(win, GTK_LAYER_SHELL_LAYER_OVERLAY);
++		gtk_layer_set_anchor(win, GTK_LAYER_SHELL_EDGE_BOTTOM, TRUE);
++		gtk_layer_set_margin(win, GTK_LAYER_SHELL_EDGE_BOTTOM, 72);
++		gtk_layer_set_keyboard_mode(
++			win, GTK_LAYER_SHELL_KEYBOARD_MODE_NONE
++		);
++	}
++
+ 	// Since libadwaita v1.6, it starts to set minimal size of window to
+ 	// 320x200, however 200 is too large for some users when using this keys
+ 	// window, so we unset it.
