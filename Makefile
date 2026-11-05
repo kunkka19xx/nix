@@ -47,7 +47,7 @@ endif
 HM_FLAGS := $(if $(BACKUP),-b backup,)
 
 .PHONY: env help require-host build build-os build-home os home switch \
-        pull dotfiles-pull dotfiles-push update
+        pull push dotfiles-pull dotfiles-push update
 
 env: ## Show the detected machine and the commands that would run
 	@echo "os:        $(UNAME) $(ARCH)"
@@ -89,6 +89,9 @@ dotfiles-pull: ## Fast-forward the dotfiles submodule and commit the new pointer
 
 dotfiles-push: ## Push commits made inside the dotfiles submodule
 	git -C dotfiles push
+
+push: ## Push nix, pushing the dotfiles submodule first if it has unpushed commits
+	git push --recurse-submodules=on-demand
 
 update: ## Update flake inputs
 	nix flake update
