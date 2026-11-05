@@ -23,13 +23,23 @@ return {
 			keymap = {
 				fzf = { ["ctrl-q"] = "select-all+accept" },
 			},
+			-- --no-require-git: respect .gitignore even outside a git repo
+			-- (e.g. fresh gradle projects); also hide eclipse/jdtls metadata
+			files = {
+				rg_opts = [[--color=never --files --no-require-git -g "!.git" -g "!.jj" ]]
+					.. [[-g "!.settings" -g "!.project" -g "!.classpath" -g "!*.class"]],
+			},
+			grep = {
+				rg_opts = "--column --line-number --no-heading --color=always --smart-case "
+					.. "--max-columns=4096 --no-require-git -e",
+			},
 		})
 		vim.keymap.set("n", "<leader>ff", fzf.files, { desc = "Find Files" })
 		vim.keymap.set("n", "<leader>pf", fzf.git_files, { desc = "Find Git Files" })
 		vim.keymap.set("n", "<leader>fg", fzf.live_grep, { desc = "Live Grep" })
 		vim.keymap.set("n", "<leader>fG", function()
 			require("fzf-lua").live_grep({
-				rg_opts = "--hidden --glob '!.git/*' --column --line-number --no-heading --color=always -e",
+				rg_opts = "--hidden --no-require-git --glob '!.git/*' --column --line-number --no-heading --color=always -e",
 			})
 		end, { desc = "Live Grep includes hidden files" })
 		vim.keymap.set("n", "<leader>fb", fzf.buffers, { desc = "Buffers" })

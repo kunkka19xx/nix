@@ -75,6 +75,19 @@ local config = {
                     profile = "GoogleStyle",
                 },
             },
+            imports = {
+                gradle = {
+                    wrapper = {
+                        checksums = {
+                            -- gradle 9.7.1 wrapper (verified against services.gradle.org)
+                            {
+                                sha256 = "7a9ce74cff467ca1bf60a4fcd9f05185acceda4d0f382434d393e17864262c5d",
+                                allowed = true,
+                            },
+                        },
+                    },
+                },
+            },
         },
     },
 
@@ -82,6 +95,9 @@ local config = {
         bundles = {},
     },
 }
+-- jdtls imports the project during initialize, before `settings` are pushed;
+-- pass them here too so e.g. the gradle wrapper checksums apply on first import
+config.init_options.settings = config.settings
 require("jdtls").start_or_attach(config)
 
 vim.keymap.set("n", "<leader>co", "<Cmd>lua require'jdtls'.organize_imports()<CR>", { desc = "Organize Imports" })
