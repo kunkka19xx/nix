@@ -2,6 +2,25 @@
 
 Multi-platform nix configuration managing macOS (nix-darwin), NixOS bare-metal machines, NixOS VMs, and home-manager profiles.
 
+## Quick start
+
+The Makefile detects the machine (macOS, Surface, desk, VM) and runs the right
+commands. `dotfiles/` is a git submodule, so every flake ref needs
+`?submodules=1`; the Makefile adds it for you.
+
+```sh
+git clone --recurse-submodules https://github.com/kunkka19xx/nix ~/nix && cd ~/nix
+make            # show what was detected
+make build      # build system + home without activating
+make switch     # nixos-rebuild/darwin-rebuild + home-manager switch
+make home BACKUP=1   # first switch on a host that still has the old ~/.config/nvim dir
+make switch HOST=work-vm   # override detection
+make dotfiles-pull         # fast-forward dotfiles and commit the new pointer
+```
+
+The raw commands below still work; just add `?submodules=1` to the flake ref,
+for example `sudo nixos-rebuild switch --flake '~/nix?submodules=1#desk'`.
+
 ## Project Structure
 
 ```
