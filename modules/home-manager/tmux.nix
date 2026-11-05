@@ -6,7 +6,7 @@
       pkgs.tmuxPlugins.vim-tmux-navigator
     ];
     enable = true;
-    extraConfig = builtins.readFile ../../dotfiles/tmux/tmux.conf;
+    extraConfig = builtins.readFile ../../dotfiles/tmux/home-manager.conf;
   };
 }
 

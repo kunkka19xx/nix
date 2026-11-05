@@ -3,7 +3,7 @@
   ...
 }:
 let
-  wallpaper = "$HOME/nix/modules/bg/nix-waifu.png";
+  wallpaper = "$HOME/nix/dotfiles/wallpapers/nix-waifu.png";
 
   # niri has no built-in wallpaper support, so swaybg does it.
   # Re-running kills the old instance first, otherwise they stack.
@@ -17,7 +17,7 @@ let
   # regex, which catches the wrapper and cannot match a shell.
   randomBgScript = pkgs.writeShellScript "niri-random-bg" ''
     pkill swaybg
-    exec ${pkgs.swaybg}/bin/swaybg -i "$(find $HOME/nix/modules/bg -type f | shuf -n1)" -m fill
+    exec ${pkgs.swaybg}/bin/swaybg -i "$(find $HOME/nix/dotfiles/wallpapers -type f | shuf -n1)" -m fill
   '';
   # showmethekey toggle. The app is single-instance and a second launch
   # does nothing visible, so stop it by name instead. -f because the real

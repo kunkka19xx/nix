@@ -110,7 +110,7 @@ in
         "${mod}+Shift+b" = "move container to workspace b";
         "${mod}+Shift+1" = "move container to workspace 1";
         "${mod}+Shift+n" =
-          "exec bash -c 'swaymsg output \"*\" bg \"$(find $HOME/nix/modules/bg -type f | shuf -n1)\" fill'";
+          "exec bash -c 'swaymsg output \"*\" bg \"$(find $HOME/nix/dotfiles/wallpapers -type f | shuf -n1)\" fill'";
         "${mod}+Shift+i" = "exec ${toggleBarScript}";
         # Hand every shortcut to the focused client (VM guest, nested session).
         "${mod}+Shift+p" = "mode passthrough";
@@ -155,7 +155,7 @@ in
       for_window [app_id="virt-viewer"] shortcuts_inhibitor enable
       for_window [class="virt-manager"] shortcuts_inhibitor enable
       font pango:JetBrainsMono Nerd Font 19
-      output * bg ~/nix/modules/bg/nix-waifu.png fill
+      output * bg ~/nix/dotfiles/wallpapers/nix-waifu.png fill
       exec ghostty
       exec lookapp
       exec swaymsg workspace 1

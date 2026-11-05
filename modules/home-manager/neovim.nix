@@ -42,11 +42,12 @@ in
       pkgs.asm-lsp
       pkgs.websocat
     ];
-    home.file = {
-      ".config/nvim" = {
-        source = ../../dotfiles/nvim;
-        recursive = true;
-      };
-    };
+    # programs.neovim generates ~/.config/nvim/init.lua (provider toggles only).
+    # It cannot coexist with the directory symlink below, so drop it.
+    xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
+    # Out-of-store symlink into the dotfiles submodule: edits are live, and
+    # lazy.nvim can write lazy-lock.json. Assumes the repo is checked out at ~/nix.
+    home.file.".config/nvim".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dotfiles/nvim/.config/nvim";
   };
 }

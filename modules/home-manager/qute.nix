@@ -2,7 +2,7 @@
 
 let
   isDarwin = pkgs.stdenv.isDarwin;
-  quteDotfiles = ../../dotfiles/qute;
+  quteDotfiles = ../../dotfiles/qutebrowser/.qutebrowser;
   quteTargetBase =
     if isDarwin
     then ".qutebrowser"
@@ -12,5 +12,6 @@ in
   home.file = {
     "${quteTargetBase}/config.py".source = "${quteDotfiles}/config.py";
     "${quteTargetBase}/gruvbox.py".source = "${quteDotfiles}/gruvbox.py";
+    "${quteTargetBase}/userscript".source = "${quteDotfiles}/userscript";
   };
 }

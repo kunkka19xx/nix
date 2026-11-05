@@ -17,10 +17,7 @@ in
     programs.wezterm.enable = true;
     home.file = {
       ".wezterm.lua" = {
-        source = ../../dotfiles/wezterm/wezterm.lua;
-      };
-      "bg" = {
-        source = ../../dotfiles/wezterm/bg;
+        source = ../../dotfiles/wezterm/.wezterm.lua;
       };
     };
   };

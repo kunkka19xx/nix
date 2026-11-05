@@ -32,7 +32,7 @@
   within.ghostty.enable = true;
 
   xdg.configFile.aerospace = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dotfiles/aerospace";
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dotfiles/aerospace/.config/aerospace";
     recursive = true;
   };
 
