@@ -147,10 +147,6 @@ return {
                 capabilities = capabilities,
             }
 
-            vim.lsp.config["rust_analyzer"] = {
-                capabilities = capabilities,
-            }
-
             vim.api.nvim_create_autocmd("FileType", {
                 pattern = "proto",
                 callback = function()
