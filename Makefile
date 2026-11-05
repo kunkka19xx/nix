@@ -90,8 +90,9 @@ dotfiles-pull: ## Fast-forward the dotfiles submodule and commit the new pointer
 dotfiles-push: ## Push commits made inside the dotfiles submodule
 	git -C dotfiles push
 
-push: ## Push nix, pushing the dotfiles submodule first if it has unpushed commits
-	git push --recurse-submodules=on-demand
+push: ## Push the dotfiles submodule, then nix (refuses if the pointer is not on GitHub)
+	git -C dotfiles push
+	git push --recurse-submodules=check
 
 update: ## Update flake inputs
 	nix flake update
