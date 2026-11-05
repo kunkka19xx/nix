@@ -15,8 +15,38 @@ make build      # build system + home without activating
 make switch     # nixos-rebuild/darwin-rebuild + home-manager switch
 make home BACKUP=1   # first switch on a host that still has the old ~/.config/nvim dir
 make switch HOST=work-vm   # override detection
-make dotfiles-pull         # fast-forward dotfiles and commit the new pointer
 ```
+
+### Syncing with the dotfiles repo
+
+`dotfiles/` is the [dotfiles](https://github.com/kunkka19xx/dotfiles) repo as a
+submodule. The MacBook without nix uses that repo directly with stow.
+
+Changed something in `~/nix/dotfiles` on a nix machine:
+
+```sh
+cd ~/nix/dotfiles && git commit -am "..."
+cd ~/nix && git add dotfiles && git commit -m "dotfiles: bump submodule"
+make push          # pushes dotfiles first, then nix
+# MacBook: cd ~/dotfiles && git pull
+```
+
+Changed something on the MacBook and pushed dotfiles:
+
+```sh
+make dotfiles-pull # fast-forward dotfiles and commit the new pointer
+make push
+make home          # apply
+```
+
+Changed nix on another nix machine:
+
+```sh
+make pull          # git pull --recurse-submodules
+make switch
+```
+
+When unsure, `make pull && make dotfiles-pull` is always safe.
 
 The raw commands below still work; just add `?submodules=1` to the flake ref,
 for example `sudo nixos-rebuild switch --flake '~/nix?submodules=1#desk'`.
