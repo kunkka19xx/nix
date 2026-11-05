@@ -78,6 +78,11 @@ return {
 
             vim.lsp.config["rust_analyzer"] = {
                 capabilities = capabilities,
+                settings = {
+                    ["rust-analyzer"] = {
+                        diagnostics = { enable = false },
+                    },
+                },
             }
 
             vim.lsp.config["ts_ls"] = {

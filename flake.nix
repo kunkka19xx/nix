@@ -33,7 +33,7 @@
     };
     opencode.url = "github:anomalyco/opencode";
     look = {
-      url = "github:kunkka19xx/look?dir=apps/linows";
+      url = "github:kunkka19xx/look";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
