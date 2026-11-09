@@ -22,10 +22,21 @@
     taps = [
     ];
     casks = [
-      # "firefox"
+      # NOTE: Firefox comes from Homebrew, not nixpkgs. Nixpkgs has no binary
+      # cache for firefox on aarch64-darwin (cache.nixos.org 404s), so the nix
+      # package compiles from source -- tens of GB of scratch space and hours,
+      # repeated on every version bump. home-manager still owns the profile
+      # (prefs, search engines, userChrome.css) via `package = null` in
+      # modules/home-manager/firefox.nix.
+      "firefox"
       "slack"
       "ghostty"
-      "qutebrowser"
+      # NOTE: disabled upstream on 2026-09-01 -- the cask fails the macOS
+      # Gatekeeper check, so `brew install` refuses it. Keeping it listed made
+      # `brew bundle` abort mid-run, which silently blocked every cask after it
+      # (firefox, slack, ghostty) from installing during activation. Re-enable
+      # only once homebrew-cask ships a notarized build.
+      # "qutebrowser"
     ];
     brews = [
       # "staticcheck"

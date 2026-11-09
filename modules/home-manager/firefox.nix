@@ -3,6 +3,14 @@
 {
   programs.firefox = {
     enable = true;
+    # NOTE: on macOS the Firefox .app comes from the Homebrew cask (declared in
+    # users/hvn/system.nix), not from nixpkgs. There is no aarch64-darwin binary
+    # cache for firefox, so the nix package builds from source: tens of GB of
+    # scratch space and a multi-hour compile, repeated on every version bump.
+    # `null` keeps everything below -- prefs, search engines, userChrome.css --
+    # managed by home-manager while skipping the package build entirely.
+    # Linux keeps the module default (pkgs.firefox); it is properly cached there.
+    package = if pkgs.stdenv.hostPlatform.isDarwin then null else pkgs.firefox;
     # NOTE: only pin `configPath` on Linux, never unconditionally. Overriding it
     # for every platform forced macOS onto the Linux path, which is why Firefox
     # kept opening a different/empty profile after rebuilds. macOS keeps the
@@ -16,7 +24,7 @@
     # profile to the XDG path and drop the old ~/.mozilla/firefox/profiles.ini.
     # Firefox then found no profiles.ini and started a brand-new empty profile.
     # Stay on the legacy path so the existing profile keeps being managed.
-    configPath = lib.mkIf pkgs.stdenv.isLinux ".mozilla/firefox";
+    configPath = lib.mkIf pkgs.stdenv.hostPlatform.isLinux ".mozilla/firefox";
     profiles.default = {
 
       search.engines = {
@@ -43,7 +51,13 @@
         "signon.rememberSignons" = false;
         "browser.theme.toolbar-theme" = 1;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        "layout.css.devPixelsPerPx" = "1.0";
+        # NOTE: "1.0" pins 1 CSS px to 1 device px. On a macOS Retina display
+        # (2x) that halves the whole UI -- chrome and content -- which is why
+        # Firefox looked tiny there. "-1.0" means "follow the OS scale factor".
+        # Set it explicitly rather than dropping the pref: prefs.js keeps the
+        # last written value, so removing it would leave 1.0 behind.
+        "layout.css.devPixelsPerPx" =
+          if pkgs.stdenv.hostPlatform.isDarwin then "-1.0" else "1.0";
       };
       userChrome = ''
         /* Menu button */

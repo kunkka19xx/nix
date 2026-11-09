@@ -18,7 +18,7 @@ in
     # rustup # Rust version manager
     rustup
     # Zig
-    zig_0_15
+    zig_0_16
     # Java
     jdk25 # Java JDK
     # gcloud sdk
