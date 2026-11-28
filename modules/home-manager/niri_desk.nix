@@ -132,7 +132,10 @@ in
 
     spawn-at-startup "ghostty"
     spawn-at-startup "lookapp"
-    spawn-at-startup "fcitx5"
+    // -r replaces the instance systemd's XDG autostart may have launched
+    // before niri's socket existed. That early one has no Wayland
+    // connection, so native Wayland apps (Discord) get no input method.
+    spawn-at-startup "fcitx5" "-r"
     spawn-sh-at-startup "${pkgs.swaybg}/bin/swaybg -i ${wallpaper} -m fill"
 
     // Catch-all: no match block, so it applies to every window and the
