@@ -36,7 +36,20 @@
     pkgs.gnumake
     pkgs.mangohud # games
     pkgs.protonup-ng
-    pkgs.discord-ptb
+    # PTB 1.0.226 dropped the legacy module updater, so the ~/.config symlink
+    # that nixpkgs stages is no longer searched and startup dies with
+    # "Cannot find module 'discord_desktop_core'". Point Discord at the
+    # modules in the store instead. Drop this once nixpkgs fixes it upstream.
+    (pkgs.discord-ptb.override {
+      unwrappedDiscord = pkgs.discord-ptb.unwrappedDiscord.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.jq ];
+        postInstall = (old.postInstall or "") + ''
+          f=$out/opt/DiscordPTB/resources/build_info.json
+          jq --arg root "$out/opt/DiscordPTB/modules" '. + { localModulesRoot: $root }' "$f" > "$f.tmp"
+          mv "$f.tmp" "$f"
+        '';
+      });
+    })
     pkgs.droidcam # android phone wbcam client
     pkgs.android-tools
     pkgs.fastfetch
