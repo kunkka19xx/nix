@@ -41,8 +41,9 @@ in
     // features (overview, columns, tabbed columns) are used where they beat
     // a literal translation. niri hot-reloads this file on write.
 
-    // X11 apps: firefox, brave and electron all run under XWayland here
-    // because input-method.nix forces them to x11 for fcitx5. niri has no
+    // X11 apps: firefox and brave run under XWayland here because
+    // input-method.nix forces them to x11 for fcitx5. Discord does not: it
+    // runs native Wayland and reaches fcitx5 over text-input. niri has no
     // built-in XWayland, so xwayland-satellite provides it. niri exports
     // DISPLAY to everything it spawns.
     xwayland-satellite {

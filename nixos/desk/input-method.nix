@@ -5,7 +5,8 @@ let
   # GTK_IM_MODULE=fcitx set. Build a cache that includes fcitx5-gtk + GTK's
   # bundled immodules and point GTK_IM_MODULE_FILE at it.
   # Note: lookapp's WebKit doesn't work with this cache, so fcitx5.nix wraps
-  # lookapp to unset GTK_IM_MODULE_FILE for its own process.
+  # lookapp to unset both GTK_IM_MODULE_FILE and GTK_IM_MODULE for its own
+  # process. It then uses GTK's native Wayland input (text-input-v3).
   fcitx5-gtk3-immodules-cache = pkgs.runCommand "fcitx5-gtk3-immodules.cache" { } ''
     mkdir -p "$out/lib/gtk-3.0/3.0.0"
     ${pkgs.gtk3.dev}/bin/gtk-query-immodules-3.0 \
@@ -23,6 +24,9 @@ in
         fcitx5-gtk
         qt6Packages.fcitx5-unikey
       ];
+      # false only means NixOS keeps setting GTK_IM_MODULE / QT_IM_MODULE.
+      # fcitx5's own Wayland frontend still loads, and lookapp and Discord
+      # depend on it.
       waylandFrontend = false;
     };
   };
@@ -32,6 +36,9 @@ in
     QT_IM_MODULE = lib.mkForce "fcitx";
     XMODIFIERS = "@im=fcitx";
     GTK_IM_MODULE_FILE = "${fcitx5-gtk3-immodules-cache}/lib/gtk-3.0/3.0.0/immodules.cache";
+    # Not an off switch: nixpkgs wrappers only test this for non-empty, so
+    # "0" still puts wrapped Electron apps (Discord) on native Wayland.
+    # That is the setup known to work with fcitx5, so it stays as is.
     NIXOS_OZONE_WL = "0";
     MOZ_ENABLE_WAYLAND = "0";
     ELECTRON_OZONE_PLATFORM_HINT = "x11";

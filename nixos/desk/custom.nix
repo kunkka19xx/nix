@@ -61,7 +61,8 @@
     (pkgs.callPackage ../../pkgs/showmethekey.nix { }) # on-screen keys, keycast style
     pkgs.kew
     pkgs.xclip # clipboard
-    inputs.look.packages.${pkgs.system}.default
+    # lookapp is installed by home-manager (modules/home-manager/fcitx5.nix),
+    # wrapped for fcitx5. Don't add the unwrapped package here.
     pkgs.gromit-mpx # drawer
     pkgs.unzip
     pkgs.usbmuxd

@@ -159,7 +159,9 @@ in
       exec ghostty
       exec lookapp
       exec swaymsg workspace 1
-      exec fcitx5
+      # -r replaces an instance started before sway's socket existed; that
+      # one has no Wayland connection, so lookapp gets no input method.
+      exec fcitx5 -r
     '';
   };
 }
